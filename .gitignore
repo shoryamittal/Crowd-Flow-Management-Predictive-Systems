@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and temporary files
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+*.swp
+*.swo
+*~
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Editor & AI Tooling Caches
+.gemini/
+.idea/
+.vscode/
+*.sublime-workspace
+
+# Node / Frontend builds
+node_modules/
+dist/
+dist-ssr/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ML Training runs, large models & temp checkpoints
+runs/
+*.onnx
+weights/*.pt
+!yolov8n.pt
+!yolov8s.pt
+
+# Logs & System Files
+*.log
+logs/
+*.db-wal
+*.db-shm
+.DS_Store
+Thumbs.db
+desktop.ini
