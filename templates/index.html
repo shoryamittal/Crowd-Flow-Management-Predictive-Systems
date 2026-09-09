@@ -1909,6 +1909,511 @@
     color: var(--neon-emerald);
     font-weight: 900;
   }
+
+  /* ================================================================
+     TOPOLOGICAL CORRIDOR FLOW SIMULATOR & DECISION SAFETY GRAPH
+     ================================================================ */
+  .dsl-topology-card {
+    background: rgba(8, 14, 26, 0.85);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    position: relative;
+    overflow: hidden;
+  }
+  .dsl-topology-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--neon-cyan), transparent 60%, var(--neon-emerald));
+  }
+  .dsl-topology-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+  .dsl-topology-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+  }
+  .dsl-topology-modes {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .dsl-topo-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.68rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: var(--sans);
+  }
+  .dsl-topo-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+  .dsl-topo-btn.active {
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(0, 255, 136, 0.15));
+    border-color: var(--neon-cyan);
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.3);
+  }
+  .dsl-topo-btn.topo-btn-rejected.active {
+    background: linear-gradient(135deg, rgba(255, 34, 85, 0.3), rgba(255, 100, 50, 0.15));
+    border-color: var(--neon-crimson);
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(255, 34, 85, 0.4);
+  }
+  .dsl-topo-btn.topo-btn-feasible.active {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.25), rgba(0, 200, 255, 0.15));
+    border-color: var(--neon-emerald);
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(0, 255, 136, 0.35);
+  }
+  .dsl-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 230px;
+    background: radial-gradient(circle at 50% 50%, rgba(10, 18, 34, 0.95), rgba(4, 7, 12, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+  }
+  .corridor-breach-banner {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    max-width: 440px;
+    background: rgba(255, 34, 85, 0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid #ffffff;
+    border-radius: var(--radius-md);
+    padding: 0.65rem 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    box-shadow: 0 4px 25px rgba(255, 34, 85, 0.6);
+    animation: breachPulse 1s infinite alternate ease-in-out;
+    z-index: 10;
+  }
+  @keyframes breachPulse {
+    from { transform: scale(1); box-shadow: 0 4px 20px rgba(255, 34, 85, 0.5); }
+    to { transform: scale(1.02); box-shadow: 0 4px 35px rgba(255, 34, 85, 0.85); }
+  }
+  .corridor-breach-banner .breach-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .corridor-breach-banner .breach-title { font-weight: 900; font-size: 0.76rem; letter-spacing: 0.04em; }
+  .corridor-breach-banner .breach-desc { font-size: 0.68rem; opacity: 0.95; line-height: 1.35; margin-top: 2px; }
+
+  .corridor-meter-banner {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    max-width: 460px;
+    background: rgba(0, 180, 100, 0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: var(--radius-md);
+    padding: 0.65rem 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff;
+    box-shadow: 0 4px 25px rgba(0, 255, 136, 0.5);
+    animation: meterPulse 1.5s infinite alternate ease-in-out;
+    z-index: 10;
+  }
+  @keyframes meterPulse {
+    from { transform: scale(1); box-shadow: 0 4px 20px rgba(0, 255, 136, 0.4); }
+    to { transform: scale(1.015); box-shadow: 0 4px 30px rgba(0, 255, 136, 0.7); }
+  }
+  .corridor-meter-banner .meter-icon { font-size: 1.4rem; font-weight: 900; flex-shrink: 0; background: #ffffff; color: #008844; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .corridor-meter-banner .meter-title { font-weight: 900; font-size: 0.76rem; letter-spacing: 0.04em; }
+  .corridor-meter-banner .meter-desc { font-size: 0.68rem; opacity: 0.95; line-height: 1.35; margin-top: 2px; }
+
+  .dsl-topology-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.68rem;
+    font-family: var(--mono);
+    color: var(--text-secondary);
+  }
+  .topo-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .topo-legend-item b { color: #ffffff; }
+  .topo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  /* ================================================================
+     FLOATING SIH 2026 JURY DEMO RUNNER DOCK
+     ================================================================ */
+  .sih-jury-dock {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 1260px;
+    background: rgba(6, 11, 20, 0.95);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border: 1px solid rgba(0, 240, 255, 0.35);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 240, 255, 0.15);
+    z-index: 999;
+    padding: 0.55rem 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sih-jury-dock.collapsed .sjd-steps,
+  .sih-jury-dock.collapsed .sjd-narrator-strip {
+    display: none !important;
+  }
+  .sjd-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .sjd-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .sjd-trophy {
+    font-size: 1.35rem;
+    line-height: 1;
+    filter: drop-shadow(0 0 8px #ffd700);
+  }
+  .sjd-meta {
+    display: flex;
+    flex-direction: column;
+  }
+  .sjd-title {
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    background: linear-gradient(90deg, #ffd700, #ffb800, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .sjd-sub {
+    font-size: 0.56rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    font-family: var(--mono);
+  }
+  .sjd-steps {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+    justify-content: center;
+  }
+  .sjd-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    padding: 0.38rem 0.72rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.69rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: var(--sans);
+    white-space: nowrap;
+  }
+  .sjd-btn-num {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.62rem;
+    font-family: var(--mono);
+    font-weight: 900;
+    color: #ffffff;
+  }
+  .sjd-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+  }
+  .sjd-btn.active {
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(0, 255, 136, 0.15));
+    border-color: var(--neon-cyan);
+    color: #ffffff;
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.35);
+  }
+  .sjd-btn.active .sjd-btn-num {
+    background: var(--neon-cyan);
+    color: #000000;
+  }
+  .sjd-btn.sjd-warn.active {
+    background: linear-gradient(135deg, rgba(255, 184, 0, 0.3), rgba(255, 100, 0, 0.15));
+    border-color: var(--neon-amber);
+    box-shadow: 0 0 16px rgba(255, 184, 0, 0.4);
+  }
+  .sjd-btn.sjd-warn.active .sjd-btn-num {
+    background: var(--neon-amber);
+    color: #000000;
+  }
+  .sjd-btn.sjd-red.active {
+    background: linear-gradient(135deg, rgba(255, 34, 85, 0.35), rgba(200, 0, 40, 0.2));
+    border-color: var(--neon-crimson);
+    box-shadow: 0 0 20px rgba(255, 34, 85, 0.5);
+  }
+  .sjd-btn.sjd-red.active .sjd-btn-num {
+    background: var(--neon-crimson);
+    color: #ffffff;
+  }
+  .sjd-btn.sjd-blue.active {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.3), rgba(0, 100, 220, 0.2));
+    border-color: #38bdf8;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+  }
+  .sjd-btn.sjd-blue.active .sjd-btn-num {
+    background: #38bdf8;
+    color: #000000;
+  }
+  .sjd-btn.sjd-purple.active {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.3), rgba(120, 40, 200, 0.2));
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
+  }
+  .sjd-btn.sjd-purple.active .sjd-btn-num {
+    background: var(--neon-purple);
+    color: #ffffff;
+  }
+  .sjd-btn.sjd-reset {
+    color: var(--text-muted);
+    border-style: dashed;
+  }
+  .sjd-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .sjd-action-btn {
+    background: rgba(255, 215, 0, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: #ffd700;
+    padding: 0.38rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.68rem;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+    font-family: var(--sans);
+  }
+  .sjd-action-btn:hover {
+    background: rgba(255, 215, 0, 0.22);
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+    color: #ffffff;
+  }
+  .sjd-action-btn.active {
+    background: #ffd700;
+    color: #000000;
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.6);
+  }
+  .sjd-collapse-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.68rem;
+    transition: all 0.2s;
+  }
+  .sjd-collapse-btn:hover { color: #ffffff; background: rgba(255, 255, 255, 0.12); }
+  .sjd-narrator-strip {
+    margin-top: 0.45rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.71rem;
+    color: var(--text-secondary);
+  }
+  .sjd-narrator-badge {
+    background: rgba(0, 240, 255, 0.15);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    color: var(--neon-cyan);
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    flex-shrink: 0;
+  }
+  .sjd-narrator-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+    font-weight: 500;
+  }
+
+  /* ================================================================
+     MILITARY/DEFENSE CCTV RETICLES & HUD STYLING
+     ================================================================ */
+  .cam-slot {
+    position: relative;
+  }
+  .cam-corner-tl, .cam-corner-tr, .cam-corner-bl, .cam-corner-br {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+    z-index: 12;
+  }
+  .cam-corner-tl {
+    top: 8px;
+    left: 8px;
+    border-top: 2px solid var(--neon-cyan);
+    border-left: 2px solid var(--neon-cyan);
+  }
+  .cam-corner-tr {
+    top: 8px;
+    right: 8px;
+    border-top: 2px solid var(--neon-cyan);
+    border-right: 2px solid var(--neon-cyan);
+  }
+  .cam-corner-bl {
+    bottom: 8px;
+    left: 8px;
+    border-bottom: 2px solid var(--neon-cyan);
+    border-left: 2px solid var(--neon-cyan);
+  }
+  .cam-corner-br {
+    bottom: 8px;
+    right: 8px;
+    border-bottom: 2px solid var(--neon-cyan);
+    border-right: 2px solid var(--neon-cyan);
+  }
+
+  /* ================================================================
+     OFFICIAL GOVERNMENT FORENSIC DOSSIER PRINT STYLESHEET
+     ================================================================ */
+  @media print {
+    body {
+      background: #ffffff !important;
+      color: #000000 !important;
+      font-size: 11pt !important;
+    }
+    .sidebar, .topbar, .mode-switch, .sih-jury-dock, .judge-guided-tour-bar,
+    .scenario-injector-bar, .modal-close-btn, .modal-footer-btns, .cam-reload-btn,
+    .audio-toggle-btn, .voice-mic-btn, .toast-stack, nav, header {
+      display: none !important;
+    }
+    .shell {
+      display: block !important;
+    }
+    .modal-overlay {
+      position: static !important;
+      background: none !important;
+      padding: 0 !important;
+      display: block !important;
+    }
+    .modal-card {
+      max-width: 100% !important;
+      border: 2px solid #000000 !important;
+      background: #ffffff !important;
+      color: #000000 !important;
+      box-shadow: none !important;
+      padding: 1.5cm !important;
+    }
+    .audit-certificate {
+      border: 2px solid #000000 !important;
+      background: #ffffff !important;
+      color: #000000 !important;
+      padding: 1cm !important;
+    }
+    .audit-cert-header {
+      border-bottom: 2px solid #000000 !important;
+      margin-bottom: 1rem !important;
+    }
+    .audit-cert-title {
+      color: #000000 !important;
+      font-size: 16pt !important;
+    }
+    .audit-grid {
+      border: 1px solid #000000 !important;
+    }
+    .audit-cell {
+      border: 1px solid #000000 !important;
+      background: #ffffff !important;
+    }
+    .audit-k, .audit-v {
+      color: #000000 !important;
+    }
+    .events-table th, .events-table td {
+      border: 1px solid #000000 !important;
+      color: #000000 !important;
+    }
+    .audit-seal-box {
+      border: 2px solid #000000 !important;
+      background: #f8f8f8 !important;
+      color: #000000 !important;
+    }
+    .audit-seal-tag {
+      background: #000000 !important;
+      color: #ffffff !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
 </style>
 
   <script src="/static/js/chart.min.js"></script>
@@ -2089,8 +2594,12 @@
             </button>
             <div class="cam-load-overlay" id="cam-load-dashboard"><div><div class="spinner"></div><div class="cam-load-label" id="cam-load-label-dashboard">INITIALIZING…</div></div></div>
             <div class="hud-scanline"></div>
+            <div class="cam-corner-tl"></div>
+            <div class="cam-corner-tr"></div>
+            <div class="cam-corner-bl"></div>
+            <div class="cam-corner-br"></div>
             <div class="cam-tag"><span id="cam-badge-dashboard">LIVE</span><span id="cam-source-dashboard">CAMERA</span></div>
-            <div class="hud-telemetry-badge">AI: YOLOv8s @ 960px &middot; TARGET: PERSON</div>
+            <div class="hud-telemetry-badge">AI: YOLOv8 720p HD &middot; TARGET: PERSON &middot; REAL-TIME TRACKING</div>
           </div>
           <div class="cam-strip">
             <span>FRAME <b id="db-frame-id">--</b></span>
@@ -2237,6 +2746,46 @@
 
         <div style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.75rem;line-height:1.4;">
           Before recommending that people are moved, Sentinel AI simulates all connected receiving areas to prevent creating the next dangerous bottleneck.
+        </div>
+
+        <!-- LIVE TOPOLOGICAL CORRIDOR FLOW & SECONDARY BOTTLENECK SIMULATOR -->
+        <div class="dsl-topology-card">
+          <div class="dsl-topology-header">
+            <div class="dsl-topology-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2.2"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M9 12h3m3-3l-3 3 3 3"/></svg>
+              <span>TOPOLOGICAL TRANSIT NETWORK &amp; CONGESTION PROPAGATION SIMULATOR</span>
+              <span class="evidence-badge badge-scenario" style="margin-left:6px;">DYNAMIC DIGITAL TWIN</span>
+            </div>
+            <div class="dsl-topology-modes">
+              <button class="dsl-topo-btn active" id="topo-btn-normal" onclick="setCorridorSimMode('NORMAL')">1. Normal Baseline</button>
+              <button class="dsl-topo-btn topo-btn-rejected" id="topo-btn-divert" onclick="setCorridorSimMode('DIVERT_R')">2. Simulate Diversion R (BREACH @ 48s)</button>
+              <button class="dsl-topo-btn topo-btn-feasible" id="topo-btn-meter" onclick="setCorridorSimMode('METER_H')">3. Simulate Upstream Metering (OPTIMAL)</button>
+            </div>
+          </div>
+          <div class="dsl-canvas-wrapper">
+            <canvas id="corridor-flow-canvas"></canvas>
+            <div id="corridor-breach-overlay" class="corridor-breach-banner" style="display:none;">
+              <span class="breach-icon">⛔</span>
+              <div>
+                <div class="breach-title">SECONDARY BOTTLENECK DETECTED &amp; REJECTED</div>
+                <div class="breach-desc">Relief Route R breaches 108% capacity (173/160 pax) at t = 48.0s! Naive diversion transfers danger downstream.</div>
+              </div>
+            </div>
+            <div id="corridor-meter-overlay" class="corridor-meter-banner" style="display:none;">
+              <span class="meter-icon">✓</span>
+              <div>
+                <div class="meter-title">UPSTREAM REGULATION SAFE &amp; EFFECTIVE</div>
+                <div class="meter-desc">Turnstiles Gate 1 throttled (-70%). Holding Concourse H safely holds +205 pax buffer. Bottleneck B clears to 95 pax.</div>
+              </div>
+            </div>
+          </div>
+          <div class="dsl-topology-footer">
+            <div class="topo-legend-item"><span class="topo-dot" style="background:var(--neon-cyan);"></span> Gate 1 Inflow: <b id="topo-flow-gate1">4.0 pax/s</b></div>
+            <div class="topo-legend-item"><span class="topo-dot" style="background:#38bdf8;"></span> Concourse H: <b id="topo-queue-h">100 / 450 pax</b></div>
+            <div class="topo-legend-item"><span class="topo-dot" style="background:var(--neon-amber);"></span> Bottleneck B: <b id="topo-load-b">120 / 180 pax</b></div>
+            <div class="topo-legend-item"><span class="topo-dot" style="background:var(--neon-crimson);"></span> Relief R: <b id="topo-load-r">80 / 160 pax</b></div>
+            <div class="topo-legend-item"><span class="topo-dot" style="background:var(--neon-emerald);"></span> Egress Flow: <b id="topo-flow-egress">2.0 pax/s</b></div>
+          </div>
         </div>
 
         <!-- 3 Candidate Intervention Cards -->
@@ -2506,6 +3055,11 @@
             RELOAD
           </button>
           <div class="cam-load-overlay" id="cam-load-monitoring"><div><div class="spinner"></div><div class="cam-load-label" id="cam-load-label-monitoring">INITIALIZING…</div></div></div>
+          <div class="hud-scanline"></div>
+          <div class="cam-corner-tl"></div>
+          <div class="cam-corner-tr"></div>
+          <div class="cam-corner-bl"></div>
+          <div class="cam-corner-br"></div>
           <div class="cam-tag"><span id="cam-badge-monitoring">LIVE</span><span id="cam-source-monitoring">CAMERA</span></div>
         </div>
       </div>
@@ -3721,6 +4275,64 @@
   </div>
 </div>
 
+<!-- ============================================================
+     🏆 SIH 2026 FLOATING JURY PRESENTATION RUNNER
+=============================================================== -->
+<div class="sih-jury-dock" id="sih-jury-dock">
+  <div class="sjd-container">
+    <div class="sjd-brand">
+      <div class="sjd-trophy">🏆</div>
+      <div class="sjd-meta">
+        <div class="sjd-title">SIH 2026 JURY PITCH RUNNER</div>
+        <div class="sjd-sub">DEFENSE-GRADE DEMONSTRATION CONTROLLER</div>
+      </div>
+    </div>
+    
+    <div class="sjd-steps">
+      <button class="sjd-btn active" id="sjd-btn-1" onclick="runJudgeTourStep(1)" title="Step 1: Baseline Nominal Operations (Green, 14 pax)">
+        <span class="sjd-btn-num">1</span>
+        <span class="sjd-btn-text">Safe Baseline</span>
+      </button>
+      <button class="sjd-btn sjd-warn" id="sjd-btn-2" onclick="runJudgeTourStep(2)" title="Step 2: Arrival Surge &amp; T_limit Forecast">
+        <span class="sjd-btn-num">2</span>
+        <span class="sjd-btn-text">Arrival Surge (T<sub>limit</sub>)</span>
+      </button>
+      <button class="sjd-btn sjd-red" id="sjd-btn-3" onclick="runJudgeTourStep(3)" title="Step 3: Decision Safety Layer Rejection">
+        <span class="sjd-btn-num">3</span>
+        <span class="sjd-btn-text">Safety Layer Rejection</span>
+      </button>
+      <button class="sjd-btn sjd-blue" id="sjd-btn-4" onclick="runJudgeTourStep(4)" title="Step 4: 6-Stage Operator Action Lifecycle">
+        <span class="sjd-btn-num">4</span>
+        <span class="sjd-btn-text">Operator Lifecycle</span>
+      </button>
+      <button class="sjd-btn sjd-purple" id="sjd-btn-5" onclick="runJudgeTourStep(5)" title="Step 5: Zero-WAN Survival &amp; Failsafe Recovery">
+        <span class="sjd-btn-num">5</span>
+        <span class="sjd-btn-text">Zero-WAN Recovery</span>
+      </button>
+      <button class="sjd-btn sjd-reset" id="sjd-btn-reset" onclick="runJudgeTourStep(0)" title="Return to Live Physical Hardware Feed">
+        <span class="sjd-btn-num">↺</span>
+        <span class="sjd-btn-text">Live Camera</span>
+      </button>
+    </div>
+
+    <div class="sjd-actions">
+      <button class="sjd-action-btn" id="sjd-auto-btn" onclick="toggleAutoPitch()" title="Auto-Play 3-Minute Hackathon Jury Walkthrough">
+        <span id="sjd-auto-icon">▶</span> <span id="sjd-auto-text">AUTO-PITCH</span>
+      </button>
+      <button class="sjd-action-btn" onclick="openForensicModal()" title="View RDSO &amp; Kakodkar Committee Audit Dossier">
+        <span>📜</span> DOSSIER
+      </button>
+      <button class="sjd-collapse-btn" onclick="toggleJuryDock()" title="Minimize / Expand Jury Runner">
+        <span id="sjd-toggle-arrow">▼</span>
+      </button>
+    </div>
+  </div>
+  <div class="sjd-narrator-strip" id="sjd-narrator-strip">
+    <span class="sjd-narrator-badge">NARRATION</span>
+    <span class="sjd-narrator-text" id="sjd-narrator-text">Ready for presentation. Click Step 1 to demonstrate nominal baseline flow, or click AUTO-PITCH for automated walkthrough.</span>
+  </div>
+</div>
+
 <script>
 
 'use strict';
@@ -3873,6 +4485,272 @@ function handleVoiceCommand(cmd) {
     runJudgeTourStep(1);
   } else {
     toast('info', 'Command Received', `Received: "${cmd}". Say "Status", "Evacuate", or "Acknowledge".`);
+  }
+}
+
+// ================================================================
+// 2B. TOPOLOGICAL CORRIDOR FLOW & SECONDARY CHOKEPOINT SIMULATOR
+// ================================================================
+let _corridorAnimId = null;
+let _corridorCanvas = null;
+let _corridorCtx = null;
+let _corridorSimMode = 'NORMAL'; // 'NORMAL' | 'DIVERT_R' | 'METER_H'
+let _corridorParticles = [];
+const CORRIDOR_PARTICLE_COUNT = 75;
+
+function setCorridorSimMode(mode) {
+  _corridorSimMode = mode;
+  ['normal', 'divert', 'meter'].forEach(m => {
+    const btn = document.getElementById('topo-btn-' + m);
+    if (btn) btn.classList.remove('active');
+  });
+
+  const breachOverlay = document.getElementById('corridor-breach-overlay');
+  const meterOverlay = document.getElementById('corridor-meter-overlay');
+
+  if (mode === 'NORMAL') {
+    const b = document.getElementById('topo-btn-normal');
+    if (b) b.classList.add('active');
+    if (breachOverlay) breachOverlay.style.display = 'none';
+    if (meterOverlay) meterOverlay.style.display = 'none';
+    setText('topo-flow-gate1', '4.0 pax/s');
+    setText('topo-queue-h', '100 / 450 pax');
+    setText('topo-load-b', '120 / 180 pax');
+    setText('topo-load-r', '80 / 160 pax');
+    setText('topo-flow-egress', '2.0 pax/s');
+    toast('info', 'Corridor Simulator: Normal', 'Baseline uniform flow across transit corridors.');
+  } else if (mode === 'DIVERT_R') {
+    const b = document.getElementById('topo-btn-divert');
+    if (b) b.classList.add('active');
+    if (breachOverlay) breachOverlay.style.display = 'flex';
+    if (meterOverlay) meterOverlay.style.display = 'none';
+    setText('topo-flow-gate1', '5.0 pax/s');
+    setText('topo-queue-h', '140 / 450 pax');
+    setText('topo-load-b', '110 / 180 pax');
+    setText('topo-load-r', '173 / 160 pax (108%)');
+    setText('topo-flow-egress', '2.5 pax/s');
+    playRailwayChime();
+    toast('error', 'Secondary Bottleneck Breach @ 48s', 'Relief Route R overloaded (108% capacity). Naive diversion rejected.');
+  } else if (mode === 'METER_H') {
+    const b = document.getElementById('topo-btn-meter');
+    if (b) b.classList.add('active');
+    if (breachOverlay) breachOverlay.style.display = 'none';
+    if (meterOverlay) meterOverlay.style.display = 'flex';
+    setText('topo-flow-gate1', '1.5 pax/s (Throttled)');
+    setText('topo-queue-h', '305 / 450 pax (+205 waiting)');
+    setText('topo-load-b', '95 / 180 pax (Mitigated)');
+    setText('topo-load-r', '80 / 160 pax (Clear)');
+    setText('topo-flow-egress', '2.0 pax/s');
+    playTacticalChime(660, 0.1);
+    toast('success', 'Upstream Metering Optimal', 'Holding Concourse H absorbs buffer safely. Bottleneck B clears to 95 pax.');
+  }
+}
+
+function initCorridorFlowCanvas() {
+  _corridorCanvas = document.getElementById('corridor-flow-canvas');
+  if (!_corridorCanvas) return;
+  const wrap = _corridorCanvas.parentElement;
+  if (!wrap) return;
+
+  function resizeCorridor() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = wrap.getBoundingClientRect();
+    const w = rect.width || 800;
+    const h = rect.height || 230;
+    _corridorCanvas.width = w * dpr;
+    _corridorCanvas.height = h * dpr;
+    _corridorCtx = _corridorCanvas.getContext('2d');
+    _corridorCtx.scale(dpr, dpr);
+  }
+  resizeCorridor();
+  window.addEventListener('resize', resizeCorridor);
+
+  _corridorParticles = [];
+  for (let i = 0; i < CORRIDOR_PARTICLE_COUNT; i++) {
+    _corridorParticles.push({
+      progress: Math.random(),
+      speed: 0.003 + Math.random() * 0.005,
+      route: (Math.random() > 0.4) ? 'MAIN' : 'RELIEF',
+      size: 2.2 + Math.random() * 2.0,
+      alpha: 0.4 + Math.random() * 0.5
+    });
+  }
+
+  function renderCorridor() {
+    if (!_corridorCtx || !_corridorCanvas) return;
+    const w = _corridorCanvas.width / (window.devicePixelRatio || 1);
+    const h = _corridorCanvas.height / (window.devicePixelRatio || 1);
+    _corridorCtx.clearRect(0, 0, w, h);
+
+    // Topological Node Coordinates
+    const nodes = {
+      gate1: { x: w * 0.09, y: h * 0.50, name: 'GATE 1 TURNSTILES', sub: 'Inflow: 4.0/s', limit: 300, cur: 120, col: '#00f0ff' },
+      holdH: { x: w * 0.33, y: h * 0.50, name: 'CONCOURSE HOLDING H', sub: 'Limit: 450 pax', limit: 450, cur: (_corridorSimMode === 'METER_H' ? 305 : 100), col: '#38bdf8' },
+      bottB: { x: w * 0.63, y: h * 0.27, name: 'NORTH FOB (BOTTLENECK B)', sub: 'Limit: 180 pax', limit: 180, cur: (_corridorSimMode === 'METER_H' ? 95 : 140), col: (_corridorSimMode === 'METER_H' ? '#00ff88' : '#ffb800') },
+      plat1: { x: w * 0.90, y: h * 0.27, name: 'PLATFORM 1', sub: 'Train Boarding', limit: 500, cur: 180, col: '#00ff88' },
+      relR:  { x: w * 0.63, y: h * 0.73, name: 'RELIEF CORRIDOR R', sub: 'Limit: 160 pax', limit: 160, cur: (_corridorSimMode === 'DIVERT_R' ? 173 : 80), col: (_corridorSimMode === 'DIVERT_R' ? '#ff2255' : '#8b9cb8') },
+      exitE: { x: w * 0.90, y: h * 0.73, name: 'SUBWAY EXIT E', sub: 'Street Clearance', limit: 400, cur: 40, col: '#00ff88' }
+    };
+
+    // Draw connecting corridor channels
+    function drawChannel(p1, p2, active, col, isBreach) {
+      _corridorCtx.save();
+      _corridorCtx.beginPath();
+      _corridorCtx.moveTo(p1.x, p1.y);
+      _corridorCtx.lineTo(p2.x, p2.y);
+      _corridorCtx.lineWidth = active ? 10 : 6;
+      _corridorCtx.strokeStyle = isBreach ? 'rgba(255, 34, 85, 0.4)' : (active ? 'rgba(0, 240, 255, 0.2)' : 'rgba(255, 255, 255, 0.06)');
+      _corridorCtx.lineCap = 'round';
+      _corridorCtx.stroke();
+
+      // Flow direction dashes
+      _corridorCtx.beginPath();
+      _corridorCtx.moveTo(p1.x, p1.y);
+      _corridorCtx.lineTo(p2.x, p2.y);
+      _corridorCtx.lineWidth = 2;
+      _corridorCtx.strokeStyle = isBreach ? '#ff2255' : (col || '#00f0ff');
+      const offset = (Date.now() * 0.03) % 20;
+      _corridorCtx.setLineDash([6, 8]);
+      _corridorCtx.lineDashOffset = -offset;
+      _corridorCtx.stroke();
+      _corridorCtx.restore();
+    }
+
+    const isDivert = (_corridorSimMode === 'DIVERT_R');
+    const isMeter = (_corridorSimMode === 'METER_H');
+
+    // Draw segments
+    drawChannel(nodes.gate1, nodes.holdH, true, isMeter ? '#ffb800' : '#00f0ff');
+    drawChannel(nodes.holdH, nodes.bottB, !isDivert, isMeter ? '#00ff88' : '#38bdf8');
+    drawChannel(nodes.bottB, nodes.plat1, true, '#00ff88');
+    drawChannel(nodes.holdH, nodes.relR, isDivert, isDivert ? '#ff2255' : 'rgba(255,255,255,0.2)', isDivert);
+    drawChannel(nodes.relR, nodes.exitE, isDivert, isDivert ? '#ff2255' : 'rgba(255,255,255,0.2)', isDivert);
+
+    // If Upstream Metering, draw pulsed valve barrier at Gate 1
+    if (isMeter) {
+      _corridorCtx.save();
+      const vx = (nodes.gate1.x + nodes.holdH.x) * 0.5;
+      const vy = (nodes.gate1.y + nodes.holdH.y) * 0.5;
+      _corridorCtx.beginPath();
+      _corridorCtx.arc(vx, vy, 14 + Math.sin(Date.now() * 0.008) * 3, 0, Math.PI * 2);
+      _corridorCtx.fillStyle = 'rgba(0, 255, 136, 0.25)';
+      _corridorCtx.fill();
+      _corridorCtx.strokeStyle = '#00ff88';
+      _corridorCtx.lineWidth = 2;
+      _corridorCtx.stroke();
+      _corridorCtx.fillStyle = '#ffffff';
+      _corridorCtx.font = 'bold 9px JetBrains Mono, monospace';
+      _corridorCtx.textAlign = 'center';
+      _corridorCtx.fillText('VALVE METERED', vx, vy - 18);
+      _corridorCtx.fillText('(-70% INFLOW)', vx, vy + 24);
+      _corridorCtx.restore();
+    }
+
+    // Animate Crowd Particles along topological pathways
+    _corridorParticles.forEach(p => {
+      p.progress += p.speed;
+      if (p.progress > 1.0) {
+        p.progress = 0.0;
+        if (isDivert) p.route = (Math.random() < 0.85) ? 'RELIEF' : 'MAIN';
+        else if (isMeter) p.route = 'MAIN';
+        else p.route = (Math.random() < 0.2) ? 'RELIEF' : 'MAIN';
+      }
+
+      let curX = 0, curY = 0;
+      let pColor = 'rgba(0, 240, 255, ';
+
+      if (p.route === 'MAIN') {
+        if (p.progress < 0.33) {
+          const u = p.progress / 0.33;
+          curX = nodes.gate1.x + (nodes.holdH.x - nodes.gate1.x) * u;
+          curY = nodes.gate1.y + (nodes.holdH.y - nodes.gate1.y) * u;
+          pColor = isMeter ? 'rgba(255, 184, 0, ' : 'rgba(0, 240, 255, ';
+        } else if (p.progress < 0.66) {
+          const u = (p.progress - 0.33) / 0.33;
+          curX = nodes.holdH.x + (nodes.bottB.x - nodes.holdH.x) * u;
+          curY = nodes.holdH.y + (nodes.bottB.y - nodes.holdH.y) * u;
+          pColor = isMeter ? 'rgba(0, 255, 136, ' : 'rgba(56, 189, 248, ';
+        } else {
+          const u = (p.progress - 0.66) / 0.34;
+          curX = nodes.bottB.x + (nodes.plat1.x - nodes.bottB.x) * u;
+          curY = nodes.bottB.y + (nodes.plat1.y - nodes.bottB.y) * u;
+          pColor = 'rgba(0, 255, 136, ';
+        }
+      } else {
+        if (p.progress < 0.33) {
+          const u = p.progress / 0.33;
+          curX = nodes.gate1.x + (nodes.holdH.x - nodes.gate1.x) * u;
+          curY = nodes.gate1.y + (nodes.holdH.y - nodes.gate1.y) * u;
+          pColor = isDivert ? 'rgba(255, 34, 85, ' : 'rgba(0, 240, 255, ';
+        } else if (p.progress < 0.66) {
+          const u = (p.progress - 0.33) / 0.33;
+          curX = nodes.holdH.x + (nodes.relR.x - nodes.holdH.x) * u;
+          curY = nodes.holdH.y + (nodes.relR.y - nodes.holdH.y) * u;
+          pColor = isDivert ? 'rgba(255, 34, 85, ' : 'rgba(148, 163, 184, ';
+        } else {
+          const u = (p.progress - 0.66) / 0.34;
+          curX = nodes.relR.x + (nodes.exitE.x - nodes.relR.x) * u;
+          curY = nodes.relR.y + (nodes.exitE.y - nodes.relR.y) * u;
+          pColor = isDivert ? 'rgba(255, 34, 85, ' : 'rgba(0, 255, 136, ';
+        }
+      }
+
+      _corridorCtx.beginPath();
+      _corridorCtx.arc(curX, curY, p.size, 0, Math.PI * 2);
+      _corridorCtx.fillStyle = pColor + p.alpha + ')';
+      _corridorCtx.fill();
+    });
+
+    // Draw Tactical Nodes
+    Object.keys(nodes).forEach(k => {
+      const nd = nodes[k];
+      const isBreached = (k === 'relR' && isDivert);
+      const isReliefClear = (k === 'bottB' && isMeter);
+
+      _corridorCtx.save();
+      const nw = 110, nh = 46;
+      const nx = nd.x - nw / 2;
+      const ny = nd.y - nh / 2;
+
+      _corridorCtx.fillStyle = isBreached ? 'rgba(40, 6, 15, 0.92)' : (isReliefClear ? 'rgba(6, 32, 20, 0.92)' : 'rgba(12, 18, 30, 0.92)');
+      _corridorCtx.beginPath();
+      _corridorCtx.roundRect(nx, ny, nw, nh, 6);
+      _corridorCtx.fill();
+
+      _corridorCtx.strokeStyle = isBreached ? '#ff2255' : (isReliefClear ? '#00ff88' : 'rgba(0, 240, 255, 0.3)');
+      _corridorCtx.lineWidth = isBreached ? 2.5 : 1;
+      _corridorCtx.stroke();
+
+      _corridorCtx.fillStyle = '#ffffff';
+      _corridorCtx.font = 'bold 8.5px JetBrains Mono, monospace';
+      _corridorCtx.textAlign = 'center';
+      _corridorCtx.fillText(nd.name, nd.x, ny + 14);
+
+      const pct = Math.min(100, Math.round((nd.cur / nd.limit) * 100));
+      _corridorCtx.fillStyle = isBreached ? '#ff2255' : (pct > 80 ? '#ffb800' : '#94a3b8');
+      _corridorCtx.font = '8px JetBrains Mono, monospace';
+      _corridorCtx.fillText(`${nd.cur} / ${nd.limit} pax (${pct}%)`, nd.x, ny + 26);
+
+      _corridorCtx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      _corridorCtx.fillRect(nx + 10, ny + 32, nw - 20, 4);
+      _corridorCtx.fillStyle = isBreached ? '#ff2255' : (isReliefClear ? '#00ff88' : nd.col);
+      _corridorCtx.fillRect(nx + 10, ny + 32, ((nw - 20) * pct) / 100, 4);
+
+      if (isBreached) {
+        _corridorCtx.beginPath();
+        _corridorCtx.arc(nx + nw - 8, ny + 8, 4 + Math.sin(Date.now() * 0.01) * 2, 0, Math.PI * 2);
+        _corridorCtx.fillStyle = '#ff2255';
+        _corridorCtx.fill();
+      }
+
+      _corridorCtx.restore();
+    });
+
+    _corridorAnimId = requestAnimationFrame(renderCorridor);
+  }
+
+  if (!_corridorAnimId) {
+    _corridorAnimId = requestAnimationFrame(renderCorridor);
   }
 }
 
@@ -4321,41 +5199,117 @@ let _activeJudgeStep = 0;
 
 function runJudgeTourStep(step) {
   _activeJudgeStep = step;
+
+  // Sync upper guided tour buttons
   for (let s = 1; s <= 5; s++) {
     const b = document.getElementById('jgt-step-' + s) || document.getElementById('jgt-' + s);
     if (b) b.classList.toggle('active', s === step);
   }
 
+  // Sync floating jury dock buttons
+  for (let s = 1; s <= 5; s++) {
+    const sjd = document.getElementById('sjd-btn-' + s);
+    if (sjd) sjd.classList.toggle('active', s === step);
+  }
+  const sjdReset = document.getElementById('sjd-btn-reset');
+  if (sjdReset) sjdReset.classList.toggle('active', step === 0);
+
+  const narrator = document.getElementById('sjd-narrator-text');
+
   if (step === 1) {
     _injectedDemo = 'NORMAL';
     forceConnectivity('');
     playTacticalChime(440, 0.08);
+    setCorridorSimMode('NORMAL');
+    if (narrator) narrator.textContent = 'Step 1: Safe Baseline — Nominal operations (Threat Level 4, Green, 14 pax). All 24 zones clear. Topological corridor flow balanced.';
     toast('success', 'Judge Tour Step 1: Safe Baseline', 'Demonstrating nominal operations (Threat Level 4, Green). All 24 zones clear.');
   } else if (step === 2) {
     _injectedDemo = 'SURGE';
     playTacticalChime(550, 0.12);
+    setCorridorSimMode('NORMAL');
+    setText('topo-flow-gate1', '8.0 pax/s (Surge)');
+    setText('topo-queue-h', '220 / 450 pax');
+    setText('topo-load-b', '140 / 180 pax');
+    if (narrator) narrator.textContent = 'Step 2: Arrival Surge & T_limit Forecast — Train 12004 Express arrived. Operating Limit T_limit = (180 - 120)/(4.0 - 2.0) = 30.0s [envelope: 20.0s — 46.7s].';
     toast('warning', 'Judge Tour Step 2: Inflow Surge & Limit Forecast', 'Train 12004 Express arrived. Operating Limit T_limit = 30.0s forecast active [earliest 20.0s].');
     fetch('/api/decision/scenario/load', { method: 'POST' }).then(() => fetch('/api/decision/evaluate', { method: 'POST' })).catch(() => {});
   } else if (step === 3) {
     _injectedDemo = 'BOTTLENECK';
     playRailwayChime();
     triggerPABroadcast();
+    setCorridorSimMode('DIVERT_R');
+    if (narrator) narrator.textContent = 'Step 3: Decision Safety Layer Rejection — Candidate 2 (Divert to Relief R) REJECTED (108% chokepoint breach @ 48s). Upstream Metering FEASIBLE (+205 queue cost).';
     toast('error', 'Judge Tour Step 3: Decision Safety Layer Active', 'Relief Route R diversion REJECTED (overload at 48s). Upstream Metering FEASIBLE (+205 queue cost).');
   } else if (step === 4) {
     forceConnectivity('OFFLINE');
+    setCorridorSimMode('METER_H');
+    if (narrator) narrator.textContent = 'Step 4: Operator Action Lifecycle & Zero-WAN Safety — Station Master dispatches ACT-METER-001. SQLite WAL continues zero-packet-drop audit offline.';
     toast('warning', 'Judge Tour Step 4: Zero-WAN Outage', 'WAN cut simulated. SAFETY PLANE ACTIVE: Detection, SQLite WAL persistence continue with zero packet drop!');
   } else if (step === 5) {
     forceConnectivity('');
     playTacticalChime(660, 0.1);
+    setCorridorSimMode('NORMAL');
+    if (narrator) narrator.textContent = 'Step 5: WAN Restored & Failsafe Auto-Recovery — Outbox sync worker idempotently replays SQLite journal with exact UUID preservation and 0 duplicate rows.';
     toast('success', 'Judge Tour Step 5: Failsafe Recovery', 'WAN restored. SyncWorker idempotently replays SQLite outbox with exact UUID preservation and 0 duplicate rows.');
   } else {
     _injectedDemo = null;
     forceConnectivity('');
     playTacticalChime(440, 0.08);
+    setCorridorSimMode('NORMAL');
+    if (narrator) narrator.textContent = 'Live Telemetry Active — Streaming raw authoritative CCTV hardware feed and YOLOv8 real-time detection.';
     toast('info', 'Live Telemetry Active', 'Reverted to raw authoritative backend feed.');
   }
   updateUI();
 }
+
+// ----------------------------------------------------------------
+// Auto-Pitch Presentation Controller
+// ----------------------------------------------------------------
+let _autoPitchInterval = null;
+let _autoPitchStep = 0;
+
+function toggleAutoPitch() {
+  const btn = document.getElementById('sjd-auto-btn');
+  const icon = document.getElementById('sjd-auto-icon');
+  const text = document.getElementById('sjd-auto-text');
+
+  if (_autoPitchInterval) {
+    clearInterval(_autoPitchInterval);
+    _autoPitchInterval = null;
+    if (btn) btn.classList.remove('active');
+    if (icon) icon.textContent = '▶';
+    if (text) text.textContent = 'AUTO-PITCH';
+    toast('info', 'Auto-Pitch Paused', 'Presentation controller paused.');
+  } else {
+    if (btn) btn.classList.add('active');
+    if (icon) icon.textContent = '⏸';
+    if (text) text.textContent = 'PAUSE PITCH';
+    toast('info', 'Auto-Pitch Started', 'Running 3-minute comprehensive jury demonstration.');
+    _autoPitchStep = 1;
+    runJudgeTourStep(_autoPitchStep);
+
+    _autoPitchInterval = setInterval(() => {
+      _autoPitchStep++;
+      if (_autoPitchStep > 5) {
+        _autoPitchStep = 1; // Cycle back or end
+      }
+      runJudgeTourStep(_autoPitchStep);
+    }, 7000);
+  }
+}
+
+function toggleJuryDock() {
+  const dock = document.getElementById('sih-jury-dock');
+  const arrow = document.getElementById('sjd-toggle-arrow');
+  if (!dock) return;
+  const isCollapsed = dock.classList.toggle('collapsed');
+  if (arrow) arrow.textContent = isCollapsed ? '▲' : '▼';
+}
+
+function printForensicReport() {
+  window.print();
+}
+
 
 // ================================================================
 // 8. STATION MARSHAL SLA CHECKLIST
@@ -5930,6 +6884,7 @@ setInterval(updateClock, 1000);
 updateClock();
 
 setTimeout(initStationFlowCanvas, 200);
+setTimeout(initCorridorFlowCanvas, 250);
 pollLoop();
 
 // ================================================================
@@ -5960,6 +6915,25 @@ var _i18n = {
   'Threat Level':    { hi: 'खतरा स्तर' },
   'Density Index':   { hi: 'घनत्व सूचकांक' },
   'Transit Operations Console': { hi: 'ट्रांज़िट ऑपरेशन्स कंसोल' },
+  'Safe Baseline':   { hi: 'सुरक्षित आधार' },
+  'Arrival Surge':   { hi: 'आगमन वृद्धि' },
+  'Safety Layer Rejection': { hi: 'सुरक्षा अस्वीकृति' },
+  'Operator Lifecycle': { hi: 'ऑपरेटर जीवनचक्र' },
+  'Zero-WAN Recovery': { hi: 'शून्य-WAN पुनर्प्राप्ति' },
+  'Live Camera':     { hi: 'लाइव कैमरा' },
+  'AUTO-PITCH':      { hi: 'ऑटो-पिच' },
+  'PAUSE PITCH':     { hi: 'पिच रोकें' },
+  'DOSSIER':         { hi: 'दस्तावेज़' },
+  'Threat Level 4':  { hi: 'खतरा स्तर 4' },
+  'Threat Level 3':  { hi: 'खतरा स्तर 3' },
+  'Threat Level 2':  { hi: 'खतरा स्तर 2' },
+  'Threat Level 1':  { hi: 'खतरा स्तर 1' },
+  'Proposed':        { hi: 'प्रस्तावित' },
+  'Approved':        { hi: 'स्वीकृत' },
+  'Delivered':       { hi: 'प्रेषित' },
+  'Acknowledged':    { hi: 'पुष्टिकृत' },
+  'Completed':       { hi: 'पूर्ण' },
+  'Verified':        { hi: 'सत्यापित' }
 };
 
 function toggleLanguage() {
