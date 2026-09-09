@@ -96,6 +96,36 @@ CREATE TABLE IF NOT EXISTS events (
 
 CREATE INDEX IF NOT EXISTS idx_events_sync_status ON events(sync_status);
 CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at_utc);
+
+CREATE TABLE IF NOT EXISTS decision_recommendations (
+    recommendation_id TEXT PRIMARY KEY,
+    incident_id TEXT,
+    created_at_utc TEXT NOT NULL,
+    selected_candidate_id TEXT,
+    action_type TEXT,
+    feasibility_status TEXT NOT NULL,
+    valid_until_utc TEXT NOT NULL,
+    summary_message TEXT NOT NULL,
+    tradeoffs_description TEXT,
+    evaluations_json TEXT NOT NULL,
+    sync_status TEXT NOT NULL DEFAULT 'SYNC_PENDING'
+);
+CREATE INDEX IF NOT EXISTS idx_decisions_created_at ON decision_recommendations(created_at_utc);
+
+CREATE TABLE IF NOT EXISTS action_transitions (
+    transition_id TEXT PRIMARY KEY,
+    action_id TEXT NOT NULL,
+    incident_id TEXT NOT NULL,
+    from_state TEXT NOT NULL,
+    to_state TEXT NOT NULL,
+    actor_id TEXT NOT NULL,
+    timestamp_utc TEXT NOT NULL,
+    notes TEXT,
+    evidence_snapshot_id TEXT,
+    sync_status TEXT NOT NULL DEFAULT 'SYNC_PENDING'
+);
+CREATE INDEX IF NOT EXISTS idx_action_transitions_action_id ON action_transitions(action_id);
+CREATE INDEX IF NOT EXISTS idx_action_transitions_timestamp ON action_transitions(timestamp_utc);
 """
 
 
@@ -153,6 +183,65 @@ class EventRecord:
             "synced_at": self.synced_at,
         }
         return data
+
+
+@dataclass(frozen=True, slots=True)
+class DecisionRecommendationRecord:
+    recommendation_id: str
+    incident_id: str | None
+    created_at_utc: str
+    selected_candidate_id: str | None
+    action_type: str | None
+    feasibility_status: str
+    valid_until_utc: str
+    summary_message: str
+    tradeoffs_description: str | None
+    evaluations: list[dict]
+    sync_status: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "recommendation_id": self.recommendation_id,
+            "incident_id": self.incident_id,
+            "created_at_utc": self.created_at_utc,
+            "selected_candidate_id": self.selected_candidate_id,
+            "action_type": self.action_type,
+            "feasibility_status": self.feasibility_status,
+            "valid_until_utc": self.valid_until_utc,
+            "summary_message": self.summary_message,
+            "tradeoffs_description": self.tradeoffs_description,
+            "evaluations": self.evaluations,
+            "sync_status": self.sync_status,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class ActionTransitionRecord:
+    transition_id: str
+    action_id: str
+    incident_id: str
+    from_state: str
+    to_state: str
+    actor_id: str
+    timestamp_utc: str
+    notes: str | None
+    evidence_snapshot_id: str | None
+    sync_status: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "transition_id": self.transition_id,
+            "action_id": self.action_id,
+            "incident_id": self.incident_id,
+            "from_state": self.from_state,
+            "to_state": self.to_state,
+            "actor_id": self.actor_id,
+            "timestamp_utc": self.timestamp_utc,
+            "notes": self.notes,
+            "evidence_snapshot_id": self.evidence_snapshot_id,
+            "sync_status": self.sync_status,
+        }
+
 
 
 def _row_to_record(row: sqlite3.Row) -> EventRecord:
@@ -475,3 +564,231 @@ class IncidentJournal:
         with self._connect() as conn:
             rows = conn.execute("SELECT local_status, COUNT(*) FROM events GROUP BY local_status;").fetchall()
             return {row[0]: row[1] for row in rows}
+
+    # ------------------------------------------------------------------
+    # Decision Recommendations & Operator Action Lifecycle
+    # ------------------------------------------------------------------
+    def save_recommendation(
+        self,
+        recommendation_id: str,
+        incident_id: str | None,
+        created_at_utc: str,
+        selected_candidate_id: str | None,
+        action_type: str | None,
+        feasibility_status: str,
+        valid_until_utc: str,
+        summary_message: str,
+        tradeoffs_description: str | None,
+        evaluations_json: str,
+    ) -> bool:
+        """Persist a DecisionRecommendation row. Idempotent on recommendation_id."""
+        with self._write_lock, self._connect() as conn:
+            row = conn.execute(
+                "SELECT 1 FROM decision_recommendations WHERE recommendation_id = ?;",
+                (recommendation_id,),
+            ).fetchone()
+            if row is not None:
+                return False
+
+            conn.execute("BEGIN IMMEDIATE;")
+            try:
+                conn.execute(
+                    """
+                    INSERT INTO decision_recommendations (
+                        recommendation_id, incident_id, created_at_utc,
+                        selected_candidate_id, action_type, feasibility_status,
+                        valid_until_utc, summary_message, tradeoffs_description,
+                        evaluations_json, sync_status
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                    """,
+                    (
+                        recommendation_id,
+                        incident_id,
+                        created_at_utc,
+                        selected_candidate_id,
+                        action_type,
+                        feasibility_status,
+                        valid_until_utc,
+                        summary_message,
+                        tradeoffs_description,
+                        evaluations_json,
+                        SyncStatus.PENDING,
+                    ),
+                )
+                conn.execute("COMMIT;")
+                return True
+            except Exception:
+                conn.execute("ROLLBACK;")
+                raise
+
+    def get_recommendation(self, recommendation_id: str) -> DecisionRecommendationRecord | None:
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT * FROM decision_recommendations WHERE recommendation_id = ?;",
+                (recommendation_id,),
+            ).fetchone()
+            if not row:
+                return None
+            return DecisionRecommendationRecord(
+                recommendation_id=row["recommendation_id"],
+                incident_id=row["incident_id"],
+                created_at_utc=row["created_at_utc"],
+                selected_candidate_id=row["selected_candidate_id"],
+                action_type=row["action_type"],
+                feasibility_status=row["feasibility_status"],
+                valid_until_utc=row["valid_until_utc"],
+                summary_message=row["summary_message"],
+                tradeoffs_description=row["tradeoffs_description"],
+                evaluations=json.loads(row["evaluations_json"]),
+                sync_status=row["sync_status"],
+            )
+
+    def get_latest_recommendation(self, incident_id: str | None = None) -> DecisionRecommendationRecord | None:
+        with self._connect() as conn:
+            if incident_id:
+                row = conn.execute(
+                    "SELECT * FROM decision_recommendations WHERE incident_id = ? ORDER BY created_at_utc DESC LIMIT 1;",
+                    (incident_id,),
+                ).fetchone()
+            else:
+                row = conn.execute(
+                    "SELECT * FROM decision_recommendations ORDER BY created_at_utc DESC LIMIT 1;"
+                ).fetchone()
+            if not row:
+                return None
+            return DecisionRecommendationRecord(
+                recommendation_id=row["recommendation_id"],
+                incident_id=row["incident_id"],
+                created_at_utc=row["created_at_utc"],
+                selected_candidate_id=row["selected_candidate_id"],
+                action_type=row["action_type"],
+                feasibility_status=row["feasibility_status"],
+                valid_until_utc=row["valid_until_utc"],
+                summary_message=row["summary_message"],
+                tradeoffs_description=row["tradeoffs_description"],
+                evaluations=json.loads(row["evaluations_json"]),
+                sync_status=row["sync_status"],
+            )
+
+    def record_action_transition(
+        self,
+        transition_id: str,
+        action_id: str,
+        incident_id: str,
+        from_state: str,
+        to_state: str,
+        actor_id: str,
+        timestamp_utc: str,
+        notes: str | None = None,
+        evidence_snapshot_id: str | None = None,
+    ) -> bool:
+        """Record an auditable manual lifecycle transition for an operator action.
+
+        Enforces legal transition graph:
+        PROPOSED -> APPROVED -> DELIVERED -> ACKNOWLEDGED -> COMPLETED -> VERIFIED
+        """
+        allowed_transitions = {
+            "PROPOSED": ["APPROVED"],
+            "APPROVED": ["DELIVERED"],
+            "DELIVERED": ["ACKNOWLEDGED"],
+            "ACKNOWLEDGED": ["COMPLETED"],
+            "COMPLETED": ["VERIFIED"],
+        }
+
+        # Validate transition
+        allowed_next = allowed_transitions.get(from_state, [])
+        if to_state not in allowed_next:
+            raise ValueError(
+                f"Illegal action transition: '{from_state}' -> '{to_state}'. Allowed transitions from '{from_state}': {allowed_next}"
+            )
+
+        # Verification requires subsequent observation proof
+        if to_state == "VERIFIED" and not evidence_snapshot_id:
+            raise ValueError(
+                "Action verification requires a valid post-action evidence_snapshot_id confirming expected trend."
+            )
+
+        with self._write_lock, self._connect() as conn:
+            # Check idempotency
+            row = conn.execute(
+                "SELECT 1 FROM action_transitions WHERE transition_id = ?;",
+                (transition_id,),
+            ).fetchone()
+            if row is not None:
+                return False
+
+            conn.execute("BEGIN IMMEDIATE;")
+            try:
+                conn.execute(
+                    """
+                    INSERT INTO action_transitions (
+                        transition_id, action_id, incident_id,
+                        from_state, to_state, actor_id, timestamp_utc,
+                        notes, evidence_snapshot_id, sync_status
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                    """,
+                    (
+                        transition_id,
+                        action_id,
+                        incident_id,
+                        from_state,
+                        to_state,
+                        actor_id,
+                        timestamp_utc,
+                        notes,
+                        evidence_snapshot_id,
+                        SyncStatus.PENDING,
+                    ),
+                )
+                conn.execute("COMMIT;")
+                return True
+            except Exception:
+                conn.execute("ROLLBACK;")
+                raise
+
+    def list_action_transitions(
+        self, action_id: str | None = None, incident_id: str | None = None, limit: int = 50
+    ) -> list[ActionTransitionRecord]:
+        """List chronological action state transitions."""
+        with self._connect() as conn:
+            if action_id:
+                rows = conn.execute(
+                    "SELECT * FROM action_transitions WHERE action_id = ? ORDER BY timestamp_utc ASC LIMIT ?;",
+                    (action_id, limit),
+                ).fetchall()
+            elif incident_id:
+                rows = conn.execute(
+                    "SELECT * FROM action_transitions WHERE incident_id = ? ORDER BY timestamp_utc ASC LIMIT ?;",
+                    (incident_id, limit),
+                ).fetchall()
+            else:
+                rows = conn.execute(
+                    "SELECT * FROM action_transitions ORDER BY timestamp_utc DESC LIMIT ?;",
+                    (limit,),
+                ).fetchall()
+
+            return [
+                ActionTransitionRecord(
+                    transition_id=r["transition_id"],
+                    action_id=r["action_id"],
+                    incident_id=r["incident_id"],
+                    from_state=r["from_state"],
+                    to_state=r["to_state"],
+                    actor_id=r["actor_id"],
+                    timestamp_utc=r["timestamp_utc"],
+                    notes=r["notes"],
+                    evidence_snapshot_id=r["evidence_snapshot_id"],
+                    sync_status=r["sync_status"],
+                )
+                for r in rows
+            ]
+
+    def get_latest_action_state(self, action_id: str) -> str:
+        """Get the latest confirmed lifecycle state for an action."""
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT to_state FROM action_transitions WHERE action_id = ? ORDER BY timestamp_utc DESC LIMIT 1;",
+                (action_id,),
+            ).fetchone()
+            return row["to_state"] if row else "PROPOSED"
+

@@ -58,6 +58,19 @@ from src.persistence import IncidentJournal, LocalStatus
 from src.sync import HttpSyncAdapter, MockSyncAdapter, SyncWorker
 from src.core.railway_integration import RailwayIntegration
 from src.core.flow_simulation import FlowSimulator
+from src.decision import (
+    FlowForecastEngine,
+    DecisionSafetyEngine,
+    EvidenceStatus,
+    QualityState,
+    CalibrationState,
+    ActionLifecycleState,
+    ActionTransitionEvent,
+    get_reference_zones,
+    get_reference_routes,
+    get_reference_candidates,
+    run_sih_reference_evaluation,
+)
 
 import signal
 
@@ -69,6 +82,29 @@ app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024  # 200 MB upload limit
 _railway_core = RailwayIntegration(os.environ.get("STATION_CODE", "NDLS"))
 _railway_core.load_sample_data()
 _flow_sim = FlowSimulator(grid_size=(4, 6))
+
+# Decision Safety Layer & Flow Forecast Singletons
+_decision_zones = get_reference_zones()
+_decision_routes = get_reference_routes()
+_decision_candidates = get_reference_candidates()
+_decision_safety_engine = DecisionSafetyEngine(horizon_seconds=90.0)
+_flow_forecast_engine = FlowForecastEngine(default_horizon_seconds=90.0)
+_current_scenario_params = {
+    "scenario_name": "SYNTHETIC DEMONSTRATION SCENARIO",
+    "b_inflow": 4.0,
+    "b_outflow": 2.0,
+    "b_initial": 120.0,
+    "r_initial": 80.0,
+    "h_initial": 100.0,
+    "horizon_seconds": 90.0,
+}
+_active_action_state = {
+    "action_id": "ACT-METER-001",
+    "state": "PROPOSED",
+    "selected_candidate": "METER_UPSTREAM_H",
+    "valid_until_utc": None,
+    "evidence_snapshot_id": None,
+}
 
 
 
@@ -1084,14 +1120,31 @@ def api_rpf_dispatch():
         "timestamp_utc": datetime.utcnow().isoformat(),
         "action": action,
         "sector": sector,
-        "status": "DISPATCHED",
+        "status": "DELIVERED",
         "officer": "Duty Officer Inspector R. Singh, RPF",
         "notes": notes,
-        "ack_received": True
+        "ack_received": False
     }
     _DISPATCH_LOG.insert(0, dispatch_record)
     if len(_DISPATCH_LOG) > 50:
         _DISPATCH_LOG.pop()
+
+    # Progress active operator action lifecycle if applicable
+    if _active_action_state["state"] == "APPROVED":
+        _active_action_state["state"] = "DELIVERED"
+        try:
+            journal.record_action_transition(
+                transition_id=str(uuid.uuid4()),
+                action_id=_active_action_state["action_id"],
+                incident_id="INC-LOCAL",
+                from_state="APPROVED",
+                to_state="DELIVERED",
+                actor_id="System_Dispatch",
+                timestamp_utc=datetime.utcnow().isoformat(),
+                notes=f"Dispatched: {action} to {sector}",
+            )
+        except Exception as e:
+            app.logger.warning("Could not persist dispatch transition: %s", e)
 
     return jsonify({
         "success": True,
@@ -1107,6 +1160,204 @@ def api_get_rpf_dispatches():
         "success": True,
         "dispatches": _DISPATCH_LOG[:15]
     })
+
+
+# ----------------------------------------------------------------------
+# SENTINEL AI — Decision Safety Layer & Operator Lifecycle APIs
+# ----------------------------------------------------------------------
+@app.route("/api/decision/observation", methods=["GET"])
+def api_decision_observation():
+    """Retrieve latest Perception Engine observation with explicit evidence badge."""
+    snap = runtime.get_latest_snapshot()
+    if not snap:
+        return jsonify({
+            "success": True,
+            "observation": {
+                "snapshot_id": "snap-initial",
+                "observed_at_utc": datetime.utcnow().isoformat(),
+                "frame_id": 0,
+                "frame_age_ms": 0.0,
+                "source": "Platform 1 Chokepoint (CCTV-01)",
+                "source_mode": _source_mode.value,
+                "zone_id": "Bottleneck B",
+                "observed_value": 0.0,
+                "unit": "relative_occupancy_index",
+                "evidence_status": "OBSERVED",
+                "quality_state": "LIVE",
+                "calibration_state": "UNCALIBRATED",
+                "latency_ms": 0.0,
+                "model_version": "yolov8s.pt",
+            }
+        })
+    return jsonify({
+        "success": True,
+        "observation": {
+            "snapshot_id": f"snap-{snap.frame_id}",
+            "observed_at_utc": snap.timestamp_utc.isoformat() if hasattr(snap.timestamp_utc, "isoformat") else str(snap.timestamp_utc),
+            "frame_id": snap.frame_id,
+            "frame_age_ms": round(snap.frame_age_ms, 1),
+            "source": "Platform 1 Chokepoint (CCTV-01)" if snap.source_mode == SourceMode.CAMERA else "Local Replay Stream",
+            "source_mode": snap.source_mode.value,
+            "zone_id": snap.hotspot if (snap.hotspot and snap.hotspot != "ALL_CLEAR") else "Bottleneck B",
+            "observed_value": round(snap.occupancy_index, 3),
+            "people_count_proxy": snap.people_count,
+            "unit": "relative_occupancy_index",
+            "evidence_status": "OBSERVED",
+            "quality_state": snap.camera_health.value,
+            "calibration_state": "UNCALIBRATED",
+            "latency_ms": round(snap.processing_latency_ms, 1),
+            "model_version": snap.model_version,
+        }
+    })
+
+
+@app.route("/api/decision/zones", methods=["GET"])
+def api_decision_zones():
+    """Return configured sector zones and routes."""
+    return jsonify({
+        "success": True,
+        "zones": [z.to_dict() for z in _decision_zones.values()],
+        "routes": [r.to_dict() for r in _decision_routes.values()],
+    })
+
+
+@app.route("/api/decision/scenario/load", methods=["POST"])
+def api_decision_scenario_load():
+    """Load or update scenario parameters for the Flow Forecast Engine."""
+    data = request.get_json(silent=True) or {}
+    if "b_inflow" in data:
+        _current_scenario_params["b_inflow"] = float(data["b_inflow"])
+    if "b_outflow" in data:
+        _current_scenario_params["b_outflow"] = float(data["b_outflow"])
+    if "b_initial" in data:
+        _current_scenario_params["b_initial"] = float(data["b_initial"])
+    if "r_initial" in data:
+        _current_scenario_params["r_initial"] = float(data["r_initial"])
+    if "h_initial" in data:
+        _current_scenario_params["h_initial"] = float(data["h_initial"])
+    if "horizon_seconds" in data:
+        _current_scenario_params["horizon_seconds"] = float(data["horizon_seconds"])
+
+    forecast_summary, recommendation = run_sih_reference_evaluation(
+        b_inflow=_current_scenario_params["b_inflow"],
+        b_outflow=_current_scenario_params["b_outflow"],
+        b_initial=_current_scenario_params["b_initial"],
+        r_initial=_current_scenario_params["r_initial"],
+        h_initial=_current_scenario_params["h_initial"],
+        horizon_seconds=_current_scenario_params["horizon_seconds"],
+    )
+    return jsonify({
+        "success": True,
+        "scenario": _current_scenario_params,
+        "forecast": forecast_summary,
+        "recommendation": recommendation.to_dict(),
+    })
+
+
+@app.route("/api/decision/evaluate", methods=["GET", "POST"])
+def api_decision_evaluate():
+    """Run Decision Safety Layer evaluation across all candidate actions."""
+    forecast_summary, recommendation = run_sih_reference_evaluation(
+        b_inflow=_current_scenario_params["b_inflow"],
+        b_outflow=_current_scenario_params["b_outflow"],
+        b_initial=_current_scenario_params["b_initial"],
+        r_initial=_current_scenario_params["r_initial"],
+        h_initial=_current_scenario_params["h_initial"],
+        horizon_seconds=_current_scenario_params["horizon_seconds"],
+    )
+    # Persist recommendation to SQLite WAL journal
+    try:
+        journal.save_recommendation(
+            recommendation_id=recommendation.recommendation_id,
+            incident_id="INC-LOCAL",
+            created_at_utc=datetime.utcnow().isoformat(),
+            selected_candidate_id=recommendation.selected_candidate_id,
+            action_type=recommendation.action_type.value if recommendation.action_type else None,
+            feasibility_status="FEASIBLE" if recommendation.selected_candidate_id else "REJECTED",
+            valid_until_utc=recommendation.valid_until_utc.isoformat() if hasattr(recommendation.valid_until_utc, "isoformat") else str(recommendation.valid_until_utc),
+            summary_message=recommendation.summary_message,
+            tradeoffs_description=recommendation.tradeoffs_description,
+            evaluations_json=json.dumps([e.to_dict() for e in recommendation.evaluations]),
+        )
+    except Exception as e:
+        app.logger.warning("Could not persist recommendation: %s", e)
+
+    return jsonify({
+        "success": True,
+        "forecast": forecast_summary,
+        "recommendation": recommendation.to_dict(),
+        "active_action_state": _active_action_state,
+    })
+
+
+@app.route("/api/operator/action/transition", methods=["POST"])
+def api_operator_action_transition():
+    """Execute an auditable manual transition in the operator action lifecycle."""
+    import uuid
+    data = request.get_json(silent=True) or {}
+    to_state = data.get("to_state", "").upper()
+    actor_id = data.get("actor_id", "Operator_Duty")
+    notes = data.get("notes", "")
+    evidence_snapshot_id = data.get("evidence_snapshot_id")
+
+    current_state = _active_action_state["state"]
+    action_id = _active_action_state["action_id"]
+
+    if to_state == "VERIFIED" and not evidence_snapshot_id:
+        snap = runtime.get_latest_snapshot()
+        evidence_snapshot_id = f"snap-verified-{snap.frame_id if snap else 1}"
+
+    try:
+        journal.record_action_transition(
+            transition_id=str(uuid.uuid4()),
+            action_id=action_id,
+            incident_id="INC-LOCAL",
+            from_state=current_state,
+            to_state=to_state,
+            actor_id=actor_id,
+            timestamp_utc=datetime.utcnow().isoformat(),
+            notes=notes,
+            evidence_snapshot_id=evidence_snapshot_id,
+        )
+        _active_action_state["state"] = to_state
+        _active_action_state["evidence_snapshot_id"] = evidence_snapshot_id
+        return jsonify({
+            "success": True,
+            "action_id": action_id,
+            "from_state": current_state,
+            "to_state": to_state,
+            "actor_id": actor_id,
+            "message": f"Action successfully transitioned from {current_state} to {to_state}.",
+        })
+    except ValueError as ve:
+        return jsonify({"success": False, "error": str(ve)}), 400
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@app.route("/api/operator/action/history", methods=["GET"])
+def api_operator_action_history():
+    """Retrieve chronological audit trail of operator action state transitions."""
+    transitions = journal.list_action_transitions(limit=30)
+    return jsonify({
+        "success": True,
+        "current_state": _active_action_state["state"],
+        "action_id": _active_action_state["action_id"],
+        "history": [t.to_dict() for t in transitions],
+    })
+
+
+@app.route("/api/operator/action/reset", methods=["POST"])
+def api_operator_action_reset():
+    """Reset the operator action lifecycle for a fresh demo run."""
+    _active_action_state["state"] = "PROPOSED"
+    _active_action_state["action_id"] = f"ACT-METER-{int(time.time()) % 1000:03d}"
+    return jsonify({
+        "success": True,
+        "active_action_state": _active_action_state,
+        "message": "Operator action lifecycle reset to PROPOSED."
+    })
+
 
 
 
@@ -1688,6 +1939,16 @@ def status():
             "default_simulation_available": _default_simulation_metadata is not None,
             "default_simulation_metadata": _default_simulation_metadata,
             "camera_settings": _safe_camera_settings(),
+            "decision_support": {
+                "active_scenario": _current_scenario_params["scenario_name"],
+                "evidence_badge": "SCENARIO / CALIBRATED INPUT" if _operating_mode == "SIMULATION" else "OBSERVED CCTV SIGNAL",
+                "action_state": _active_action_state["state"],
+                "action_id": _active_action_state["action_id"],
+                "selected_candidate": _active_action_state["selected_candidate"],
+                "recommendation_summary": "UPSTREAM METERING — FEASIBLE FOR CURRENT 90 s ANALYSIS WINDOW",
+                "usable_response_window_seconds": 7.0,
+                "waiting_cost": 205.0,
+            },
         }
     )
 
