@@ -143,10 +143,14 @@ class FrameSource:
         import cv2
         if self._capture is None or not self._capture.isOpened():
             return
-        if self.width is not None:
-            self._capture.set(cv2.CAP_PROP_FRAME_WIDTH, int(self.width))
-        if self.height is not None:
-            self._capture.set(cv2.CAP_PROP_FRAME_HEIGHT, int(self.height))
+        req_w = self.width if self.width is not None else (1280 if self.source_mode is SourceMode.CAMERA else None)
+        req_h = self.height if self.height is not None else (720 if self.source_mode is SourceMode.CAMERA else None)
+        if req_w is not None:
+            try: self._capture.set(cv2.CAP_PROP_FRAME_WIDTH, int(req_w))
+            except Exception: pass
+        if req_h is not None:
+            try: self._capture.set(cv2.CAP_PROP_FRAME_HEIGHT, int(req_h))
+            except Exception: pass
         try:
             self._capture.set(cv2.CAP_PROP_FPS, float(self.target_fps))
         except Exception:

@@ -234,8 +234,8 @@ ENABLE_FAST2SMS = os.environ.get("ENABLE_FAST2SMS", "0") == "1"
 SENTINEL_BIND_HOST = os.environ.get("SENTINEL_BIND_HOST", "127.0.0.1")
 ENABLE_DEBUG_CONNECTIVITY = os.environ.get("ENABLE_DEBUG_CONNECTIVITY", "0") == "1"
 
-CAMERA_WIDTH = _env_int("CAMERA_WIDTH", 0) or None
-CAMERA_HEIGHT = _env_int("CAMERA_HEIGHT", 0) or None
+CAMERA_WIDTH = _env_int("CAMERA_WIDTH", 1280)
+CAMERA_HEIGHT = _env_int("CAMERA_HEIGHT", 720)
 CAMERA_FPS = _env_int("CAMERA_FPS", 30)
 def _env_optional_int(name: str) -> int | None:
     raw = os.environ.get(name)
@@ -631,6 +631,12 @@ def initialize_system() -> None:
         # One explicit startup requeue when credentials are configured; a
         # renewed 401/403 blocks again rather than creating a retry storm.
         sync_worker.resume_after_auth_refresh()
+    # Pre-warm YOLO detector so first-frame latency is ~38ms instead of cold-start lag
+    try:
+        import numpy as np
+        _shared_detector.detect(np.zeros((360, 640, 3), dtype=np.uint8))
+    except Exception as _we:
+        app.logger.warning("Detector warmup skipped: %s", _we)
     runtime.start()
     recover_local_delivery()
     connectivity.start()
@@ -769,7 +775,7 @@ def _camera_mjpeg_stream():
     """
     import cv2
 
-    _JPEG_QUALITY = [int(cv2.IMWRITE_JPEG_QUALITY), 82]
+    _JPEG_QUALITY = [int(cv2.IMWRITE_JPEG_QUALITY), 92]
 
     last_sent_frame_id = -1
     while True:

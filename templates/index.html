@@ -4908,10 +4908,11 @@ function render(data) {
   renderOperatingMode(data);
   updateThreatMatrix(data.snapshot ? data.snapshot.severity : 'GREEN');
 
+  const isDemo = !!_injectedDemo;
   const camHealth = runtimeHealth.camera_health || (snap ? snap.camera_health : 'CAMERA_LOST');
   const cameraStale = camHealth !== 'LIVE';
-  const riskStale = !snap || !runtimeHealth.snapshot_fresh || ['DEGRADED', 'STALE', 'STOPPED', 'NOT_STARTED', 'STARTING'].includes(runtimeHealth.state);
-  const riskSnap = riskStale ? null : snap;
+  const riskStale = !isDemo && (!snap || !runtimeHealth.snapshot_fresh || ['DEGRADED', 'STALE', 'STOPPED', 'NOT_STARTED'].includes(runtimeHealth.state));
+  const riskSnap = snap;
 
   let staleMsg = '';
   if (runtimeHealth.state === 'DEGRADED') staleMsg = 'AI ENGINE DEGRADED -- camera input may still be live, but the last risk assessment is not current.';
@@ -4921,7 +4922,7 @@ function render(data) {
   banner.textContent = staleMsg;
   banner.classList.toggle('show', !!staleMsg);
 
-  const effectiveSeverity = riskStale ? 'STALE' : (snap ? snap.severity : 'UNKNOWN');
+  const effectiveSeverity = isDemo ? (snap ? snap.severity : 'GREEN') : (riskStale ? 'STALE' : (snap ? snap.severity : 'UNKNOWN'));
 
   // ---------------- Camera badges: source HEALTH, not source type ----------------
   ['dashboard', 'monitoring', 'simulation'].forEach(function (scope) {
@@ -4950,9 +4951,9 @@ function render(data) {
   const riskKpi = document.getElementById('kpi-risk');
   riskKpi.className = 'kpi risk ' + (SEVERITIES.includes(effectiveSeverity) ? ('sev-' + effectiveSeverity) : '');
   setText('kpi-risk-value', effectiveSeverity);
-  setText('kpi-risk-note', riskSnap ? `${(riskSnap.confidence * 100).toFixed(0)}% confidence` : (data.operating_mode === 'SIMULATION' ? 'Simulation' : 'Reality'));
-  setText('db-people', riskSnap ? riskSnap.people_count : '--');
-  setText('db-occ', riskSnap ? (Math.round(riskSnap.occupancy_index * 100) + '%') : '--');
+  setText('kpi-risk-note', snap ? `${(snap.confidence * 100).toFixed(0)}% confidence` : (data.operating_mode === 'SIMULATION' ? 'Simulation' : 'Reality'));
+  setText('db-people', snap ? snap.people_count : '--');
+  setText('db-occ', snap ? (Math.round(snap.occupancy_index * 100) + '%') : '--');
   setText('kpi-camera', camHealth || '--');
   const aiStatusKpi = document.getElementById('kpi-ai-status');
   if (aiStatusKpi) aiStatusKpi.className = 'kpi ai-status state-' + (runtimeHealth.state || 'UNKNOWN');
@@ -4966,10 +4967,10 @@ function render(data) {
   setText('db-last-update', snap ? fmtAgo(snap.timestamp_utc) : '--');
 
   // ---------------- Dashboard crowd state summary (Human-Readable Format) ----------------
-  setText('cs-people', riskSnap ? riskSnap.people_count : '--');
+  setText('cs-people', snap ? snap.people_count : '--');
   
   // Format Occupancy Contextually
-  const occInfo = riskSnap ? formatOccupancyMeter(riskSnap.occupancy_index) : { pct: 0, text: '--', density: '--', status: 'UNKNOWN' };
+  const occInfo = snap ? formatOccupancyMeter(snap.occupancy_index) : { pct: 0, text: '--', density: '--', status: 'UNKNOWN' };
   setText('cs-occ', occInfo.text);
   setText('cs-density-rate', occInfo.density);
   
@@ -4993,14 +4994,14 @@ function render(data) {
   if (csBadge) { csBadge.className = 'badge badge-' + (SEVERITIES.includes(effectiveSeverity) ? effectiveSeverity : 'UNKNOWN'); csBadge.textContent = effectiveSeverity; }
   
   // High-Impact Human-Readable Station Sector & Flow Description
-  setText('db-hotspot', riskSnap ? formatHotspotName(riskSnap.hotspot) : 'All Sectors Clear (Uniform Flow)');
-  setText('db-scenario', riskSnap ? formatScenarioName(riskSnap.primary_scenario) : 'Calibrating Telemetry...');
-  setText('db-response', riskSnap ? riskSnap.recommended_action : 'Normal operations -- routine monitoring.');
-  setText('db-response-zone', riskSnap && riskSnap.hotspot ? ('Sector Target: ' + formatHotspotName(riskSnap.hotspot)) : 'Broadcast to All Station Sectors');
+  setText('db-hotspot', snap ? formatHotspotName(snap.hotspot) : 'All Sectors Clear (Uniform Flow)');
+  setText('db-scenario', snap ? formatScenarioName(snap.primary_scenario) : 'Calibrating Telemetry...');
+  setText('db-response', snap ? snap.recommended_action : 'Normal operations -- routine monitoring.');
+  setText('db-response-zone', snap && snap.hotspot ? ('Sector Target: ' + formatHotspotName(snap.hotspot)) : 'Broadcast to All Station Sectors');
   
   // Advanced Visual LAR Bars
-  setHtml('db-lar-bars', riskSnap ? formatLarBarsAdvanced(riskSnap) : '');
-  setHtml('db-lar-interp', riskSnap ? interpretDynamics(riskSnap) : '--');
+  setHtml('db-lar-bars', snap ? formatLarBarsAdvanced(snap) : '');
+  setHtml('db-lar-interp', snap ? interpretDynamics(snap) : '--');
 
   // ---------------- Dashboard system health strip ----------------
   setText('db-ai-state', runtimeHealth.state || 'UNKNOWN');
@@ -5015,28 +5016,29 @@ function render(data) {
   setText('mon-frame-age', snap ? fmtMs(snap.frame_age_ms) : '--');
   setText('mon-ai-age', snap ? fmtAgo(snap.timestamp_utc) : '--');
   setText('mon-proc-latency', snap ? fmtMs(snap.processing_latency_ms) : '--');
-  setText('mon-people', riskSnap ? riskSnap.people_count : '--');
-  setText('mon-occ', riskSnap ? riskSnap.occupancy_index.toFixed(2) : '--');
+  setText('mon-people', snap ? snap.people_count : '--');
+  setText('mon-occ', snap ? snap.occupancy_index.toFixed(2) : '--');
   setText('mon-risk', effectiveSeverity);
-  setText('mon-scenario', riskSnap ? riskSnap.primary_scenario : '--');
-  setText('mon-hotspot', riskSnap ? (riskSnap.hotspot || 'None') : '--');
-  setText('mon-confidence', riskSnap ? `${(riskSnap.confidence * 100).toFixed(0)}%` : '--');
+  setText('mon-scenario', snap ? snap.primary_scenario : '--');
+  setText('mon-hotspot', snap ? (snap.hotspot || 'None') : '--');
+  setText('mon-confidence', snap ? `${(snap.confidence * 100).toFixed(0)}%` : '--');
 
   // ---------------- Spatial Map page (full grid) ----------------
-  renderSpatialMap(riskSnap);
-  updateChart(riskSnap);
-  renderPlatformLayout(riskSnap);
+  renderSpatialMap(snap);
+  updateChart(snap);
+  renderPlatformLayout(snap);
 
   // ---------------- Simulation page ----------------
   setText('sim-frame-id', snap ? snap.frame_id : '--');
   setText('sim-proc-latency', snap ? fmtMs(snap.processing_latency_ms) : '--');
-  setText('sim-people', riskSnap ? riskSnap.people_count : '--');
-  setText('sim-occ', riskSnap ? riskSnap.occupancy_index.toFixed(2) : '--');
+  setText('sim-people', snap ? snap.people_count : '--');
+  setText('sim-occ', snap ? snap.occupancy_index.toFixed(2) : '--');
   const simRiskEl = document.getElementById('sim-risk');
   if (simRiskEl) simRiskEl.textContent = effectiveSeverity;
-  setText('sim-hotspot', riskSnap ? (riskSnap.hotspot || 'None') : '--');
-  setText('sim-scenario', riskSnap ? riskSnap.primary_scenario : '--');
-  setText('sim-response', riskSnap ? riskSnap.recommended_action : '--');
+  setText('sim-hotspot', snap ? (snap.hotspot || 'None') : '--');
+  setText('sim-scenario', snap ? snap.primary_scenario : '--');
+  setText('sim-response', snap ? snap.recommended_action : '--');
+
 
   // ---------------- Connectivity detail (System Health page) ----------------
   setBadgeClass(document.getElementById('conn-badge'), 'CONNECTIVITY', conn.state);
@@ -5805,11 +5807,13 @@ function injectTacticalDemo(type) {
   _injectedDemo = type;
   playTacticalChime(520, 0.12);
   toast('warning', 'Simulation Injected: ' + type, 'Demonstrating real-time crowd dynamics and tactical emergency protocols.');
+  updateUI();
 }
 function resetTacticalDemo() {
   _injectedDemo = null;
   playTacticalChime(440, 0.08);
   toast('info', 'Live Stream Resumed', 'Switched back to authoritative backend telemetry.');
+  updateUI();
 }
 
 
@@ -5912,6 +5916,7 @@ async function pollLoop() {
   setTimeout(pollLoop, delay);
 }
 moveCameraFeed('dashboard');
+setTimeout(loadReferenceScenario, 150);
 
 function updateClock() {
   const el = document.getElementById('live-clock');

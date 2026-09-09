@@ -8,7 +8,7 @@ class RuntimeConfig:
     grid_rows: int = 4
     grid_cols: int = 6
     confidence_threshold: float = 0.35
-    model_path: str = "yolov8s.pt"
+    model_path: str = "yolov8n.pt"
     stale_frame_age_s: float = 15.0
     camera_failure_timeout_s: float = 5.0
     calibration_samples: int = 12
