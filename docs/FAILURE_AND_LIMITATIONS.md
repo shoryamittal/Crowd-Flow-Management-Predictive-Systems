@@ -134,6 +134,6 @@ To maintain strict scientific and engineering integrity before hackathon judges,
 4. **NO Autonomous Actuation:**
    Sentinel AI does not actuate motorized turnstiles, drop physical gates, or override human authority. Every action requires human approval and confirmation.
 5. **NO Production Readiness for Live Kumbh:**
-   This system is an MVP prototype for a supervised sector pilot. A full production rollout requires surveyed physical geometry, RPF operational sign-offs, camera calibration, and legal DPDP compliance validation.
+   This system is an MVP prototype for a supervised sector pilot. A full production rollout requires surveyed physical geometry, Kumbh Mela Administration and Police operational sign-offs, camera calibration, and legal DPDP compliance validation.
 6. **NO "100% Guaranteed" Casualty Prevention:**
    Disaster management is probabilistic and human-dependent. The system provides decision support, constraint checking, and auditable accountability.

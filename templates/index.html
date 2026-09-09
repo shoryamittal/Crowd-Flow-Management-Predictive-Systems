@@ -2426,7 +2426,7 @@
   <nav class="sidebar" role="navigation" aria-label="Operations Navigation">
     <div class="brand">
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2 L21 6 V12 C21 17 17 20.5 12 22 C7 20.5 3 17 3 12 V6 Z" stroke="#22d3ee" stroke-width="1.6" fill="rgba(34,211,238,.06)"/><path d="M6.5 12.5 H9.2 L10.4 9.5 L12.2 15.5 L13.4 12.5 H17.5" stroke="#22d3ee" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div><div class="brand-title-wrap"><div class="brand-name">SENTINEL AI</div><div class="brand-sub" id="brand-station">Transit Operations Console</div></div></div>
+      <div><div class="brand-title-wrap"><div class="brand-name">SENTINEL AI</div><div class="brand-sub" id="brand-station">Maha Kumbh Crowd Safety (SIH26206)</div></div></div>
     </div>
 
     <div class="nav-item active" data-view="dashboard">
@@ -2439,7 +2439,7 @@
     </div>
     <div class="nav-item" data-view="map">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M3 9 H21 M3 15 H21 M9 3 V21 M15 3 V21"/></svg>
-      <span class="nav-label">Platform Layout</span>
+      <span class="nav-label">Sector Layout</span>
     </div>
     <div class="nav-item" data-view="simulation">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="1.5"/><path d="M9.5 8 L15 11 L9.5 14 Z" fill="currentColor" stroke="none"/><path d="M3 21 H21" stroke-linecap="round"/></svg>
@@ -2464,24 +2464,24 @@
     </div>
 
     <div class="nav-spacer"></div>
-    <div class="nav-foot">SENTINEL AI &middot; Indian Railways SaaS</div>
+    <div class="nav-foot">SENTINEL AI &middot; Maha Kumbh Mela Authority</div>
   </nav>
 
   <header class="topbar" role="banner">
     <div class="topbar-left">
-      <span class="ir-emblem-badge"><span style="font-size:0.7rem;font-weight:800;letter-spacing:0.03em;">भारत सरकार</span> · <span style="font-weight:700;">INDIAN RAILWAYS</span> · <span style="opacity:0.7;">रेल मंत्रालय / Ministry of Railways</span></span>
+      <span class="ir-emblem-badge"><span style="font-size:0.7rem;font-weight:800;letter-spacing:0.03em;">महाकुंभ मेला 2025-26</span> · <span style="font-weight:700;">MAHA KUMBH PRAYAGRAJ</span> · <span style="opacity:0.7;">NDMA &amp; आपदा प्रबंधन / Disaster Management</span></span>
       <div class="station-fleet-selector">
-        <span style="font-size:0.65rem;color:var(--text-muted);font-weight:800;">HUB:</span>
+        <span style="font-size:0.65rem;color:var(--text-muted);font-weight:800;">SECTOR:</span>
         <select class="station-fleet-select" id="station-fleet-select" onchange="switchStationHub(this.value)">
-          <option value="NDLS" selected>NDLS — New Delhi Central (NR)</option>
-          <option value="CSMT">CSMT — Mumbai Terminus (CR)</option>
-          <option value="HWH">HWH — Howrah Junction (ER)</option>
-          <option value="MAS">MAS — Chennai Central (SR)</option>
-          <option value="SBC">SBC — KSR Bengaluru (SWR)</option>
+          <option value="KUMBH-SEC-04" selected>KUMBH-SEC-04 — Sangam Triveni Ghat &amp; Parade Ground (Pilot)</option>
+          <option value="KUMBH-SEC-01">KUMBH-SEC-01 — Mahavir Marg &amp; Arail Ghat Link</option>
+          <option value="KUMBH-SEC-02">KUMBH-SEC-02 — Kali Sadak &amp; Shastri Bridge</option>
+          <option value="KUMBH-SEC-03">KUMBH-SEC-03 — Akshayavat Corridor &amp; Fort Ramp</option>
+          <option value="RAIL-NDLS">RAIL-NDLS — Transit Feeder Hub (Prior Prototype Reference)</option>
         </select>
       </div>
       <b>SENTINEL AI</b><span class="sep">/</span><span id="topbar-view-name">Dashboard</span>
-      <div class="railwire-sla-badge"><span class="pulse-dot" style="background:#00ff88;"></span> RAILWIRE 99.999% SLA</div>
+      <div class="railwire-sla-badge"><span class="pulse-dot" style="background:#00ff88;"></span> KUMBH SECURE-NET 99.999% OFFLINE SAFETY PLANE</div>
       <div id="live-clock" style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-secondary);letter-spacing:0.04em;"></div>
     </div>
     <div class="topbar-right">
@@ -2669,7 +2669,7 @@
           </div>
 
           <!-- Recommended Operational Action -->
-          <div class="subhead">Tactical Station Master Directive</div>
+          <div class="subhead">Tactical Sector Magistrate &amp; Incident Commander Directive</div>
           <div class="response-block" style="margin-top:0.35rem;">
             <div class="response-action" id="db-response" style="font-size:0.92rem;font-weight:800;color:var(--neon-cyan);">--</div>
             <div class="response-zone" id="db-response-zone" style="font-size:0.75rem;margin-top:0.45rem;color:var(--text-secondary);font-family:var(--mono);">--</div>
@@ -2703,7 +2703,7 @@
             </div>
             <button class="pa-broadcast-btn" onclick="triggerPABroadcast()" style="width:100%;justify-content:center;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-              BROADCAST EMERGENCY STATION PA ANNOUNCEMENT
+              BROADCAST EMERGENCY SANGAM SECTOR PA ANNOUNCEMENT
             </button>
           </div>
 
@@ -2899,101 +2899,101 @@
             </button>
           </div>
           <div style="font-size:0.65rem;color:var(--text-secondary);margin-top:0.5rem;" id="lc-status-note">
-            Current Action: <b>ACT-METER-001</b> | Authority: Station Master | Waiting for operator approval.
+            Current Action: <b>ACT-METER-001</b> | Authority: Sector Magistrate (Kumbh Sector 4) | Waiting for operator approval.
           </div>
         </div>
       </div>
         </div>
       </div>
 
-      <!-- LIVE TRAIN ARRIVALS & PASSENGER SURGE TRACKER (CRIS / NTES API) -->
+      <!-- LIVE PILGRIM INFLUX & GHAT SURGE TELEMETRY (KUMBH MELA SECTOR 4) -->
       <div class="train-timetable-card">
         <div class="train-timetable-header">
           <div style="display:flex;align-items:center;gap:8px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff9933" stroke-width="2"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16M12 3v8M8 19l-2 3M16 19l2 3M9 15h.01M15 15h.01"/></svg>
-            <span style="font-weight:800;font-size:0.78rem;color:#ffffff;letter-spacing:0.04em;">LIVE TRAIN MOVEMENT &amp; PLATFORM SURGE TELEMETRY</span>
-            <span class="ir-emblem-badge" style="font-size:0.6rem;padding:2px 6px;">NTES / CRIS SYNCED</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff9933" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span style="font-weight:800;font-size:0.78rem;color:#ffffff;letter-spacing:0.04em;">LIVE PILGRIM MOVEMENT &amp; GHAT ARRIVAL SURGE TELEMETRY</span>
+            <span class="ir-emblem-badge" style="font-size:0.6rem;padding:2px 6px;">PRAYAGRAJ MELA GIS SYNCED</span>
           </div>
-          <button class="btn btn-sm secondary" onclick="refreshTrainTimetable()" style="font-size:0.65rem;padding:3px 8px;">⟳ SYNC TIMETABLE</button>
+          <button class="btn btn-sm secondary" onclick="refreshTrainTimetable()" style="font-size:0.65rem;padding:3px 8px;">⟳ SYNC TELEMETRY</button>
         </div>
         <div style="overflow-x:auto;">
           <table class="train-timetable-table">
             <thead>
               <tr>
-                <th>Train No. / Name</th>
-                <th>Origin &rarr; Destination</th>
-                <th>Assigned Platform</th>
-                <th>ETA / Status</th>
-                <th>Expected Passenger Influx</th>
+                <th>Pilgrim Corridor / Sector Channel</th>
+                <th>Origin &rarr; Dispersal Ghat</th>
+                <th>Assigned Ghat / Passage</th>
+                <th>Snan Window / Movement Status</th>
+                <th>Expected Pilgrim Influx Rate</th>
                 <th>Surge Warning</th>
-                <th>Tactical Action</th>
+                <th>Sector Tactical Action</th>
               </tr>
             </thead>
             <tbody id="train-timetable-body">
               <tr>
-                <td style="font-weight:700;color:var(--neon-cyan);">22436 · Vande Bharat Express</td>
-                <td>Varanasi Jn (BSB) &rarr; New Delhi (NDLS)</td>
-                <td><b style="color:#ffffff;">Platform 1</b></td>
-                <td><span style="color:var(--neon-crimson);font-weight:800;">IN 4 MIN (ARRIVING)</span></td>
-                <td>1,120 Passengers</td>
+                <td style="font-weight:700;color:var(--neon-cyan);">VIP Sangam Corridor · Main Triveni Approach</td>
+                <td>Parade Ground Staging &rarr; Sangam Ghat 1</td>
+                <td><b style="color:#ffffff;">Sangam Ghat 1</b></td>
+                <td><span style="color:var(--neon-crimson);font-weight:800;">SHAHI SNAN PEAK (ACTIVE)</span></td>
+                <td>1,850 Pilgrims/min</td>
                 <td><span class="train-badge-surge surge-CRITICAL">CRITICAL SURGE</span></td>
-                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('OPEN_BARRIERS', 'Platform 1 Egress')">Clear Gates</button></td>
+                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('OPEN_BARRIERS', 'Sangam Egress Ramp')">Clear Egress</button></td>
               </tr>
               <tr>
-                <td style="font-weight:700;color:var(--text-primary);">12424 · Dibrugarh Rajdhani</td>
-                <td>Dibrugarh (DBRG) &rarr; New Delhi (NDLS)</td>
-                <td><b style="color:#ffffff;">Platform 2</b></td>
-                <td><span style="color:var(--neon-amber);font-weight:800;">IN 12 MIN (ON TIME)</span></td>
-                <td>1,450 Passengers</td>
+                <td style="font-weight:700;color:var(--text-primary);">Corridor 2 · Kali Ramp to Ghat 3</td>
+                <td>Kali Marg Staging &rarr; Ghat 3 (Pontoon 2)</td>
+                <td><b style="color:#ffffff;">Ghat 3 Pontoon</b></td>
+                <td><span style="color:var(--neon-amber);font-weight:800;">AUSPICIOUS WINDOW (ON TIME)</span></td>
+                <td>1,450 Pilgrims/min</td>
                 <td><span class="train-badge-surge surge-ELEVATED">ELEVATED</span></td>
-                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Platform 2 FOB')">Pre-position RPF</button></td>
+                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Ghat 3 Bottleneck Ramp')">Pre-position NDRF</button></td>
               </tr>
               <tr>
-                <td style="font-weight:700;color:var(--text-primary);">82902 · Mumbai Tejas Express</td>
-                <td>Ahmedabad (ADI) &rarr; Mumbai (MMCT)</td>
-                <td><b style="color:#ffffff;">Platform 3</b></td>
-                <td><span style="color:var(--neon-emerald);font-weight:800;">IN 26 MIN (ON TIME)</span></td>
-                <td>880 Passengers</td>
+                <td style="font-weight:700;color:var(--text-primary);">Corridor 3 · Mahavir Staging to Arail</td>
+                <td>Arail Holding Enclosure &rarr; Arail Ghat</td>
+                <td><b style="color:#ffffff;">Arail Ghat</b></td>
+                <td><span style="color:var(--neon-emerald);font-weight:800;">STEADY BATHING FLOW</span></td>
+                <td>880 Pilgrims/min</td>
                 <td><span class="train-badge-surge surge-MODERATE">MODERATE</span></td>
-                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('INVERT_ESCALATORS', 'Platform 3 Concourse')">Invert Escalator</button></td>
+                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('INVERT_ESCALATORS', 'Arail Holding Barrier')">Meter Inflow</button></td>
               </tr>
               <tr>
-                <td style="font-weight:700;color:var(--text-secondary);">14258 · Kashi Vishwanath Exp</td>
-                <td>Banaras (BSBS) &rarr; New Delhi (NDLS)</td>
-                <td><b style="color:#ffffff;">Platform 4</b></td>
-                <td><span style="color:var(--text-muted);font-weight:800;">DELAYED 25 MIN</span></td>
-                <td>1,650 Passengers</td>
+                <td style="font-weight:700;color:var(--text-secondary);">Corridor 4 · Bandhwa Fort Ramp to Akshayavat</td>
+                <td>Fort Staging Area &rarr; Akshayavat Corridor</td>
+                <td><b style="color:#ffffff;">Akshayavat Egress</b></td>
+                <td><span style="color:var(--text-muted);font-weight:800;">CIRCULATION DELAY 15 MIN</span></td>
+                <td>1,650 Pilgrims/min</td>
                 <td><span class="train-badge-surge surge-HIGH">HIGH LOAD</span></td>
-                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Platform 4 Corridor')">Hold Inflow</button></td>
+                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Fort Chokepoint Ramp')">Hold Inflow</button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- RPF COMMAND & STATION MARSHAL QUICK-DISPATCH ACTION BAR -->
+      <!-- KUMBH MELA DISASTER RESPONSE FORCE & POLICE QUICK-DISPATCH ACTION BAR -->
       <div class="rpf-quick-dispatch-bar">
         <div style="font-size:0.72rem;font-weight:800;color:#ff9933;display:flex;align-items:center;gap:6px;letter-spacing:0.05em;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff9933" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          RPF TACTICAL DISPATCH:
+          KUMBH SECTOR 4 DISASTER FORCE (NDRF / POLICE / MARSHALS):
         </div>
-        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'FOB Chokepoint Stairs')">
+        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Ghat Chokepoint Stairs')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Deploy FOB Barrier Squad
+          Deploy Ghat Barrier Squad (NDRF)
         </button>
-        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('INVERT_ESCALATORS', 'North Concourse Escalators')">
+        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('INVERT_ESCALATORS', 'Holding Enclosure H Gates')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-          Invert Escalators to Egress
+          Regulate Inflow at Holding H
         </button>
-        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('EMERGENCY_GATES_OPEN', 'Turnstiles 1-8')">
+        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('EMERGENCY_GATES_OPEN', 'Emergency Pontoon Gates')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Emergency Turnstiles Full-Open
+          Open Relief Pontoon Corridor R
         </button>
-        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('PA_TRI_LINGUAL', 'Station Public Address')">
+        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('PA_TRI_LINGUAL', 'Sangam Public Address')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-          Broadcast Tri-Lingual Alert
+          Broadcast Tri-Lingual Safety Alert
         </button>
-        <span id="rpf-dispatch-status" style="font-size:0.68rem;font-family:var(--mono);color:var(--neon-emerald);margin-left:auto;font-weight:700;">✓ RPF Alpha &amp; Bravo Units Ready</span>
+        <span id="rpf-dispatch-status" style="font-size:0.68rem;font-family:var(--mono);color:var(--neon-emerald);margin-left:auto;font-weight:700;">✓ NDRF Sector 4 Alpha &amp; Police Squads Ready</span>
       </div>
 
 
@@ -3070,51 +3070,51 @@
           <!-- Channel 1: Concourse -->
           <div class="cctv-cell">
             <div class="cctv-head">
-              <span class="cctv-tag">CAM-01: CONCOURSE &amp; TICKET HUB</span>
+              <span class="cctv-tag">CAM-01: HOLDING CONCOURSE H (STAGING ENCLOSURE)</span>
               <span class="cctv-live-badge">● LIVE 30 FPS</span>
             </div>
-            <img class="cctv-img" src="/cctv-feed/1" alt="CAM-01 Concourse Feed" loading="lazy" onerror="cctvFeedError(this,1)">
+            <img class="cctv-img" src="/cctv-feed/1" alt="CAM-01 Holding Concourse Feed" loading="lazy" onerror="cctvFeedError(this,1)">
             <div class="cctv-foot">
-              <span class="cctv-zone-info">Zone 8 Concourse · Normal Flow</span>
+              <span class="cctv-zone-info">Zone H Staging Enclosure · Buffer Influx</span>
               <button class="cctv-focus-btn" onclick="focusCctvChannel(1)">FOCUS</button>
             </div>
           </div>
 
-          <!-- Channel 2: Platform 1 (YOLO Live) -->
+          <!-- Channel 2: Sangam Ghat Access Bottleneck B (YOLO Live) -->
           <div class="cctv-cell active-primary">
             <div class="cctv-head">
-              <span class="cctv-tag">CAM-02: PLATFORM 1 ARRIVAL TRACK (YOLO)</span>
+              <span class="cctv-tag">CAM-02: SANGAM GHAT ACCESS BOTTLENECK B (YOLO)</span>
               <span class="cctv-live-badge" style="border-color:var(--neon-emerald);color:var(--neon-emerald);">● AI ACTIVE</span>
             </div>
-            <img class="cctv-img" src="/camera-feed" alt="CAM-02 Platform 1 YOLO Feed">
+            <img class="cctv-img" src="/camera-feed" alt="CAM-02 Sangam Ghat Bottleneck B YOLO Feed">
             <div class="cctv-foot">
-              <span class="cctv-zone-info">Active AI Detector · Target: Person</span>
+              <span class="cctv-zone-info">Active AI Detector · Target: Devotee / Person</span>
               <button class="cctv-focus-btn" onclick="switchCctvMode('single')">FULLSCREEN</button>
             </div>
           </div>
 
-          <!-- Channel 3: North FOB Stairs -->
+          <!-- Channel 3: Relief Corridor R & Pontoon -->
           <div class="cctv-cell">
             <div class="cctv-head">
-              <span class="cctv-tag">CAM-03: NORTH FOOT OVER BRIDGE</span>
+              <span class="cctv-tag">CAM-03: RELIEF CORRIDOR R (EAST PONTOON BYPASS)</span>
               <span class="cctv-live-badge">● LIVE 30 FPS</span>
             </div>
-            <img class="cctv-img" src="/cctv-feed/3" alt="CAM-03 Foot Over Bridge Feed" loading="lazy" onerror="cctvFeedError(this,3)">
+            <img class="cctv-img" src="/cctv-feed/3" alt="CAM-03 Relief Corridor R Feed" loading="lazy" onerror="cctvFeedError(this,3)">
             <div class="cctv-foot">
-              <span class="cctv-zone-info">Zone 5 FOB &amp; Exit · Clearance Path</span>
+              <span class="cctv-zone-info">Zone R Alternate Bypass · Pontoon Approach</span>
               <button class="cctv-focus-btn" onclick="focusCctvChannel(3)">FOCUS</button>
             </div>
           </div>
 
-          <!-- Channel 4: Turnstile Entry Gate -->
+          <!-- Channel 4: Sector Entry Checkpoint -->
           <div class="cctv-cell">
             <div class="cctv-head">
-              <span class="cctv-tag">CAM-04: ENTRY TURNSTILES GATE 1</span>
+              <span class="cctv-tag">CAM-04: SECTOR CHECKPOINT &amp; ENTRY GATE 1</span>
               <span class="cctv-live-badge">● LIVE 30 FPS</span>
             </div>
-            <img class="cctv-img" src="/cctv-feed/4" alt="CAM-04 Turnstile Entry Feed" loading="lazy" onerror="cctvFeedError(this,4)">
+            <img class="cctv-img" src="/cctv-feed/4" alt="CAM-04 Sector Entry Checkpoint Feed" loading="lazy" onerror="cctvFeedError(this,4)">
             <div class="cctv-foot">
-              <span class="cctv-zone-info">Zone 1 Entry Gate · Flow Ingress</span>
+              <span class="cctv-zone-info">Zone 1 Entry Checkpoint · Pilgrim Ingress</span>
               <button class="cctv-focus-btn" onclick="focusCctvChannel(4)">FOCUS</button>
             </div>
           </div>
@@ -3147,8 +3147,8 @@
     =============================================================== -->
     <section class="view" id="view-map">
       <div class="card">
-        <h2>Railway Station Platform Layout &mdash; Live Zone Intelligence</h2>
-        <div class="note" style="margin:-.4rem 0 .9rem 0;">8 platform zones updated live from YOLO detection &middot; <span style="color:var(--neon-cyan);">Click any zone to inspect tactical clearance dossier</span>. <b style="color:var(--green)">GREEN</b> safe &middot; <b style="color:var(--amber)">ORANGE</b> elevated &middot; <b style="color:var(--red)">RED</b> danger &middot; <b style="color:#fff">BLACK</b> critical.</div>
+        <h2>Kumbh Mela Sector 4 Layout &mdash; Live Zone Intelligence</h2>
+        <div class="note" style="margin:-.4rem 0 .9rem 0;">Sector 4 crowd zones (Holding Area H, Approach A, Bottleneck B, Ghat G, Relief R) updated live from YOLO detection &middot; <span style="color:var(--neon-cyan);">Click any zone to inspect tactical clearance dossier</span>. <b style="color:var(--green)">GREEN</b> safe &middot; <b style="color:var(--amber)">ORANGE</b> elevated &middot; <b style="color:var(--red)">RED</b> danger &middot; <b style="color:#fff">BLACK</b> critical.</div>
         <div id="plat-hotspot-banner" class="plat-hotspot-banner sev-GREEN">All zones CLEAR &mdash; Normal operations</div>
         <div class="platform-wrapper">
           <div class="platform-canvas">
@@ -3413,7 +3413,7 @@
       <div class="card" style="margin-bottom:1rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
           <div>
-            <h2 style="margin-bottom:2px;">Station Marshal Rapid Response Force (RPF) Dispatcher</h2>
+            <h2 style="margin-bottom:2px;">Kumbh Sector 4 Disaster Response Force (NDRF / Police) Dispatcher</h2>
             <div style="font-size:0.68rem;color:var(--text-muted);font-family:var(--mono);">Tactical SOP Execution &middot; Real-Time Response SLA Compliance</div>
           </div>
           <div style="display:flex;align-items:center;gap:0.6rem;">
@@ -3429,22 +3429,22 @@
         <div class="marshal-checklist">
           <div class="marshal-item" id="m-step-1">
             <input type="checkbox" id="chk-m1" onchange="toggleMarshalStep(1)">
-            <label for="chk-m1"><strong>1. Deploy 4 RPF Marshals to Hotspot Sector:</strong> Form perimeter cordon and guide arriving passenger streams.</label>
+            <label for="chk-m1"><strong>1. Deploy 4 NDRF / Police Marshals to Hotspot Sector:</strong> Form perimeter cordon and guide incoming pilgrim streams away from Sangam Ghat ramp.</label>
             <span class="sla-timer-badge" id="m-time-1">STANDBY</span>
           </div>
           <div class="marshal-item" id="m-step-2">
             <input type="checkbox" id="chk-m2" onchange="toggleMarshalStep(2)">
-            <label for="chk-m2"><strong>2. Invert North Escalator to Egress Mode:</strong> Reverse escalator flow direction toward Main Concourse to clear platform faster.</label>
+            <label for="chk-m2"><strong>2. Regulate Inflow at Holding Enclosure H Gates:</strong> Meter inflow from Parade Ground staging to 1.5 pax/s to buffer approach corridor.</label>
             <span class="sla-timer-badge" id="m-time-2">STANDBY</span>
           </div>
           <div class="marshal-item" id="m-step-3">
             <input type="checkbox" id="chk-m3" onchange="toggleMarshalStep(3)">
-            <label for="chk-m3"><strong>3. Signal Hold Outer Express Train #12004:</strong> Hold incoming train at signal post 204 to prevent dual-surge load.</label>
+            <label for="chk-m3"><strong>3. Hold Inbound Feeder Flow at Kali &amp; Arail Checkpoints:</strong> Coordinate with upstream sector magistrates to pace approaching devotee influx.</label>
             <span class="sla-timer-badge" id="m-time-3">STANDBY</span>
           </div>
           <div class="marshal-item" id="m-step-4">
             <input type="checkbox" id="chk-m4" onchange="toggleMarshalStep(4)">
-            <label for="chk-m4"><strong>4. Open Auxiliary Emergency Egress Gates:</strong> Unlock gates 3 &amp; 4 for unrestricted passenger discharge.</label>
+            <label for="chk-m4"><strong>4. Open Auxiliary Emergency Pontoon Egress Gates:</strong> Unlock Pontoon emergency gates for unrestricted pilgrim discharge toward mela perimeter.</label>
             <span class="sla-timer-badge" id="m-time-4">STANDBY</span>
           </div>
         </div>
@@ -3668,7 +3668,7 @@
                 <tr>
                   <td class="concept-name"><span class="icon">🌐</span>Multilingual NLP</td>
                   <td>Detects and processes multiple languages (NLP translation).</td>
-                  <td>Railway network is multilingual and regionally diverse.</td>
+                  <td>Maha Kumbh pilgrim congregation is multilingual and regionally diverse.</td>
                   <td>Provides responses in the operator's preferred language for better understanding.</td>
                   <td class="example">"Switch to Hindi. Show current risk."<br>→ Response: हिंदी में रिस्पॉन्स</td>
                 </tr>
@@ -3681,7 +3681,7 @@
       <!-- Tab 4: Why Essential -->
       <div class="nlp-panel" id="nlp-tab-why">
         <div class="card reveal">
-          <div class="nlp-section-title">4. WHY NLP IS ESSENTIAL IN RAILWAY SAFETY</div>
+          <div class="nlp-section-title">4. WHY NLP IS ESSENTIAL IN MASS GATHERING &amp; KUMBH DISASTER SAFETY</div>
           <div class="why-grid">
             <div class="why-card">
               <div class="wc-icon">⏱️</div>
@@ -3706,7 +3706,7 @@
             <div class="why-card">
               <div class="wc-icon">🌍</div>
               <div class="wc-title">Inclusive &amp; Scalable</div>
-              <div class="wc-body">Multilingual and voice-enabled design ensures the system works for diverse teams across the railway network.</div>
+              <div class="wc-body">Multilingual and voice-enabled design ensures the system works for diverse disaster response teams and multi-state pilgrim cohorts across the Kumbh Mela.</div>
             </div>
           </div>
         </div>
@@ -3870,7 +3870,7 @@
                 <div class="big-text">
                   NLP transforms <b>SENTINEL AI</b> from a monitoring system
                   into an <b>intelligent assistant</b> that understands,
-                  explains and guides railway teams to <b>act early and save lives</b>.
+                  explains and guides disaster response teams to <b>act early and save lives</b>.
                 </div>
                 <div class="equation">
                   <div class="eq-part">
@@ -3885,7 +3885,7 @@
                   <div class="eq-op">=</div>
                   <div class="eq-part">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="1.8"><path d="M12 2 L21 6 V12 C21 17 17 20.5 12 22 C7 20.5 3 17 3 12 V6 Z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <div class="eq-label">SAFER RAILWAYS</div>
+                    <div class="eq-label">SAFER MASS GATHERINGS</div>
                   </div>
                 </div>
               </div>
@@ -3986,69 +3986,69 @@
     </section>
 
     <!-- ============================================================
-         ENTERPRISE SLA & INDIAN RAILWAYS COMMERCIAL FLEET OPERATIONS
+         MAHA KUMBH PRAYAGRAJ MULTI-SECTOR DISASTER COMMAND & NDMA OPERATIONS
     =============================================================== -->
     <section class="view" id="view-enterprise">
       <div class="explainer" style="border-left-color:#ff9933;background:rgba(255,153,51,0.06);color:#ffbe76;">
-        <b>INDIAN RAILWAYS ENTERPRISE SAAS CONSOLE</b> &mdash; Nationwide commercial deployment across Central (CR), Northern (NR), Eastern (ER), and Southern (SR) divisions. High-density edge computing with zero cloud dependency and 99.999% RailWire SLA guarantee.
+        <b>MAHA KUMBH EMERGENCY OPERATIONS CONSOLE</b> &mdash; Unified crowd disaster prevention deployment across Sangam Triveni (Sector 4), Arail Ghat (Sector 1), Kali Ramp (Sector 2), and Akshayavat Corridor (Sector 3). Edge computing with zero cloud dependency and 99.999% Kumbh Secure-Net SLA guarantee.
       </div>
 
       <div class="card reveal">
         <h2>
-          <span>Commercial SLA Tiers &amp; Ministry Licensing</span>
-          <span class="badge badge-ONLINE">RDSO CERTIFIED V2.4</span>
+          <span>Disaster Management Operational Tiers &amp; Administration Licensing</span>
+          <span class="badge badge-ONLINE">NDMA / BPR&amp;D COMPLIANT V2.4</span>
         </h2>
         <div class="enterprise-sla-grid">
           <div class="sla-card">
             <div class="sla-tier-name">
-              <span style="font-size:1.2rem;">🥉</span> Division Tier (Category B/C)
+              <span style="font-size:1.2rem;">🥉</span> Sector Command Unit (Single Ghat / Pontoon)
             </div>
-            <div class="sla-price">₹ 4,50,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ station / year</span></div>
-            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Ideal for regional junction stations handling up to 100,000 passengers daily.</p>
+            <div class="sla-price">₹ 4,50,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ sector / mela cycle</span></div>
+            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Ideal for regional approach sectors handling up to 500,000 pilgrims daily.</p>
             <ul class="sla-feature-list">
               <li>Up to 32 Edge RTSP / CCTV Streams</li>
               <li>Local YOLOv8 Real-Time Crowd Analytics</li>
-              <li>Fruin LOS Bottleneck &amp; Chokepoint Alerts</li>
-              <li>Local SQLite Durability (100% Offline)</li>
-              <li>SMS Notifier Integration (Fast2SMS / CDAC)</li>
-              <li>99.9% Local Uptime SLA Guarantee</li>
+              <li>Bottleneck B &amp; Chokepoint Alerting</li>
+              <li>Local SQLite WAL Durability (100% Offline)</li>
+              <li>VHF Tactical Radio &amp; SMS Notifier Integration</li>
+              <li>99.9% Local Sector Uptime SLA Guarantee</li>
             </ul>
-            <button class="btn btn-sm secondary" style="width:100%;" onclick="toast('info', 'Tier Selected', 'Division Tier documentation requested.')">DOWNLOAD RFP SPECIFICATION</button>
+            <button class="btn btn-sm secondary" style="width:100%;" onclick="toast('info', 'Tier Selected', 'Sector Command Tier documentation requested.')">DOWNLOAD RFP SPECIFICATION</button>
           </div>
 
           <div class="sla-card" style="border-color:var(--neon-cyan);box-shadow:0 0 25px rgba(0,240,255,0.15);">
-            <div style="position:absolute;top:10px;right:10px;background:var(--neon-cyan);color:#000;font-size:0.58rem;font-weight:900;padding:2px 6px;border-radius:3px;">POPULAR FOR METROS</div>
+            <div style="position:absolute;top:10px;right:10px;background:var(--neon-cyan);color:#000;font-size:0.58rem;font-weight:900;padding:2px 6px;border-radius:3px;">PRIMARY PILOT</div>
             <div class="sla-tier-name">
-              <span style="font-size:1.2rem;">🥈</span> Major Terminal Tier (Category A1)
+              <span style="font-size:1.2rem;">🥈</span> Maha Kumbh Central Command Hub (All 25 Sectors)
             </div>
-            <div class="sla-price">₹ 14,00,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ terminal / year</span></div>
-            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Engineered for high-density hubs like NDLS, CSMT, Howrah with 500k+ daily footfall.</p>
+            <div class="sla-price">₹ 14,00,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ mela zone / cycle</span></div>
+            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Engineered for high-density riverfront sectors (Sangam, Arail, Phaphamau) with 10M+ peak day footfall.</p>
             <ul class="sla-feature-list">
               <li>Up to 128 NVR Channels with Quad-CCTV Matrix</li>
-              <li>Real-time Passenger Headcount &amp; Deterministic Flow Forecasting</li>
-              <li>CRIS / NTES Live Train Timetable Synchronization</li>
-              <li>RPF Tactical Dispatch &amp; Barrier Control API</li>
-              <li>Automated Multi-lingual Voice / PA Announcements</li>
-              <li>99.995% High-Availability RailWire SLA</li>
+              <li>Real-time Pilgrim Headcount &amp; Deterministic Flow Forecasting</li>
+              <li>Shahi Snan Surge Timing &amp; Pacing Integration</li>
+              <li>NDRF / UP Police Tactical Dispatch API</li>
+              <li>Automated Multi-lingual Voice / PA Safety Alerts</li>
+              <li>99.995% High-Availability Kumbh Secure-Net SLA</li>
             </ul>
-            <button class="btn btn-sm" style="width:100%;" onclick="toast('success', 'Enterprise Tier', 'Enterprise A1 Contract Proposal generated.')">GENERATE ENTERPRISE PROPOSAL</button>
+            <button class="btn btn-sm" style="width:100%;" onclick="toast('success', 'Central Command', 'Maha Kumbh Central Command Hub Proposal generated.')">GENERATE SECTOR PROPOSAL</button>
           </div>
 
           <div class="sla-card">
             <div class="sla-tier-name">
-              <span style="font-size:1.2rem;">👑</span> Zone-Wide Ministry SaaS Cloud
+              <span style="font-size:1.2rem;">👑</span> Apex NDMA / State Multi-Congregation Grid
             </div>
-            <div class="sla-price">₹ 75,00,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ railway zone / year</span></div>
-            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Full Railway Zone fleet oversight with centralized Ministry Crisis Dashboard.</p>
+            <div class="sla-price">₹ 75,00,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ disaster authority / year</span></div>
+            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Statewide mass-gathering oversight with centralized Prayagraj Integrated Command &amp; Control Center (ICCC).</p>
             <ul class="sla-feature-list">
-              <li>Unlimited Station Fleets &amp; NVR Edge Nodes</li>
-              <li>Centralized Rail Bhavan National Command Center</li>
+              <li>Unlimited Sector Fleets &amp; NVR Edge Nodes</li>
+              <li>Centralized Prayagraj ICCC Emergency War Room</li>
               <li>Cryptographically Signed Forensic Incident Dossiers</li>
-              <li>Custom RDSO / Railway Board Compliant Audits</li>
-              <li>Dedicated 24/7 On-Premises RPF Tactical Support</li>
-              <li>99.999% Fault-Tolerant Continuity SLA</li>
+              <li>Custom NDMA / BPR&amp;D Mass Gathering Compliant Audits</li>
+              <li>Dedicated 24/7 On-Premises NDRF / RAF Tactical Support</li>
+              <li>99.999% Fault-Tolerant Disaster Continuity SLA</li>
             </ul>
-            <button class="btn btn-sm secondary" style="width:100%;" onclick="toast('info', 'Ministry Proposal', 'Zone-wide contract draft initiated.')">SCHEDULE MINISTRY PRESENTATION</button>
+            <button class="btn btn-sm secondary" style="width:100%;" onclick="toast('info', 'NDMA Proposal', 'Statewide disaster grid draft initiated.')">SCHEDULE NDMA PRESENTATION</button>
           </div>
         </div>
       </div>
@@ -4057,57 +4057,57 @@
 
       <div class="cols-2">
         <div class="card">
-          <h2>Nationwide Station Fleet Matrix</h2>
+          <h2>Maha Kumbh Prayagraj Sector Fleet Matrix</h2>
           <table class="events-table">
             <thead>
               <tr>
-                <th>Station</th>
-                <th>Division / Zone</th>
-                <th>Platforms</th>
-                <th>Daily Footfall</th>
-                <th>Active Cameras</th>
+                <th>Sector Code</th>
+                <th>Zone / Description</th>
+                <th>Pontoons / Ghats</th>
+                <th>Peak Footfall</th>
+                <th>Cameras</th>
                 <th>SLA Uptime</th>
               </tr>
             </thead>
             <tbody id="enterprise-fleet-table">
               <tr>
-                <td><b style="color:var(--neon-cyan);">NDLS</b> · New Delhi Central</td>
-                <td>NR / DLI</td>
-                <td>16</td>
-                <td>500,000+</td>
+                <td><b style="color:var(--neon-cyan);">KUMBH-SEC-04</b> · Sangam Ghat</td>
+                <td>Sangam / Parade Ground (Primary Pilot)</td>
+                <td>4 Pontoons</td>
+                <td>15,000,000+</td>
                 <td>128 Active</td>
                 <td><span style="color:var(--neon-emerald);font-weight:800;">99.999%</span></td>
               </tr>
               <tr>
-                <td><b style="color:var(--neon-cyan);">CSMT</b> · Mumbai Terminus</td>
-                <td>CR / BB</td>
-                <td>18</td>
-                <td>650,000+</td>
-                <td>194 Active</td>
+                <td><b style="color:var(--neon-cyan);">KUMBH-SEC-01</b> · Arail Ghat</td>
+                <td>Arail South Concourse</td>
+                <td>2 Pontoons</td>
+                <td>6,500,000+</td>
+                <td>64 Active</td>
                 <td><span style="color:var(--neon-emerald);font-weight:800;">99.998%</span></td>
               </tr>
               <tr>
-                <td><b style="color:var(--neon-cyan);">HWH</b> · Howrah Junction</td>
-                <td>ER / HWH</td>
-                <td>23</td>
-                <td>1,000,000+</td>
-                <td>210 Active</td>
+                <td><b style="color:var(--neon-cyan);">KUMBH-SEC-02</b> · Kali Ramp</td>
+                <td>Kali Sadak &amp; Shastri Bridge Link</td>
+                <td>3 Funnels</td>
+                <td>4,000,000+</td>
+                <td>48 Active</td>
                 <td><span style="color:var(--neon-emerald);font-weight:800;">99.995%</span></td>
               </tr>
               <tr>
-                <td><b style="color:var(--neon-cyan);">MAS</b> · Chennai Central</td>
-                <td>SR / MAS</td>
-                <td>15</td>
-                <td>350,000+</td>
-                <td>112 Active</td>
+                <td><b style="color:var(--neon-cyan);">KUMBH-SEC-03</b> · Akshayavat</td>
+                <td>Akshayavat Corridor &amp; Fort Ramp</td>
+                <td>2 Ramps</td>
+                <td>3,500,000+</td>
+                <td>36 Active</td>
                 <td><span style="color:var(--neon-emerald);font-weight:800;">99.999%</span></td>
               </tr>
               <tr>
-                <td><b style="color:var(--neon-cyan);">SBC</b> · KSR Bengaluru City</td>
-                <td>SWR / SBC</td>
-                <td>10</td>
-                <td>280,000+</td>
-                <td>96 Active</td>
+                <td><b style="color:var(--neon-cyan);">RAIL-NDLS</b> · Transit Hub</td>
+                <td>Prior Railway Baseline Prototype</td>
+                <td>16 Platforms</td>
+                <td>500,000+</td>
+                <td>32 Active</td>
                 <td><span style="color:var(--neon-emerald);font-weight:800;">99.999%</span></td>
               </tr>
             </tbody>
@@ -4138,7 +4138,7 @@
             </div>
           </div>
           <div class="safety-note" style="border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.05);color:var(--neon-emerald);">
-            <b>RDSO &amp; KAKODKAR COMMITTEE COMPLIANT</b> &mdash; Guaranteed uninterrupted safety alerting during major disasters, cyclones, and complete optical fiber network blackouts.
+            <b>NDMA &amp; BPR&amp;D MASS GATHERING COMPLIANT</b> &mdash; Guaranteed uninterrupted crowd safety alerting during peak pilgrim surges, riverbank congestion, and complete cellular/WAN network blackouts.
           </div>
         </div>
       </div>
@@ -4163,15 +4163,15 @@
     <div class="modal-body">
       <div class="audit-certificate">
         <div class="audit-cert-header">
-          <div style="font-size:0.75rem;font-weight:800;color:var(--neon-cyan);letter-spacing:0.12em;font-family:var(--mono);">TRANSIT SAFETY BOARD · OFFICIAL AUDIT RECORD</div>
-          <div class="audit-cert-title">SENTINEL-AI EMERGENCY OPERATIONS DOSSIER</div>
-          <div class="audit-cert-sub">CRYPTOGRAPHIC EVIDENCE OF ZERO-PACKET-DROP SAFETY PLANE PERSISTENCE</div>
+          <div style="font-size:0.75rem;font-weight:800;color:var(--neon-cyan);letter-spacing:0.12em;font-family:var(--mono);">महाकुंभ मेला आपदा प्रबंधन प्राधिकरण · MAHA KUMBH MELA DISASTER MANAGEMENT AUTHORITY</div>
+          <div class="audit-cert-title">SENTINEL-AI CROWD SAFETY &amp; FLOW COMPLIANCE AUDIT CERTIFICATE</div>
+          <div class="audit-cert-sub">GOVERNED UNDER NDMA &amp; BPR&amp;D MASS GATHERING DISASTER PREVENTION GUIDELINES</div>
         </div>
 
         <div class="audit-grid">
           <div class="audit-cell">
-            <div class="audit-k">Station Location</div>
-            <div class="audit-v" id="aud-station">Central Railway Station</div>
+            <div class="audit-k">Sector Location</div>
+            <div class="audit-v" id="aud-station">Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)</div>
           </div>
           <div class="audit-cell">
             <div class="audit-k">Verification Hash</div>
@@ -4182,7 +4182,7 @@
             <div class="audit-v" id="aud-time">--</div>
           </div>
           <div class="audit-cell">
-            <div class="audit-k">Peak Passenger Count</div>
+            <div class="audit-k">Peak Pilgrim Count</div>
             <div class="audit-v" id="aud-peak-people">0 Persons</div>
           </div>
           <div class="audit-cell">
@@ -4191,7 +4191,7 @@
           </div>
           <div class="audit-cell">
             <div class="audit-k">Failsafe Standard</div>
-            <div class="audit-v">ISO-22301 / RAIL-SPEC</div>
+            <div class="audit-v">NDMA-MGD-2022 / BPR&amp;D SPEC</div>
           </div>
         </div>
 
@@ -4207,8 +4207,8 @@
 
         <div class="audit-seal-box">
           <div>
-            <div style="font-weight:800;color:var(--text-primary);">CHIEF TRANSIT SAFETY MARSHAL:</div>
-            <div style="font-style:italic;color:var(--text-muted);margin-top:2px;">Electronically certified &middot; Shorya Mittal (Command Unit 01)</div>
+            <div style="font-weight:800;color:var(--text-primary);">SECTOR MAGISTRATE &amp; CROWD DISASTER CONTROLLER:</div>
+            <div style="font-style:italic;color:var(--text-muted);margin-top:2px;">Electronically certified &middot; Kumbh Mela Command Unit 04 (Sangam Sector)</div>
           </div>
           <div class="audit-seal-tag">
             &#10003; CRYPTOGRAPHICALLY VERIFIED
@@ -4229,7 +4229,7 @@
     <div class="modal-header">
       <div class="modal-title">
         <span id="zmod-badge" style="width:10px;height:10px;border-radius:50%;background:var(--neon-emerald);display:inline-block;"></span>
-        <span id="zmod-title">ZONE DOSSIER: PLATFORM 1-A</span>
+        <span id="zmod-title">ZONE DOSSIER: SANGAM GHAT BOTTLENECK B</span>
       </div>
       <button class="modal-close-btn" onclick="closeZoneModal()">&times;</button>
     </div>
@@ -4237,7 +4237,7 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
         <div class="audit-cell">
           <div class="audit-k">Headcount in Sector</div>
-          <div class="audit-v" id="zmod-count">0 Passengers</div>
+          <div class="audit-v" id="zmod-count">0 Pilgrims</div>
         </div>
         <div class="audit-cell">
           <div class="audit-k">Crowd Density Load</div>
@@ -4249,21 +4249,21 @@
         </div>
         <div class="audit-cell">
           <div class="audit-k">Assigned Surveillance Feed</div>
-          <div class="audit-v" id="zmod-cctv">CAM-02 (Arrival Track)</div>
+          <div class="audit-v" id="zmod-cctv">CAM-02 (Sangam Ghat Ramp)</div>
         </div>
       </div>
 
       <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-sm);padding:0.85rem;margin-bottom:1rem;">
         <div style="font-weight:800;color:var(--neon-cyan);font-size:0.75rem;margin-bottom:0.25rem;">PRIMARY EGRESS &amp; EVACUATION VECTOR:</div>
         <div id="zmod-egress-route" style="font-size:0.75rem;color:var(--text-secondary);line-height:1.4;">
-          Redirect passenger flow south toward Exit Gate 5 and Foot Over Bridge.
+          Redirect pilgrim flow south toward East Pontoon Relief Corridor R and Egress Route E.
         </div>
       </div>
 
       <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-sm);padding:0.85rem;margin-bottom:1rem;">
-        <div style="font-weight:800;color:var(--neon-emerald);font-size:0.75rem;margin-bottom:0.25rem;">STATION MARSHALS &amp; RPF SQUADS:</div>
+        <div style="font-weight:800;color:var(--neon-emerald);font-size:0.75rem;margin-bottom:0.25rem;">KUMBH DISASTER FORCE &amp; NDRF SQUADS:</div>
         <div id="zmod-marshals" style="font-size:0.75rem;color:var(--text-secondary);line-height:1.4;">
-          Squad Alpha (2 Marshals stationed at boarding barrier 4).
+          NDRF Sector 4 Alpha Squad (4 Marshals stationed at Sangam Ghat Descent Ramp).
         </div>
       </div>
 
@@ -4319,7 +4319,7 @@
       <button class="sjd-action-btn" id="sjd-auto-btn" onclick="toggleAutoPitch()" title="Auto-Play 3-Minute Hackathon Jury Walkthrough">
         <span id="sjd-auto-icon">▶</span> <span id="sjd-auto-text">AUTO-PITCH</span>
       </button>
-      <button class="sjd-action-btn" onclick="openForensicModal()" title="View RDSO &amp; Kakodkar Committee Audit Dossier">
+      <button class="sjd-action-btn" onclick="openForensicModal()" title="View NDMA &amp; BPR&amp;D Mass Gathering Audit Dossier">
         <span>📜</span> DOSSIER
       </button>
       <button class="sjd-collapse-btn" onclick="toggleJuryDock()" title="Minimize / Expand Jury Runner">
@@ -4341,13 +4341,13 @@ let audioCtx = null;
 let _currentRenderSnap = null;
 
 // ================================================================
-// 1. AUTHENTIC 3-TONE RAILWAY CHIME & MULTI-LINGUAL VOICE DISPATCH
+// 1. AUTHENTIC 3-TONE SECTOR CHIME & MULTI-LINGUAL VOICE DISPATCH
 // ================================================================
 function playRailwayChime() {
   if (typeof _audioMuted !== 'undefined' && _audioMuted) return;
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const notes = [349.23, 440.00, 523.25]; // F4, A4, C5 (classic railway chime)
+    const notes = [349.23, 440.00, 523.25]; // F4, A4, C5 (tactical chime)
     notes.forEach((freq, idx) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -4378,7 +4378,7 @@ function broadcastPA(text, lang) {
       utter.pitch = 1.0;
       utter.lang = (lang === 'hi') ? 'hi-IN' : 'en-US';
       window.speechSynthesis.speak(utter);
-      toast('success', 'Station PA Broadcast', text);
+      toast('success', 'Kumbh Sector PA Broadcast', text);
     } catch(e) {
       toast('info', 'PA Broadcast', text);
     }
@@ -4389,14 +4389,14 @@ function triggerPABroadcast() {
   const snap = _currentRenderSnap || {};
   const hotspot = formatHotspotName(snap.hotspot || 'r0c2');
   const sev = snap.severity || 'RED';
-  /* Indian Railways trilingual broadcast: Hindi → English (Regional → Hindi → English standard) */
+  /* Maha Kumbh trilingual safety broadcast: Hindi → English */
   let hindiMsg, engMsg;
   if (sev === 'BLACK' || sev === 'RED') {
-    hindiMsg = `आपातकालीन सूचना। ${hotspot} क्षेत्र में अत्यधिक भीड़ का पता चला है। कृपया तुरंत फुट ओवर ब्रिज निकास द्वार की ओर बढ़ें। RPF दल तैनात किया जा रहा है।`;
-    engMsg = `Emergency directive. Severe crowd density detected at ${hotspot}. Inbound flow is restricted. Proceed immediately toward Foot Over Bridge Exit Gate. RPF response team being deployed.`;
+    hindiMsg = `आपातकालीन सूचना। ${hotspot} क्षेत्र में अत्यधिक भीड़ का पता चला है। कृपया तुरंत पूर्व पांटून पुल निकास द्वार की ओर बढ़ें। NDRF एवं आपदा प्रबंधन दल तैनात किया जा रहा है।`;
+    engMsg = `Emergency directive. Severe crowd density detected at ${hotspot}. Inbound flow is restricted. Proceed immediately toward East Pontoon Relief Corridor R. NDRF and disaster response teams being deployed.`;
   } else {
-    hindiMsg = `ध्यान दें यात्रीगण। ${hotspot} क्षेत्र में भीड़ बढ़ रही है। कृपया खुले गलियारों की ओर बढ़ें और स्टेशन मार्शलों के निर्देशों का पालन करें।`;
-    engMsg = `Attention passengers. Crowd density near ${hotspot} is elevated. Please proceed toward open corridors and follow station marshal directives.`;
+    hindiMsg = `ध्यान दें श्रद्धालुगण। ${hotspot} क्षेत्र में भीड़ बढ़ रही है। कृपया खुले गलियारों की ओर बढ़ें और कुंभ मेला आपदा मार्शलों के निर्देशों का पालन करें।`;
+    engMsg = `Attention pilgrims. Crowd density near ${hotspot} is elevated. Please proceed toward open corridors and follow Kumbh disaster marshal directives.`;
   }
   broadcastPA(hindiMsg, 'hi');
   setTimeout(function() { broadcastPA(engMsg, 'en'); }, 4500);
@@ -5127,20 +5127,25 @@ function updateFruinLOS(snap) {
 }
 
 // ================================================================
-// INDIAN RAILWAYS SAAS FLEET, TIMETABLE & RPF DISPATCH LOGIC
+// MAHA KUMBH PRAYAGRAJ SECTOR FLEET, SURGE TELEMETRY & DISASTER DISPATCH LOGIC
 // ================================================================
 function switchStationHub(stationCode) {
   const stationNames = {
-    NDLS: 'New Delhi Central (Northern Railway)',
-    CSMT: 'Mumbai CSMT (Central Railway)',
-    HWH: 'Howrah Junction (Eastern Railway)',
-    MAS: 'Chennai Central (Southern Railway)',
-    SBC: 'KSR Bengaluru (South Western Railway)'
+    'KUMBH-SEC-04': 'Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat & Parade Ground)',
+    'KUMBH-SEC-01': 'Prayagraj Maha Kumbh — Sector 01 (Mahavir Marg & Arail Ghat Link)',
+    'KUMBH-SEC-02': 'Prayagraj Maha Kumbh — Sector 02 (Kali Sadak & Shastri Bridge Link)',
+    'KUMBH-SEC-03': 'Prayagraj Maha Kumbh — Sector 03 (Akshayavat Corridor & Fort Ramp)',
+    'RAIL-NDLS': 'Transit Feeder Hub — NDLS (Prior Railway Baseline Prototype)',
+    NDLS: 'Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)',
+    CSMT: 'Prayagraj Maha Kumbh — Sector 01 (Arail Ghat Link)',
+    HWH: 'Prayagraj Maha Kumbh — Sector 02 (Kali Ramp Link)',
+    MAS: 'Prayagraj Maha Kumbh — Sector 03 (Akshayavat Corridor)',
+    SBC: 'Transit Feeder Hub — NDLS (Prior Railway Baseline)'
   };
   const title = stationNames[stationCode] || stationCode;
   setText('brand-station', title);
   playTacticalChime(750, 0.08);
-  toast('success', `Station Hub Switched: ${stationCode}`, `Telemetric camera streams and RPF unit rosters mapped to ${title}.`);
+  toast('success', `Sector Hub Switched: ${stationCode}`, `Telemetric surveillance feeds and NDRF/Police rosters mapped to ${title}.`);
 }
 
 async function refreshTrainTimetable() {
@@ -5163,10 +5168,10 @@ async function refreshTrainTimetable() {
           </tr>`;
         }).join('');
       }
-      toast('info', 'Train Timetable Synced', 'CRIS / NTES live scheduled arrivals and passenger surge index updated.');
+      toast('info', 'Pilgrim Surge Synced', 'Sangam arrival feeder gates and Shahi Snan surge telemetry updated.');
     }
   } catch(e) {
-    toast('warning', 'Timetable Offline', 'Operating on local cached station schedule.');
+    toast('warning', 'Telemetry Offline', 'Operating on local cached sector flow schedule.');
   }
 }
 
@@ -5176,11 +5181,11 @@ async function dispatchRpfCommand(action, sector) {
     const res = await fetch('/api/rpf/dispatch', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: action, sector: sector, notes: 'Direct tactical command from Station Operations Console' })
+      body: JSON.stringify({ action: action, sector: sector, notes: 'Direct tactical command from Kumbh Sector Operations Console' })
     });
     const data = await res.json();
     if (data && data.success) {
-      toast('success', 'RPF Dispatch Confirmed', `${data.dispatch.dispatch_id}: ${action} executed at ${sector}. RPF Squad acknowledged.`);
+      toast('success', 'Disaster Dispatch Confirmed', `${data.dispatch.dispatch_id}: ${action} executed at ${sector}. NDRF / Police Squad acknowledged.`);
       const st = document.getElementById('rpf-dispatch-status');
       if (st) {
         st.textContent = `✓ ${data.dispatch.dispatch_id} (${action}) Executed`;
@@ -5188,7 +5193,7 @@ async function dispatchRpfCommand(action, sector) {
       }
     }
   } catch(e) {
-    toast('info', 'Command Transmitted', `RPF Tactical Command (${action}) signaled via Station Audio/PA.`);
+    toast('info', 'Command Transmitted', `Tactical Disaster Command (${action}) signaled via Sector VHF / PA.`);
   }
 }
 
@@ -5230,8 +5235,8 @@ function runJudgeTourStep(step) {
     setText('topo-flow-gate1', '8.0 pax/s (Surge)');
     setText('topo-queue-h', '220 / 450 pax');
     setText('topo-load-b', '140 / 180 pax');
-    if (narrator) narrator.textContent = 'Step 2: Arrival Surge & T_limit Forecast — Train 12004 Express arrived. Operating Limit T_limit = (180 - 120)/(4.0 - 2.0) = 30.0s [envelope: 20.0s — 46.7s].';
-    toast('warning', 'Judge Tour Step 2: Inflow Surge & Limit Forecast', 'Train 12004 Express arrived. Operating Limit T_limit = 30.0s forecast active [earliest 20.0s].');
+    if (narrator) narrator.textContent = 'Step 2: Pilgrim Arrival Surge & T_limit Forecast — Shahi Snan Sangam wave arrived. Operating Limit T_limit = (180 - 120)/(4.0 - 2.0) = 30.0s [envelope: 20.0s — 46.7s].';
+    toast('warning', 'Judge Tour Step 2: Inflow Surge & Limit Forecast', 'Shahi Snan Sangam wave arrived. Operating Limit T_limit = 30.0s forecast active [earliest 20.0s].');
     fetch('/api/decision/scenario/load', { method: 'POST' }).then(() => fetch('/api/decision/evaluate', { method: 'POST' })).catch(() => {});
   } else if (step === 3) {
     _injectedDemo = 'BOTTLENECK';
@@ -5243,7 +5248,7 @@ function runJudgeTourStep(step) {
   } else if (step === 4) {
     forceConnectivity('OFFLINE');
     setCorridorSimMode('METER_H');
-    if (narrator) narrator.textContent = 'Step 4: Operator Action Lifecycle & Zero-WAN Safety — Station Master dispatches ACT-METER-001. SQLite WAL continues zero-packet-drop audit offline.';
+    if (narrator) narrator.textContent = 'Step 4: Operator Action Lifecycle & Zero-WAN Safety — Sector Magistrate authorizes ACT-METER-001. SQLite WAL continues zero-packet-drop audit offline.';
     toast('warning', 'Judge Tour Step 4: Zero-WAN Outage', 'WAN cut simulated. SAFETY PLANE ACTIVE: Detection, SQLite WAL persistence continue with zero packet drop!');
   } else if (step === 5) {
     forceConnectivity('');
@@ -5358,7 +5363,7 @@ async function openForensicModal() {
     const res = await fetch('/api/incident/report');
     const data = await res.json();
     if (data && data.success) {
-      setText('aud-station', data.station_name || 'Central Railway Station');
+      setText('aud-station', data.station_name || 'Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)');
       setText('aud-hash', data.journal_sha256_seal || 'SEC-WAL-VERIFIED');
       setText('aud-peak-people', (data.metrics_summary.peak_people_count || 12) + ' Persons');
 
@@ -5536,10 +5541,10 @@ function renderAlerts(localAlerts) {
     return;
   }
   var STEPS={
-    BLACK:['1. HALT all inbound passenger flow immediately.','2. Activate emergency PA — redirect to alternate exits.','3. Deploy ALL RPF/Security to the hotspot zone NOW.','4. Notify Station Master + escalate to Railway Control Room.','5. Request medical standby. Prepare for severe crowd congestion.','6. Do NOT open train doors toward the congested zone.'],
-    RED:  ['1. Restrict additional inflow toward the hotspot zone.','2. Open crowd barriers — divert to adjacent areas.','3. Alert RPF — position staff at zone boundaries.','4. Announce alternate routing/platforms via PA system.','5. Monitor closely — ready to escalate to BLACK protocol.'],
-    YELLOW:['1. Pre-position crowd management staff near the flagged zone.','2. Prepare inflow control (barriers, staff positioning).','3. Announce alternate platforms/exits via PA.','4. Monitor accumulation metric for escalation trigger.'],
-    GREEN:['1. Maintain normal operations.','2. Conduct routine patrols and monitoring.','3. Monitor for any unusual passenger flow changes.']
+    BLACK:['1. HALT all inbound devotee influx at Holding Area H immediately.','2. Activate emergency PA &amp; Pontoon bypass &mdash; redirect to Relief Corridor R.','3. Deploy ALL NDRF/Police units to the Sangam Ghat hotspot ramp NOW.','4. Notify Sector Magistrate + escalate to Prayagraj Kumbh ICCC War Room.','5. Request boat/medical standby at riverbank. Prepare for severe crowd pressure.','6. Regulate pontoon bridge entry to prevent downstream bottlenecking.'],
+    RED:  ['1. Restrict additional inflow toward the Sangam Ghat hotspot ramp.','2. Open crowd barriers &mdash; divert into Relief Corridor R if capacity verified.','3. Alert NDRF &amp; Police &mdash; position marshals at holding enclosure boundaries.','4. Announce alternate bathing ghats/pontoons via sector PA system.','5. Monitor closely &mdash; ready to escalate to BLACK protocol.'],
+    YELLOW:['1. Pre-position disaster response marshals near the flagged sector zone.','2. Prepare inflow control at Holding Enclosure H (barriers, staff positioning).','3. Announce alternate pontoon routes via sector PA.','4. Monitor accumulation metric for escalation trigger.'],
+    GREEN:['1. Maintain normal operations across all ghat sectors.','2. Conduct routine drone and CCTV surveillance patrols.','3. Monitor for any unusual pilgrim flow accumulation changes.']
   };
   setHtml('alerts-body',filtered.map(function(e){
     var acked=e.local_status==='LOCAL_ACKNOWLEDGED';
@@ -6192,7 +6197,7 @@ function renderPlatformLayout(snap){
     if(hc) hc.className='zone-detail-card '+(cmap[lvl]||'z-green');
     setText('plat-detail-zone',hotZC.zc.zone.name);
     setText('plat-detail-count',hotZC.zc.count);
-    var acts={GREEN:'Normal operations. Continue routine monitoring.',ORANGE:'Elevated density. Pre-position crowd staff.',RED:'DANGER: Restrict inflow immediately. Deploy RPF.',BLACK:'CRITICAL: Halt all entry. Escalate to Control Room NOW.'};
+    var acts={GREEN:'Normal operations. Continue routine monitoring.',ORANGE:'Elevated density. Pre-position disaster staff.',RED:'DANGER: Restrict inflow immediately. Deploy NDRF / Police.',BLACK:'CRITICAL: Halt all entry. Escalate to Kumbh War Room NOW.'};
     setText('plat-detail-action',acts[lvl]||'');
     var bcls={GREEN:'sev-GREEN',ORANGE:'sev-ORANGE',RED:'sev-RED',BLACK:'sev-BLACK'};
     var bmsg={GREEN:'All zones CLEAR — Normal operations',ORANGE:'Elevated density: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' people)',RED:'DANGER — '+hotZC.zc.zone.name+': Restrict inflow ('+hotZC.zc.count+' people)',BLACK:'CRITICAL EMERGENCY: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' people) — HALT ALL ENTRY'};
@@ -6889,7 +6894,7 @@ pollLoop();
 
 // ================================================================
 // HINDI / ENGLISH LANGUAGE TOGGLE (राजभाषा COMPLIANCE)
-// Indian Railways requires trilingual support per GIGW guidelines
+// Maha Kumbh Administration requires bilingual/trilingual support per GIGW guidelines
 // ================================================================
 var _currentLang = 'en';
 var _i18n = {

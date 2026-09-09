@@ -1,8 +1,9 @@
 # SENTINEL AI — Final System Architecture Specification
 
 **Authority:** `Sentinel_AI_SIH2026_Final_Strategy_Report.pdf`  
-**Target:** Smart India Hackathon 2026  
-**Implementation Standard:** Deterministic, offline-first decision support  
+**Target:** Smart India Hackathon 2026 — AICTE Student Innovation — Software — Disaster Management (`SIH26206`)  
+**Operational Deployment:** Maha Kumbh Mela Prayagraj (2025–2026) — Sector 04 (Sangam Triveni Ghat & Parade Ground)  
+**Implementation Standard:** Deterministic, offline-first decision support (Prior railway transit prototype retained as baseline evidence)  
 
 ---
 
@@ -90,7 +91,7 @@ graph TD
   - **Stage 2:** Rank surviving feasible actions by:
     1. Lowest modeled peak overload in the primary chokepoint.
     2. Lowest waiting/delay cost imposed on upstream holding zones.
-    3. Lowest operational complexity for security/RPF marshals.
+    3. Lowest operational complexity for police / NDRF disaster response marshals.
   - **Fail-Safe Fallback:** If all candidate actions violate safety constraints, the system explicitly returns: **`NO FEASIBLE OPTION FOUND`**. It **never** forces an unsafe green recommendation.
 
 ---

@@ -236,7 +236,7 @@ class ActionTransitionEvent:
     incident_id: str                 # Parent incident ID
     from_state: ActionLifecycleState
     to_state: ActionLifecycleState
-    actor_id: str                    # e.g., "StationMaster_Singh", "RPF_HeadConstable"
+    actor_id: str                    # e.g., "SectorMagistrate_Shukla", "NDRF_Commander_Yadav"
     timestamp_utc: datetime
     notes: str | None
     evidence_snapshot_id: str | None # Required for VERIFIED transition
@@ -404,8 +404,8 @@ Executes an auditable manual transition in the action lifecycle.
   "incident_id": "INC-2026-9901",
   "from_state": "PROPOSED",
   "to_state": "APPROVED",
-  "actor_id": "StationMaster_Sharma",
-  "notes": "Approved upstream metering at Gate 2 holding area"
+  "actor_id": "SectorMagistrate_Shukla",
+  "notes": "Approved upstream metering at Holding Area H (Parade Ground)"
 }
 ```
 - **Allowed Transitions:**

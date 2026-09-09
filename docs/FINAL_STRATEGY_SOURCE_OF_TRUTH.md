@@ -16,7 +16,7 @@
 > It is:
 > **an offline-first crowd-flow decision-support system that observes developing crowd conditions, forecasts configured operating-limit crossings, compares finite pre-approved interventions, rejects actions that transfer congestion into another constrained zone, records the human response, and verifies the observed outcome.**
 
-Sentinel AI must **never** be pitched as "AI predicts stampedes" or "eliminates crowd crushes." It is an operational decision-support tool for station masters, venue directors, and security coordinators managing mass gatherings (railway hubs, Kumbh sectors, stadium egress, religious festivals).
+Sentinel AI must **never** be pitched as "AI predicts stampedes" or "eliminates crowd crushes." It is an operational decision-support tool for **Sector Magistrates, Kumbh Mela Disaster Management Authorities, NDRF commanders, and police coordinators** managing mass gatherings (specifically piloted for **Maha Kumbh Mela Prayagraj Sector 04 — Sangam Triveni Ghat**, with the earlier Indian Railways transit prototype retained as prior laboratory evidence).
 
 ### Competitive Positioning in One Sentence
 > **"Most crowd systems tell you where congestion is high. Sentinel asks the next operational question: if I move this crowd somewhere else, will I create the next dangerous bottleneck?"**
@@ -48,17 +48,17 @@ During peak mass-gathering windows, people enter a corridor faster than downstre
 ## 3. Product Scope & Operational Boundaries
 
 ### Scope of the Final MVP
-- **Operational Sector:** One mass-gathering sector configured as approximately six named zones:
-  - **Holding Area (H):** Controlled staging reservoir with configured capacity.
-  - **Approach Corridor (A):** Feeder pathway into the primary chokepoint.
-  - **Bottleneck (B):** Constrained passage (e.g., foot overbridge stairs, gate funnel).
-  - **Ghat / Downstream Area (G):** Primary dispersal or sacred bathing destination.
-  - **Relief Corridor (R):** Pre-designated alternate bypass corridor.
-  - **Exit / Dispersal (E):** Final egress clearing zone.
+- **Operational Sector:** One mass-gathering sector configured as approximately six named zones (modeled on **Maha Kumbh Mela Prayagraj — Sector 04 Sangam Triveni Ghat**):
+  - **Holding Area (H):** Controlled staging reservoir with configured capacity (e.g., *Parade Ground Pilgrim Staging Enclosure*, limit 450 pax).
+  - **Approach Corridor (A):** Feeder pathway into the primary chokepoint (e.g., *Sangam Approach Marg*).
+  - **Bottleneck (B):** Constrained passage (e.g., *Sangam Ghat Descent Ramp*, limit 180 pax).
+  - **Ghat / Downstream Area (G):** Primary sacred bathing destination (*Triveni Sangam Snan Ghat*).
+  - **Relief Corridor (R):** Pre-designated alternate bypass corridor (e.g., *East Pontoon Bridge Bypass*, limit 160 pax).
+  - **Exit / Dispersal (E):** Final egress clearing zone toward mela perimeter.
 - **Intervention Comparison:** Compares a finite set of pre-approved candidate interventions:
-  1. `NO ACTION` (Baseline)
-  2. `UPSTREAM METERING` (Pacing inflow at Holding H to protect Bottleneck B)
-  3. `PERMITTED DIVERSION` (Diverting withheld crowd into Relief Corridor R)
+  1. `NO ACTION` (Baseline — Bottleneck B crosses limit in 30s, reaches 300 pax at 90s)
+  2. `UPSTREAM METERING` (Pacing inflow at Holding H to 1.5 pax/s after 8s staff delay to protect Bottleneck B; B drops to 95 pax, H absorbs +205 queue)
+  3. `PERMITTED DIVERSION` (Diverting 2.5 pax/s into Relief Corridor R — REJECTED because R breaches limit at $t=48\text{ s}$)
 - **Decision Safety Layer:** Simulates connected zones before recommending any action. Rejects any intervention that triggers secondary limit breaches, traverses closed or unverified paths, or exceeds holding capacity.
 - **Human In The Loop:** Closed-loop human operator lifecycle:
   `PROPOSED` → `APPROVED` → `DELIVERED` → `ACKNOWLEDGED` → `COMPLETED` → `VERIFIED`

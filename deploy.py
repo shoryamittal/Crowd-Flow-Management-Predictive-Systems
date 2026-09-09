@@ -149,8 +149,8 @@ font-size:.85rem;border:none;border-radius:8px;cursor:pointer;letter-spacing:.04
 .err{color:#ff4466;font-size:.78rem;margin-bottom:14px;text-align:center}
 .brand-line{text-align:center;margin-bottom:28px;font-size:.68rem;color:#8b9cb8}
 </style></head><body><form class="login-card" method="POST" action="/login">
-<h1>SENTINEL AI</h1><p>भारत सरकार · Indian Railways · Station Operations Console</p>
-<div class="brand-line">Authorized Personnel Only · अधिकृत कर्मचारी केवल</div>
+<h1>SENTINEL AI</h1><p>महाकुंभ मेला प्रशासन · Prayagraj Maha Kumbh · Crowd Disaster Prevention Console (SIH26206)</p>
+<div class="brand-line">Authorized Disaster Management Personnel Only · अधिकृत आपदा प्रबंधन कर्मचारी केवल</div>
 {% if error %}<div class="err">{{ error }}</div>{% endif %}
 <label for="username">Username / उपयोगकर्ता नाम</label><input id="username" name="username" type="text" required autofocus placeholder="Enter username (default: admin)">
 <label for="password">Password / पासवर्ड</label><input id="password" name="password" type="password" required placeholder="Enter password (default: sentinel2026)">
@@ -221,7 +221,7 @@ def _resolve_camera_source(raw: str):
         return raw
 
 
-STATION_NAME = os.environ.get("STATION_NAME", "Central Station")
+STATION_NAME = os.environ.get("STATION_NAME", "Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)")
 CAMERA_SOURCE = os.environ.get("CAMERA_SOURCE", "0")
 DB_PATH = os.environ.get("SENTINEL_DB_PATH", str(Path("data") / "sentinel.db"))
 SYNC_ADAPTER_MODE = os.environ.get("SYNC_ADAPTER_MODE", MockSyncAdapter.NORMAL)
