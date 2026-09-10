@@ -10,7 +10,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SENTINEL AI - Station Operations Console</title>
+<title>SENTINEL AI · Maha Kumbh Mela Prayagraj 2025–26 · Sector 04 Operations Command</title>
 <style>
 
   :root {
@@ -3216,7 +3216,7 @@
         <div class="jgt-badge"><span class="pulse-dot"></span> SCENARIO DEMONSTRATOR:</div>
         <div class="jgt-steps">
           <button class="jgt-btn active" id="jgt-step-1" onclick="runJudgeTourStep(1)" title="Step 1: Normal baseline operations with YOLO detection">1. Normal Operations</button>
-          <button class="jgt-btn jgt-warn" id="jgt-step-2" onclick="runJudgeTourStep(2)" title="Step 2: Train arrival surge (+45% accumulation)">2. Arrival Surge</button>
+          <button class="jgt-btn jgt-warn" id="jgt-step-2" onclick="runJudgeTourStep(2)" title="Step 2: Sangam Snan surge (+45% devotee accumulation)">2. Influx Surge</button>
           <button class="jgt-btn jgt-red" id="jgt-step-3" onclick="runJudgeTourStep(3)" title="Step 3: Chokepoint bottleneck with emergency alarm and evacuation vectors">3. Emergency Response</button>
           <button class="jgt-btn jgt-warn" id="jgt-step-4" onclick="runJudgeTourStep(4)" title="Step 4: WAN cut - Safety plane continues zero packet drop in SQLite">4. Network Outage</button>
           <button class="jgt-btn jgt-cyan" id="jgt-step-5" onclick="runJudgeTourStep(5)" title="Step 5: WAN restored - Idempotent background sync with 0 duplicates">5. Auto-Recovery</button>
@@ -3306,20 +3306,49 @@
               </div>
               <span class="cch-chev">▼</span>
             </div>
-            <div class="cam-controls-body" id="cam-controls-body-dashboard"></div>
+            <div class="cam-controls-body" id="cam-controls-body-dashboard">
+              <div class="cc-field">
+                <div class="cc-label">Camera Device</div>
+                <select id="cc-device"><option value="0" selected>Default Camera 0 (Synthetic / Edge Feed)</option></select>
+              </div>
+              <div class="cc-field">
+                <div class="cc-label">Resolution</div>
+                <select id="cc-resolution"><option value="" selected>Device default</option><option value="640x360">640 × 360 (SD)</option><option value="640x480">640 × 480 (VGA)</option><option value="1280x720">1280 × 720 (HD)</option><option value="1920x1080">1920 × 1080 (Full HD)</option></select>
+              </div>
+              <div class="cc-field">
+                <div class="cc-label">Target FPS</div>
+                <select id="cc-fps"><option value="" selected>Default</option><option value="10">10 fps (low power)</option><option value="15">15 fps</option><option value="30">30 fps (standard)</option><option value="60">60 fps (high motion)</option></select>
+              </div>
+              <div class="cc-field">
+                <div class="cc-label">Brightness</div>
+                <input type="range" id="cc-brightness" min="-50" max="50" step="1" value="0" oninput="document.getElementById('cc-brightness-v').textContent = this.value">
+                <span class="cc-val" id="cc-brightness-v">0</span>
+              </div>
+              <div class="cc-field">
+                <div class="cc-label">Contrast</div>
+                <input type="range" id="cc-contrast" min="-50" max="50" step="1" value="0" oninput="document.getElementById('cc-contrast-v').textContent = this.value">
+                <span class="cc-val" id="cc-contrast-v">0</span>
+              </div>
+              <div class="cc-actions">
+                <button class="btn btn-sm" id="cc-apply-btn" onclick="applyCameraSettings()">▶ APPLY &amp; RESTART CAPTURE</button>
+                <button class="btn btn-sm secondary" onclick="refreshCamControlsDeviceList()">⟳ DETECT CAMERAS</button>
+                <button class="btn btn-sm danger" onclick="restartCameraBackend()">⟲ RESTART CAMERA</button>
+                <span class="cam-controls-save-state" id="cc-save-state">✓ Current settings match backend</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="card">
           <h2>
-            <span>Live Station Crowd Intelligence</span>
+            <span>Live Sector &amp; Ghat Crowd Intelligence</span>
             <span class="badge" id="cs-risk-badge">--</span>
           </h2>
           
           <!-- Large Headcount Display with Real-Time Occupancy Gauge -->
           <div style="display:flex;align-items:baseline;justify-content:space-between;padding-bottom:0.85rem;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:0.85rem;flex-wrap:wrap;gap:0.75rem;">
             <div>
-              <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);font-weight:800;">Detected Passengers</div>
+              <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);font-weight:800;">Detected Pilgrims &amp; Devotees</div>
               <div style="display:flex;align-items:baseline;gap:0.4rem;margin-top:2px;">
                 <span class="cs-num" id="cs-people" style="font-size:2.4rem;font-weight:900;font-family:var(--mono);color:var(--text-pure);line-height:1;">--</span>
                 <span style="font-size:0.8rem;color:var(--text-secondary);font-weight:700;">Persons in frame</span>
@@ -3327,7 +3356,7 @@
             </div>
             
             <div style="text-align:right;">
-              <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);font-weight:800;">Station Capacity Load</div>
+              <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);font-weight:800;">Sector 04 Capacity Load</div>
               <div style="display:flex;align-items:baseline;gap:0.4rem;margin-top:2px;justify-content:flex-end;">
                 <span class="cs-num" id="cs-occ" style="font-size:1.9rem;font-weight:900;font-family:var(--mono);color:var(--neon-emerald);line-height:1;">--</span>
                 <span style="font-size:0.8rem;color:var(--text-secondary);font-weight:700;" id="cs-density-rate">Load Index</span>
@@ -3373,7 +3402,10 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 DETERMINISTIC FLOW FORECAST &amp; OPERATING LIMIT
               </span>
-              <span class="evidence-badge badge-calculated">CALCULATED</span>
+              <div style="display:flex;align-items:center;gap:0.4rem;">
+                <span id="db-pred-status" style="font-size:0.65rem;font-weight:800;font-family:var(--mono);color:var(--neon-emerald);letter-spacing:0.04em;">NOMINAL FLOW</span>
+                <span class="evidence-badge badge-calculated">CALCULATED</span>
+              </div>
             </div>
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.45rem;">
               <div>
@@ -3402,7 +3434,10 @@
           <div class="fruin-los-card">
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <div style="font-size:0.68rem;font-weight:800;text-transform:uppercase;color:var(--neon-cyan);letter-spacing:0.06em;">FRUIN LEVEL OF SERVICE (LOS) SCHEMATIC</div>
-              <span class="evidence-badge badge-scenario">SCENARIO / ILLUSTRATIVE</span>
+              <div style="display:flex;align-items:center;gap:0.4rem;">
+                <span id="fruin-los-badge" class="badge" style="font-size:0.62rem;font-weight:800;font-family:var(--mono);border:1px solid var(--neon-emerald);color:var(--neon-emerald);padding:2px 6px;border-radius:4px;">LOS A · FREE FLOW</span>
+                <span class="evidence-badge badge-scenario">SCENARIO / ILLUSTRATIVE</span>
+              </div>
             </div>
             <div class="fruin-scale">
               <div class="fruin-step active-A" id="fruin-A" title="LOS A: Free-flow (&lt;0.27 pax/m²)">A</div>
@@ -4307,15 +4342,15 @@
                   <td class="concept-name"><span class="icon">💬</span>Natural Language Understanding (NLU)</td>
                   <td>Extracts intent, entities and context from operator's query.</td>
                   <td>Operators ask questions in everyday language, not commands.</td>
-                  <td>Maps user intent (e.g. Explain Risk) and entities (e.g. Platform 4) to the right system data.</td>
-                  <td class="example">"Why is Platform 4 at high risk?"<br>→ Intent: Explain Risk,<br>&nbsp;&nbsp;Entity: Platform 4</td>
+                  <td>Maps user intent (e.g. Explain Risk) and entities (e.g. Pontoon Bridge 4) to the right system data.</td>
+                  <td class="example">"Why is Pontoon Bridge 4 at high risk?"<br>→ Intent: Explain Risk,<br>&nbsp;&nbsp;Entity: Pontoon Bridge 4</td>
                 </tr>
                 <tr>
                   <td class="concept-name"><span class="icon">📝</span>Text Summarization</td>
                   <td>Condenses large, complex data into short, meaningful summaries.</td>
                   <td>Real-time data is large and complex; operators need quick clarity.</td>
                   <td>Provides instant summaries of crowd situation, incidents and changes.</td>
-                  <td class="example">"Crowd density increased rapidly on Platform 4 in the last 5 minutes."</td>
+                  <td class="example">"Crowd density increased rapidly on Pontoon Bridge 4 in the last 5 minutes."</td>
                 </tr>
                 <tr>
                   <td class="concept-name"><span class="icon">🔍</span>Information Retrieval</td>
@@ -4428,7 +4463,7 @@
               <div class="how-step-label">Step 4 · Generate</div>
               <p style="font-size:.66rem;color:var(--muted);line-height:1.45;margin-bottom:.45rem;">NLP generates clear, concise response.</p>
               <div class="how-step-response">
-                "Passenger density increased by 32% on Platform 4 and movement speed decreased."
+                "Pilgrim density increased by 32% on Pontoon Bridge 4 and movement speed decreased."
               </div>
               <div class="how-step-op" style="margin-top:.7rem;">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -4462,25 +4497,25 @@
             </thead>
             <tbody>
               <tr>
-                <td class="query">Why is Platform 4 at high risk?</td>
-                <td class="response">High risk due to increased density and slow movement near the entrance on Platform 2 and 4. Two new hotspots detected near escalator area.</td>
+                <td class="query">Why is Pontoon Bridge 4 at high risk?</td>
+                <td class="response">High risk due to increased pilgrim density and slow movement near Sangam Ghat descent ramp and Pontoon Bridge 4. Two new hotspots detected near Triveni Marg approach.</td>
               </tr>
               <tr>
                 <td class="query">What changed in the last 5 minutes?</td>
-                <td class="response">Density increased by 28% on Platform 2 and 4. Two new hotspots detected near escalator area.</td>
+                <td class="response">Pilgrim density increased by 28% on Pontoon Bridge 4 and Sangam Approach. Two new hotspots detected near Triveni Marg.</td>
               </tr>
               <tr>
                 <td class="query">Show unresolved RED incidents.</td>
-                <td class="response">Displaying 5 unresolved RED incidents.<br>(Platform 1, 3, 4, 6, 8)</td>
+                <td class="response">Displaying 5 unresolved RED incidents.<br>(Sangam Ghat, Pontoon Bridge 3 &amp; 4, Akshayavat, Holding Enclosure 4)</td>
               </tr>
               <tr>
                 <td class="query">What do you recommend now?</td>
-                <td class="response">Deploy staff to Platform 4 and redirect incoming passengers to Platform 5. Open alternate barriers to reduce queue pressure at Entry Gate.</td>
+                <td class="response">Deploy NDRF marshals to Pontoon Bridge 4 and redirect incoming pilgrims to Pontoon Bridge 3. Open alternate egress barriers to reduce queue pressure at Sangam Ghat descent.</td>
               </tr>
               <tr>
                 <td class="query">Switch to Hindi. Show current risk.</td>
                 <td class="response" style="direction:ltr;">
-                  (हिंदी) प्लेटफ़ॉर्म 4 पर अति हाई रिस्क है। 1 प्लस अधिक होने की स्थिति में। प्रति घंटा प्रवाह 40% कम है और आवाजाही नहीं हो पा रही है।
+                  (हिंदी) पांटून ब्रिज 4 पर अति हाई रिस्क है। 1.8x अधिक घनत्व की स्थिति में। प्रति सेकंड प्रवाह 40% कम है और संगम घाट की ओर आवाजाही अवरुद्ध हो रही है।
                 </td>
               </tr>
             </tbody>
@@ -4575,7 +4610,7 @@
               <div class="nlp-live-head">
                 <h3>Interactive NLP Query</h3>
                 <div class="nlp-presets">
-                  <button class="nlp-preset-btn" onclick="nlpPreset(this)">Why is Platform 4 at high risk?</button>
+                  <button class="nlp-preset-btn" onclick="nlpPreset(this)">Why is Pontoon Bridge 4 at high risk?</button>
                   <button class="nlp-preset-btn" onclick="nlpPreset(this)">What changed in the last 5 minutes?</button>
                   <button class="nlp-preset-btn" onclick="nlpPreset(this)">Show unresolved RED incidents</button>
                   <button class="nlp-preset-btn" onclick="nlpPreset(this)">What action do you recommend now?</button>
@@ -4783,7 +4818,7 @@
         <div class="card">
           <h2>Edge Computing vs Cloud Cost Comparison</h2>
           <div style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:0.8rem;line-height:1.5;">
-            Sentinel AI processes all YOLO video inference directly on low-power local station hardware (NVR / Mini-PC), completely eliminating recurring cloud GPU egress and bandwidth costs.
+            Sentinel AI processes all YOLO video inference directly on low-power local edge sector hardware (NVR / Mini-PC), completely eliminating recurring cloud GPU egress and bandwidth costs.
           </div>
           <div class="audit-grid" style="margin-bottom:1rem;">
             <div class="audit-cell">
@@ -4795,7 +4830,7 @@
               <div class="audit-v" style="color:var(--neon-emerald);">₹ 0 (Zero Cloud GPU)</div>
             </div>
             <div class="audit-cell">
-              <div class="audit-k">Annual Savings Per Station</div>
+              <div class="audit-k">Annual Savings Per Kumbh Sector</div>
               <div class="audit-v" style="color:var(--neon-cyan);">₹ 16,80,000 (100% saved)</div>
             </div>
             <div class="audit-cell">
@@ -5071,7 +5106,7 @@ function triggerPABroadcast() {
 function broadcastZonePA() {
   if (!_inspectedZone) return;
   const zname = _inspectedZone.name || 'Current Zone';
-  const msg = `Attention passengers in ${zname}. Please keep turnstiles and stairways clear. Proceed forward toward safe egress points.`;
+  const msg = `Attention pilgrims and devotees in ${zname}. Please keep ghat stairs and pontoon bridge paths clear. Proceed forward calmly toward designated safe egress corridors.`;
   broadcastPA(msg, 'en');
   closeZoneModal();
 }
@@ -5131,10 +5166,10 @@ function handleVoiceCommand(cmd) {
     const snap = _currentRenderSnap || {};
     const count = snap.people_count != null ? snap.people_count : 0;
     const sev = snap.severity || 'GREEN';
-    broadcastPA(`SENTINEL AI status report. Threat Level ${sev}. ${count} passengers detected. Operations nominal.`, 'en');
+    broadcastPA(`SENTINEL AI status report. Threat Level ${sev}. ${count} pilgrims detected in Sector 4. Operations nominal.`, 'en');
   } else if (cmd.includes('evacuate') || cmd.includes('bottleneck') || cmd.includes('danger') || cmd.includes('red')) {
     runJudgeTourStep(3);
-    broadcastPA('Alert Level Red initiated. Evacuation routing active on station platform layout.', 'en');
+    broadcastPA('Alert Level Red initiated. Evacuation routing active on Sector 4 GIS layout.', 'en');
   } else if (cmd.includes('acknowledge') || cmd.includes('ack') || cmd.includes('close')) {
     const activeBtn = document.querySelector('#alerts-body .ack-btn[data-eid]');
     if (activeBtn) {
@@ -5686,7 +5721,7 @@ async function transitionOperatorAction(targetState) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         to_state: targetState,
-        actor_id: 'Operator_StationMaster',
+        actor_id: 'Operator_SectorMagistrate',
         notes: `Manual UI transition to ${targetState}`,
         evidence_snapshot_id: (targetState === 'VERIFIED') ? 'snap-cctv-trend-confirmed-001' : null,
       })
@@ -5828,7 +5863,7 @@ async function refreshTrainTimetable() {
             <td>${t.from_station} &rarr; ${t.to_station}</td>
             <td><b style="color:#ffffff;">${t.platform}</b></td>
             <td><span style="font-weight:800;color:${t.status.includes('ARRIVING') ? 'var(--neon-crimson)' : 'var(--neon-emerald)'};">IN ${t.eta_mins} MIN (${t.status})</span></td>
-            <td>${t.expected_pax} Passengers</td>
+            <td>${t.expected_pax} Pilgrims</td>
             <td><span class="train-badge-surge ${surgeCls}">${t.surge_level}</span></td>
             <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('OPEN_BARRIERS', '${t.platform} Egress')">Clear Gates</button></td>
           </tr>`;
@@ -5999,7 +6034,7 @@ function toggleMarshalStep(stepIdx) {
     timeBadge.style.background = 'rgba(0, 255, 136, 0.2)';
     timeBadge.style.color = 'var(--neon-emerald)';
     playTacticalChime(700, 0.06);
-    toast('success', `Protocol ${stepIdx} Executed`, `Station Master directive marked complete at +${elapsed}s.`);
+    toast('success', `Protocol ${stepIdx} Executed`, `Sector Magistrate directive marked complete at +${elapsed}s.`);
   } else {
     item.classList.remove('completed');
     timeBadge.textContent = 'STANDBY';
@@ -7451,30 +7486,30 @@ function resetTacticalDemo() {
 // HIGH-IMPACT HUMAN-READABLE TRANSIT DATA FORMATTERS
 // ================================================================
 const STATION_ZONE_NAMES = {
-  'r0c0': 'Entry Turnstiles (Gate 1)',
-  'r0c1': 'Security Screening Corridor',
-  'r0c2': 'Platform 1-A (Arrival Front Sector)',
-  'r0c3': 'Platform 1-A (Arrival Mid Sector)',
-  'r0c4': 'Platform 1-B (Coach 10-16 Area)',
-  'r0c5': 'Platform 1-B (Rear Sector & Luggage)',
-  'r1c0': 'Ticket Vending Kiosks',
-  'r1c1': 'Main Booking Counters',
-  'r1c2': 'Foot Over Bridge (North Escalator)',
-  'r1c3': 'Foot Over Bridge (Central Stairs)',
-  'r1c4': 'Passenger Waiting Lounge (East)',
-  'r1c5': 'Executive Transit Lounge',
-  'r2c0': 'Platform 2-A (Departure Track)',
-  'r2c1': 'Platform 2-A (Coach 1-8 Boarding)',
-  'r2c2': 'Platform 2-B (Central Escalator)',
-  'r2c3': 'Platform 2-B (Rear Sector)',
-  'r2c4': 'Passenger Waiting Lounge (West)',
-  'r2c5': 'Food Plaza & Concourse Transit',
-  'r3c0': 'Main Exit Corridor Gate A',
-  'r3c1': 'Exit Gate B (Metro Subway Link)',
-  'r3c2': 'Main Station Concourse',
-  'r3c3': 'Station Master Ops & Baggage Office',
-  'r3c4': 'Auto & Taxi Stand Transit Hub',
-  'r3c5': 'South Concourse Circulation Loop'
+  'r0c0': 'Parade Ground Holding Area 4',
+  'r0c1': 'Security Screening & Metal Detectors',
+  'r0c2': 'Pontoon Bridge 3 (Approach Sector)',
+  'r0c3': 'Pontoon Bridge 3 (Mid-Span Riverwalk)',
+  'r0c4': 'Pontoon Bridge 4 (Main Span)',
+  'r0c5': 'Pontoon Bridge 4 (Ghat Descent)',
+  'r1c0': 'Triveni Marg Sector Kiosks',
+  'r1c1': 'Lost & Found / Khoya Paya Camp',
+  'r1c2': 'Shastri Bridge Descent Ramp',
+  'r1c3': 'Triveni Marg Central Corridor',
+  'r1c4': 'Holding Enclosure 4 (East Staging)',
+  'r1c5': 'VIP Sangam Corridor & Media Enclosure',
+  'r2c0': 'Sangam Snan Ghat (Upper Steps)',
+  'r2c1': 'Sangam Snan Ghat (Waterfront Zone)',
+  'r2c2': 'Main Sangam Snan Ghat (Deep Waterfront)',
+  'r2c3': 'Akshayavat Corridor Entry',
+  'r2c4': 'Holding Enclosure 4 (West Staging)',
+  'r2c5': 'Bhandara & Annakshetra Area',
+  'r3c0': 'Auxiliary Egress Corridor Gate A',
+  'r3c1': 'Arail Ghat Feeder Link',
+  'r3c2': 'Central Sector 4 Concourse',
+  'r3c3': 'Sector Magistrate Ops & NDRF Camp',
+  'r3c4': 'E-Rickshaw & Pilgrim Shuttle Hub',
+  'r3c5': 'Bandhwa Embankment Ring Road'
 };
 
 function formatHotspotName(hotspot) {
@@ -7487,10 +7522,10 @@ function formatHotspotName(hotspot) {
 function formatScenarioName(scenario) {
   if (!scenario || scenario === '--') return 'Calibrating Telemetry...';
   const map = {
-    'STABLE_HIGH_OCCUPANCY': 'Steady Passenger Flow (Safe Baseline)',
-    'ACCUMULATION': 'Rapid Inflow Surge (Crowd Building Up)',
-    'MASS_REDISTRIBUTION': 'Platform Transit Surge (Crowd Shifting)',
-    'LOCAL_BOTTLENECK': 'Localized Chokepoint (Severe Density)',
+    'STABLE_HIGH_OCCUPANCY': 'Steady Pilgrim Flow (Safe Baseline)',
+    'ACCUMULATION': 'Rapid Pilgrim Inflow Surge (Ghat Building Up)',
+    'MASS_REDISTRIBUTION': 'Ghat Cross-Transit Surge (Crowd Shifting)',
+    'LOCAL_BOTTLENECK': 'Localized Bottleneck (Severe Density)',
     'UNKNOWN': 'Telemetry Standby / Camera Calibration'
   };
   return map[scenario] || String(scenario).replace(/_/g, ' ');
@@ -7509,9 +7544,9 @@ function formatOccupancyMeter(occ) {
 function formatLarBarsAdvanced(snap) {
   if (!snap) return '';
   const rows = [
-    { name: 'Hotspot Concentration', val: snap.load_anomaly, max: 1.0, unit: '%', scale: 100, desc: 'Density balance across platforms' },
+    { name: 'Hotspot Concentration', val: snap.load_anomaly, max: 1.0, unit: '%', scale: 100, desc: 'Density balance across Sector 4 ghats & pontoons' },
     { name: 'Inflow Velocity (Accumulation)', val: snap.accumulation, max: 0.5, unit: '%/min', scale: 200, desc: 'Rate of incoming vs outgoing crowd' },
-    { name: 'Cross-Sector Movement', val: snap.redistribution, max: 0.5, unit: '%', scale: 200, desc: 'Passenger movement across zones' }
+    { name: 'Cross-Sector Movement', val: snap.redistribution, max: 0.5, unit: '%', scale: 200, desc: 'Pilgrim movement across ghat corridor zones' }
   ];
 
   return rows.map(function(r) {
