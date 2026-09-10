@@ -96,10 +96,12 @@
   /* App Layout Shell */
   .shell {
     display: grid;
-    grid-template-columns: 245px 1fr;
-    grid-template-rows: minmax(56px, auto) 1fr;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: 64px 1fr;
     grid-template-areas: "side top" "side main";
-    min-height: 100vh;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
   }
   @media (max-width: 980px) {
     .shell { grid-template-columns: 72px 1fr; }
@@ -109,7 +111,7 @@
   /* Sidebar */
   .sidebar {
     grid-area: side;
-    background: rgba(8, 12, 20, 0.92);
+    background: rgba(8, 12, 20, 0.96);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border-right: 1px solid var(--border-subtle);
@@ -118,6 +120,9 @@
     padding: 1.2rem 0.85rem;
     gap: 0.35rem;
     z-index: 40;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .brand {
@@ -438,8 +443,12 @@
   /* Main View Area */
   .main {
     grid-area: main;
-    padding: 1.5rem;
+    padding: 1.5rem 1.8rem 6.5rem 1.8rem;
+    height: calc(100vh - 64px);
     overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
   }
   .view { display: none; }
   .view.active { display: block; animation: viewEntry 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -2081,10 +2090,10 @@
   .sih-jury-dock {
     position: fixed;
     bottom: 14px;
-    left: 50%;
+    left: calc(250px + (100vw - 250px) / 2);
     transform: translateX(-50%);
-    width: calc(100% - 40px);
-    max-width: 1260px;
+    width: calc(100vw - 290px);
+    max-width: 1240px;
     background: rgba(6, 11, 20, 0.95);
     backdrop-filter: blur(28px);
     -webkit-backdrop-filter: blur(28px);
@@ -2094,6 +2103,12 @@
     z-index: 999;
     padding: 0.55rem 0.95rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @media (max-width: 980px) {
+    .sih-jury-dock {
+      left: calc(72px + (100vw - 72px) / 2);
+      width: calc(100vw - 90px);
+    }
   }
   .sih-jury-dock.collapsed .sjd-steps,
   .sih-jury-dock.collapsed .sjd-narrator-strip {
@@ -2341,6 +2356,682 @@
     right: 8px;
     border-bottom: 2px solid var(--neon-cyan);
     border-right: 2px solid var(--neon-cyan);
+  }
+
+  /* ================================================================
+     TACTICAL HUD TOAST NOTIFICATIONS
+     ================================================================ */
+  .toast-stack {
+    position: fixed;
+    top: 1rem;
+    right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    z-index: 10000;
+    pointer-events: none;
+    max-width: 380px;
+    width: 100%;
+  }
+  .toast {
+    background: rgba(12, 18, 30, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-left: 3.5px solid var(--neon-cyan);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 240, 255, 0.18);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    opacity: 0;
+    transform: translateX(40px);
+    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .toast.error {
+    border-left-color: var(--neon-crimson);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(255, 34, 85, 0.25);
+  }
+  .toast.warning {
+    border-left-color: var(--neon-amber);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(255, 184, 0, 0.25);
+  }
+  .toast.success {
+    border-left-color: var(--neon-emerald);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 255, 136, 0.25);
+  }
+  .toast .t-title {
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 3px;
+    color: #ffffff;
+  }
+  .toast .t-body {
+    font-size: 0.73rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  /* ================================================================
+     CORE TACTICAL UTILITIES & TELEMETRY GRID
+     ================================================================ */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.18), rgba(0, 255, 136, 0.12));
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: var(--radius-sm);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+  }
+  .btn:hover {
+    background: linear-gradient(135deg, rgba(0, 240, 255, 0.32), rgba(0, 255, 136, 0.22));
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 22px rgba(0, 240, 255, 0.25);
+    transform: translateY(-1px);
+    color: #ffffff;
+  }
+  .btn-sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.72rem;
+  }
+  .btn.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-secondary);
+    box-shadow: none;
+  }
+  .btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+  }
+
+  .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.85rem; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.85rem; }
+  .grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.85rem; }
+  @media (max-width: 900px) {
+    .grid4, .grid5 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .stat {
+    background: rgba(8, 14, 24, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: all 0.2s ease;
+  }
+  .stat:hover {
+    border-color: rgba(0, 240, 255, 0.3);
+    background: rgba(12, 20, 34, 0.8);
+  }
+  .stat .label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  .stat .value {
+    font-size: 1.15rem;
+    font-weight: 800;
+    font-family: var(--mono);
+    color: var(--text-primary);
+  }
+
+  .explainer {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 3.5px solid var(--neon-cyan);
+    border-radius: var(--radius-sm);
+    padding: 0.9rem 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .sim-unavailable {
+    text-align: center;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* Simulation Mode & Scenario Playback Controls */
+  .sim-source-card {
+    background: var(--bg-glass-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 1.15rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .sim-source-card .name {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+  }
+  .sim-source-card .meta {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    margin-top: 3px;
+  }
+  .upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 240, 255, 0.12);
+    border: 1px dashed rgba(0, 240, 255, 0.45);
+    border-radius: var(--radius-sm);
+    color: var(--neon-cyan);
+    font-size: 0.76rem;
+    font-weight: 800;
+    font-family: var(--mono);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .upload-btn:hover {
+    background: rgba(0, 240, 255, 0.22);
+    border-color: var(--neon-cyan);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+  }
+  .upload-btn input { display: none; }
+
+  .flow-strip {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.85rem 1.25rem;
+    background: rgba(8, 14, 24, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+  }
+  .flow-strip .node {
+    padding: 4px 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+  .flow-strip .arrow {
+    color: var(--neon-cyan);
+    font-size: 0.95rem;
+  }
+
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.15rem;
+  }
+  .subhead {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin-top: 1rem;
+    margin-bottom: 0.35rem;
+  }
+  .behavior-value {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--mono);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 0.85rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .response-block {
+    background: rgba(0, 240, 255, 0.06);
+    border: 1px solid rgba(0, 240, 255, 0.25);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    margin-top: 0.4rem;
+  }
+  .response-action {
+    font-size: 0.82rem;
+    color: var(--neon-cyan);
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .cam-strip {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    margin-top: 0.6rem;
+    padding: 0.4rem 0.6rem;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 4px;
+  }
+  .cam-strip b { color: var(--neon-cyan); }
+
+  /* ================================================================
+     SYSTEM HEALTH MATRIX — SUBSYSTEM TELEMETRY
+     ================================================================ */
+  .health-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .health-card {
+    background: var(--bg-glass-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 1.15rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
+  }
+  .health-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.6), transparent);
+  }
+  .health-card:hover {
+    border-color: rgba(0, 240, 255, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 240, 255, 0.12);
+  }
+  .health-card .name {
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+  }
+  .health-card .badge {
+    align-self: flex-start;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
+  .health-card .age {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+
+  /* ================================================================
+     ALERTS & RESPONSE — SUMMARY CHIPS & INCIDENT CARDS
+     ================================================================ */
+  .alerts-summary-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    padding: 0.85rem 1.1rem;
+    background: rgba(12, 18, 30, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    backdrop-filter: blur(16px);
+  }
+  .asb-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 13px;
+    border-radius: var(--radius-sm);
+    font-size: 0.72rem;
+    font-weight: 800;
+    font-family: var(--mono);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  .asb-chip.c-red { background: rgba(255, 34, 85, 0.15); border-color: rgba(255, 34, 85, 0.4); color: var(--neon-crimson); }
+  .asb-chip.c-orange { background: rgba(255, 184, 0, 0.15); border-color: rgba(255, 184, 0, 0.4); color: var(--neon-amber); }
+  .asb-chip.c-green { background: rgba(0, 255, 136, 0.15); border-color: rgba(0, 255, 136, 0.4); color: var(--neon-emerald); }
+  .asb-chip.c-neutral { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); color: var(--text-secondary); }
+  .asb-chip:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4); }
+
+  .tab-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 0.5rem;
+  }
+  .tab-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.45rem 0.95rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .tab-btn:hover { color: #ffffff; background: rgba(255, 255, 255, 0.05); }
+  .tab-btn.active {
+    color: #ffffff;
+    background: rgba(0, 240, 255, 0.12);
+    border-color: rgba(0, 240, 255, 0.35);
+  }
+
+  .alert-card {
+    background: rgba(15, 23, 40, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 4px solid var(--neon-crimson);
+    border-radius: var(--radius-md);
+    margin-bottom: 1.2rem;
+    overflow: hidden;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  }
+  .alert-card.sev-BLACK { border-left-color: #ffffff; box-shadow: 0 0 25px rgba(255, 34, 85, 0.25); }
+  .alert-card.sev-RED { border-left-color: var(--neon-crimson); }
+  .alert-card.sev-YELLOW { border-left-color: var(--neon-amber); }
+  .alert-card.sev-GREEN { border-left-color: var(--neon-emerald); }
+  .alert-card.acknowledged { opacity: 0.65; }
+
+  .alert-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    background: rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-wrap: wrap;
+  }
+  .alert-sev-badge {
+    font-size: 0.68rem;
+    font-weight: 800;
+    font-family: var(--mono);
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255, 34, 85, 0.2);
+    color: var(--neon-crimson);
+    border: 1px solid rgba(255, 34, 85, 0.4);
+  }
+  .sev-YELLOW .alert-sev-badge { background: rgba(255, 184, 0, 0.2); color: var(--neon-amber); border-color: rgba(255, 184, 0, 0.4); }
+  .sev-GREEN .alert-sev-badge { background: rgba(0, 255, 136, 0.2); color: var(--neon-emerald); border-color: rgba(0, 255, 136, 0.4); }
+  .sev-BLACK .alert-sev-badge { background: #ffffff; color: #000000; border-color: #ffffff; }
+
+  .alert-title-text {
+    font-weight: 800;
+    font-size: 0.88rem;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+  }
+  .src-tag {
+    font-size: 0.62rem;
+    font-family: var(--mono);
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-secondary);
+  }
+  .alert-time {
+    margin-left: auto;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+
+  .alert-body {
+    padding: 1.1rem 1.25rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+  }
+  .alert-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .af-label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+  .af-val {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--mono);
+  }
+  .alert-body-full {
+    grid-column: 1 / -1;
+    margin-top: 0.35rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .strategy-box {
+    grid-column: 1 / -1;
+    background: rgba(6, 11, 20, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1.1rem;
+    margin-top: 0.5rem;
+  }
+  .strategy-box .s-title {
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--neon-cyan);
+    margin-bottom: 0.45rem;
+    letter-spacing: 0.04em;
+  }
+  .strategy-box .s-steps {
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .alert-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+  .ack-btn {
+    background: rgba(0, 255, 136, 0.12);
+    border: 1px solid rgba(0, 255, 136, 0.4);
+    color: var(--neon-emerald);
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius-sm);
+    font-weight: 800;
+    font-size: 0.72rem;
+    cursor: pointer;
+    font-family: var(--mono);
+    transition: all 0.2s;
+  }
+  .ack-btn:hover {
+    background: rgba(0, 255, 136, 0.25);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    transform: translateY(-1px);
+  }
+
+  /* ================================================================
+     NLP INTELLIGENCE PLAYGROUND & INFOGRAPHIC
+     ================================================================ */
+  .nlp-hero {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(0, 240, 255, 0.1));
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  }
+  .nlp-hero-title {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.35rem;
+  }
+  .nlp-hero-title span {
+    background: linear-gradient(90deg, #a855f7, #00f0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .nlp-hero-sub {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .nlp-tab-row {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .nlp-tab-btn {
+    padding: 0.45rem 0.95rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    font-size: 0.74rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .nlp-tab-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+  .nlp-tab-btn.active {
+    color: #ffffff;
+    background: rgba(168, 85, 247, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+  }
+
+  .nlp-card {
+    background: var(--bg-glass-card);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    padding: 1.4rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+  .nlp-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 900px) {
+    .nlp-grid-2 { grid-template-columns: 1fr; }
+  }
+
+  .nlp-query-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .nlp-query-input {
+    flex: 1;
+    background: rgba(8, 14, 24, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1.1rem;
+    color: #ffffff;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .nlp-query-input:focus {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+  }
+  .nlp-ask-btn {
+    padding: 0 1.5rem;
+    background: linear-gradient(135deg, var(--neon-cyan), #a855f7);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: #04070c;
+    font-weight: 900;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .nlp-ask-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 240, 255, 0.35);
+  }
+
+  .nlp-presets {
+    display: flex;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .nlp-preset-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nlp-preset-btn:hover {
+    background: rgba(0, 240, 255, 0.12);
+    border-color: rgba(0, 240, 255, 0.35);
+    color: #ffffff;
   }
 
   /* ================================================================
@@ -2903,8 +3594,6 @@
           </div>
         </div>
       </div>
-        </div>
-      </div>
 
       <!-- LIVE PILGRIM INFLUX & GHAT SURGE TELEMETRY (KUMBH MELA SECTOR 4) -->
       <div class="train-timetable-card">
@@ -3179,116 +3868,93 @@
                 <!-- Terminal Floor Slab -->
                 <rect width="760" height="410" fill="#030710"/>
                 
-                <!-- Track 1 Area (Top) -->
-                <rect x="0" y="0" width="760" height="38" fill="#050a12"/>
-                <!-- Ties -->
-                <g stroke="#1e293b" stroke-width="2.5" opacity="0.6">
-                  <line x1="10" y1="4" x2="10" y2="34"/><line x1="28" y1="4" x2="28" y2="34"/><line x1="46" y1="4" x2="46" y2="34"/><line x1="64" y1="4" x2="64" y2="34"/><line x1="82" y1="4" x2="82" y2="34"/><line x1="100" y1="4" x2="100" y2="34"/><line x1="118" y1="4" x2="118" y2="34"/><line x1="136" y1="4" x2="136" y2="34"/><line x1="154" y1="4" x2="154" y2="34"/><line x1="172" y1="4" x2="172" y2="34"/><line x1="190" y1="4" x2="190" y2="34"/><line x1="208" y1="4" x2="208" y2="34"/><line x1="226" y1="4" x2="226" y2="34"/><line x1="244" y1="4" x2="244" y2="34"/><line x1="262" y1="4" x2="262" y2="34"/><line x1="280" y1="4" x2="280" y2="34"/><line x1="298" y1="4" x2="298" y2="34"/><line x1="316" y1="4" x2="316" y2="34"/><line x1="334" y1="4" x2="334" y2="34"/><line x1="352" y1="4" x2="352" y2="34"/><line x1="370" y1="4" x2="370" y2="34"/><line x1="388" y1="4" x2="388" y2="34"/><line x1="406" y1="4" x2="406" y2="34"/><line x1="424" y1="4" x2="424" y2="34"/><line x1="442" y1="4" x2="442" y2="34"/><line x1="460" y1="4" x2="460" y2="34"/><line x1="478" y1="4" x2="478" y2="34"/><line x1="496" y1="4" x2="496" y2="34"/><line x1="514" y1="4" x2="514" y2="34"/><line x1="532" y1="4" x2="532" y2="34"/><line x1="550" y1="4" x2="550" y2="34"/><line x1="568" y1="4" x2="568" y2="34"/><line x1="586" y1="4" x2="586" y2="34"/><line x1="604" y1="4" x2="604" y2="34"/><line x1="622" y1="4" x2="622" y2="34"/><line x1="640" y1="4" x2="640" y2="34"/><line x1="658" y1="4" x2="658" y2="34"/><line x1="676" y1="4" x2="676" y2="34"/><line x1="694" y1="4" x2="694" y2="34"/><line x1="712" y1="4" x2="712" y2="34"/><line x1="730" y1="4" x2="730" y2="34"/><line x1="748" y1="4" x2="748" y2="34"/>
-                </g>
-                <!-- Steel Rails -->
-                <line x1="0" y1="12" x2="760" y2="12" stroke="url(#railGrad)" stroke-width="3.5"/>
-                <line x1="0" y1="26" x2="760" y2="26" stroke="url(#railGrad)" stroke-width="3.5"/>
-                
-                <!-- Docked Express Train on Track 1 -->
-                <rect x="180" y="6" width="380" height="26" rx="5" fill="url(#trainGrad)" stroke="#38bdf8" stroke-width="1.2"/>
-                <text x="370" y="23" text-anchor="middle" fill="#ffffff" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="800" letter-spacing="2">TRAIN 12004 EXPRESS (DOCKED - PLATFORM 1)</text>
-                <!-- Windows -->
-                <g fill="#bae6fd" opacity="0.85">
-                  <rect x="195" y="12" width="16" height="14" rx="2"/>
-                  <rect x="220" y="12" width="22" height="14" rx="2"/>
-                  <rect x="250" y="12" width="22" height="14" rx="2"/>
-                  <rect x="280" y="12" width="22" height="14" rx="2"/>
-                  <rect x="310" y="12" width="22" height="14" rx="2"/>
-                  <rect x="430" y="12" width="22" height="14" rx="2"/>
-                  <rect x="460" y="12" width="22" height="14" rx="2"/>
-                  <rect x="490" y="12" width="22" height="14" rx="2"/>
-                  <rect x="520" y="12" width="18" height="14" rx="2"/>
-                </g>
+                <!-- Sacred Sangam Riverfront (Top) -->
+                <rect x="0" y="0" width="760" height="38" fill="url(#trainGrad)"/>
+                <path d="M0 16 Q 38 8, 76 16 T 152 16 T 228 16 T 304 16 T 380 16 T 456 16 T 532 16 T 608 16 T 684 16 T 760 16" fill="none" stroke="#bae6fd" stroke-width="1.8" opacity="0.8"/>
+                <path d="M0 24 Q 38 32, 76 24 T 152 24 T 228 24 T 304 24 T 380 24 T 456 24 T 532 24 T 608 24 T 684 24 T 760 24" fill="none" stroke="#7dd3fc" stroke-width="1.2" opacity="0.6"/>
+                <rect x="130" y="6" width="500" height="26" rx="5" fill="rgba(8, 20, 38, 0.88)" stroke="#38bdf8" stroke-width="1.2"/>
+                <text x="380" y="23" text-anchor="middle" fill="#38bdf8" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="800" letter-spacing="1.5">SANGAM SNAN GHAT — HOLY CONFLUENCE (GANGA • YAMUNA • SARASWATI)</text>
 
-                <!-- Track 1 Yellow Hazard Safety Strip -->
+                <!-- Riverfront Safety Barricade & Jal Police Line -->
                 <rect x="0" y="38" width="760" height="6" fill="url(#hazardPattern)"/>
 
-                <!-- Track 2 Area (Bottom) -->
+                <!-- Sector 4 Egress / Parade Ground Transit Corridor (Bottom) -->
                 <rect x="0" y="372" width="760" height="38" fill="#050a12"/>
-                <g stroke="#1e293b" stroke-width="2.5" opacity="0.6">
-                  <line x1="10" y1="376" x2="10" y2="406"/><line x1="28" y1="376" x2="28" y2="406"/><line x1="46" y1="376" x2="46" y2="406"/><line x1="64" y1="376" x2="64" y2="406"/><line x1="82" y1="376" x2="82" y2="406"/><line x1="100" y1="376" x2="100" y2="406"/><line x1="118" y1="376" x2="118" y2="406"/><line x1="136" y1="376" x2="136" y2="406"/><line x1="154" y1="376" x2="154" y2="406"/><line x1="172" y1="376" x2="172" y2="406"/><line x1="190" y1="376" x2="190" y2="406"/><line x1="208" y1="376" x2="208" y2="406"/><line x1="226" y1="376" x2="226" y2="406"/><line x1="244" y1="376" x2="244" y2="406"/><line x1="262" y1="376" x2="262" y2="406"/><line x1="280" y1="376" x2="280" y2="406"/><line x1="298" y1="376" x2="298" y2="406"/><line x1="316" y1="376" x2="316" y2="406"/><line x1="334" y1="376" x2="334" y2="406"/><line x1="352" y1="376" x2="352" y2="406"/><line x1="370" y1="376" x2="370" y2="406"/><line x1="388" y1="376" x2="388" y2="406"/><line x1="406" y1="376" x2="406" y2="406"/><line x1="424" y1="376" x2="424" y2="406"/><line x1="442" y1="376" x2="442" y2="406"/><line x1="460" y1="376" x2="460" y2="406"/><line x1="478" y1="376" x2="478" y2="406"/><line x1="496" y1="376" x2="496" y2="406"/><line x1="514" y1="376" x2="514" y2="406"/><line x1="532" y1="376" x2="532" y2="406"/><line x1="550" y1="376" x2="550" y2="406"/><line x1="568" y1="376" x2="568" y2="406"/><line x1="586" y1="376" x2="586" y2="406"/><line x1="604" y1="376" x2="604" y2="406"/><line x1="622" y1="376" x2="622" y2="406"/><line x1="640" y1="376" x2="640" y2="406"/><line x1="658" y1="376" x2="658" y2="406"/><line x1="676" y1="376" x2="676" y2="406"/><line x1="694" y1="376" x2="694" y2="406"/><line x1="712" y1="376" x2="712" y2="406"/><line x1="730" y1="376" x2="730" y2="406"/><line x1="748" y1="376" x2="748" y2="406"/>
-                </g>
-                <line x1="0" y1="384" x2="760" y2="384" stroke="url(#railGrad)" stroke-width="3.5"/>
-                <line x1="0" y1="398" x2="760" y2="398" stroke="url(#railGrad)" stroke-width="3.5"/>
-                <text x="380" y="395" text-anchor="middle" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="3">TRACK 2 (DEPARTURE CORRIDOR - CLEAR)</text>
-                <!-- Track 2 Yellow Hazard Safety Strip -->
+                <line x1="0" y1="384" x2="760" y2="384" stroke="rgba(0, 240, 255, 0.35)" stroke-width="2" stroke-dasharray="12 6"/>
+                <text x="380" y="396" text-anchor="middle" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="2.5">SECTOR 4 RETURN ARTERY • PARADE GROUND TRANSIT • MEDICAL CAMP 4</text>
+                <!-- Corridor Safety Strip -->
                 <rect x="0" y="366" width="760" height="6" fill="url(#hazardPattern)"/>
 
-                <!-- ZONE 1: ENTRY GATE & TURNSTILES -->
+                <!-- ZONE 1: HOLDING AREA 4 -->
                 <rect id="svgz-entry" x="14" y="52" width="130" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('entry')"/>
                 <circle cx="79" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('entry')"/>
                 <text x="79" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">1</text>
-                <text x="79" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">ENTRY GATE</text>
+                <text x="79" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">HOLDING AREA 4</text>
                 <text id="svgz-entry-n" x="79" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="79" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
+                <text x="79" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
                 <text id="svgz-entry-s" x="79" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 2: PLATFORM A LEFT SECTION -->
+                <!-- ZONE 2: TRIVENI MARG INFLOW CORRIDOR -->
                 <rect id="svgz-pal" x="156" y="52" width="145" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('pal')"/>
                 <circle cx="228" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('pal')"/>
                 <text x="228" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">2</text>
-                <text x="228" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PLATFORM 1-A</text>
+                <text x="228" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">TRIVENI MARG</text>
                 <text id="svgz-pal-n" x="228" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="228" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
+                <text x="228" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
                 <text id="svgz-pal-s" x="228" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 3: PLATFORM A RIGHT SECTION -->
+                <!-- ZONE 3: SANGAM APPROACH -->
                 <rect id="svgz-par" x="313" y="52" width="160" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('par')"/>
                 <circle cx="393" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('par')"/>
                 <text x="393" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">3</text>
-                <text x="393" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PLATFORM 1-B</text>
+                <text x="393" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">SANGAM APPROACH</text>
                 <text id="svgz-par-n" x="393" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="393" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
+                <text x="393" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
                 <text id="svgz-par-s" x="393" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 4: TICKET VENDING & COUNTER -->
+                <!-- ZONE 4: PONTOON BRIDGE 3 (INBOUND) -->
                 <rect id="svgz-ticket" x="485" y="52" width="125" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('ticket')"/>
                 <circle cx="547" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('ticket')"/>
                 <text x="547" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">4</text>
-                <text x="547" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">TICKET HUB</text>
+                <text x="547" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PONTOON BR-3</text>
                 <text id="svgz-ticket-n" x="547" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="547" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
+                <text x="547" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
                 <text id="svgz-ticket-s" x="547" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 5: FOOT OVER BRIDGE & EXIT -->
+                <!-- ZONE 5: PONTOON BRIDGE 4 (OUTBOUND) -->
                 <rect id="svgz-exit" x="622" y="52" width="125" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('exit')"/>
                 <circle cx="684" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('exit')"/>
                 <text x="684" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">5</text>
-                <text x="684" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">FOB &amp; EXIT</text>
+                <text x="684" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PONTOON BR-4</text>
                 <text id="svgz-exit-n" x="684" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="684" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
+                <text x="684" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
                 <text id="svgz-exit-s" x="684" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 6: PASSENGER WAITING LOUNGE -->
+                <!-- ZONE 6: AKSHAYAVAT CIRCULAR ROUTE -->
                 <rect id="svgz-wait" x="14" y="208" width="220" height="148" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('wait')"/>
                 <circle cx="124" cy="242" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('wait')"/>
                 <text x="124" y="246" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">6</text>
-                <text x="124" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">WAITING LOUNGE</text>
+                <text x="124" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">AKSHAYAVAT</text>
                 <text id="svgz-wait-n" x="124" y="302" text-anchor="middle" fill="#00ff88" font-size="36" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="124" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
+                <text x="124" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
                 <text id="svgz-wait-s" x="124" y="338" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 7: PLATFORM B CENTRAL -->
+                <!-- ZONE 7: MAIN SANGAM SNAN GHAT -->
                 <rect id="svgz-pbc" x="246" y="208" width="235" height="148" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('pbc')"/>
                 <circle cx="363" cy="242" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('pbc')"/>
                 <text x="363" y="246" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">7</text>
-                <text x="363" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PLATFORM 2-A</text>
+                <text x="363" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">MAIN SNAN GHAT</text>
                 <text id="svgz-pbc-n" x="363" y="302" text-anchor="middle" fill="#00ff88" font-size="36" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="363" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
+                <text x="363" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
                 <text id="svgz-pbc-s" x="363" y="338" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 8: MAIN CONCOURSE / OVERFLOW -->
+                <!-- ZONE 8: PARADE GROUND TRANSIT & MEDICAL POST 4 -->
                 <rect id="svgz-conc" x="493" y="208" width="254" height="148" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('conc')"/>
                 <circle cx="620" cy="242" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('conc')"/>
                 <text x="620" y="246" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">8</text>
-                <text x="620" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">MAIN CONCOURSE</text>
+                <text x="620" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PARADE GROUND</text>
                 <text id="svgz-conc-n" x="620" y="302" text-anchor="middle" fill="#00ff88" font-size="36" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="620" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
+                <text x="620" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
                 <text id="svgz-conc-s" x="620" y="338" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
               </svg>
             </div>
@@ -3306,11 +3972,11 @@
               <div class="zd-lbl">Most Congested Zone</div>
               <div class="zd-name" id="plat-detail-zone">All Clear</div>
               <div class="zd-count" id="plat-detail-count">0</div>
-              <div class="zd-lbl">people detected</div>
+              <div class="zd-lbl">pilgrims detected</div>
               <div class="zd-action" id="plat-detail-action">Normal operations. No intervention needed.</div>
             </div>
             <div class="zone-detail-card" id="plat-risk-card" style="border-color:var(--border);">
-              <div class="zd-lbl">Platform Risk Level</div>
+              <div class="zd-lbl">Sector 4 Risk Level</div>
               <div class="zd-name" id="plat-overall-risk">GREEN</div>
               <div class="zd-lbl" style="margin-top:.4rem;">Current Scenario</div>
               <div class="zd-name" style="font-size:.78rem;margin-top:.2rem;" id="plat-scenario">STABLE</div>
@@ -4857,21 +5523,21 @@ function drawEvacuationVectors(w, h) {
 // ================================================================
 let _inspectedZone = null;
 const ZONE_METRICS_DATA = {
-  entry: { name: 'Zone 1: Entry Gate Turnstiles', count: 24, density: '1.4 pax/m²', clearance: '01m 20s', cctv: 'CAM-04 (Turnstiles)', egress: 'Direct inbound passengers toward Concourse Gate 8.', marshals: 'Squad Alpha (2 Marshals stationed at Turnstile 2).' },
-  pal: { name: 'Zone 2: Platform 1-A (Front)', count: 48, density: '2.8 pax/m²', clearance: '03m 15s', cctv: 'CAM-02 (Platform 1 Track)', egress: 'Primary diversion vector: Exit via North Foot Overbridge stairs.', marshals: 'Squad Bravo (4 Marshals actively cordoning sector).' },
-  par: { name: 'Zone 3: Platform 1-B (Mid Track)', count: 32, density: '1.9 pax/m²', clearance: '02m 10s', cctv: 'CAM-02 (Platform 1 Track)', egress: 'Direct passengers along coach corridor 12 toward South Ramp.', marshals: 'Squad Charlie (2 Marshals on platform patrol).' },
-  ticket: { name: 'Zone 4: Ticket Hub & Vending', count: 18, density: '1.1 pax/m²', clearance: '01m 00s', cctv: 'CAM-01 (Concourse Hub)', egress: 'Maintain single-file queuing at automated ticket kiosks.', marshals: 'Station Commercial Inspector on duty.' },
-  exit: { name: 'Zone 5: Foot Over Bridge & Exit', count: 12, density: '0.8 pax/m²', clearance: '00m 45s', cctv: 'CAM-03 (North FOB)', egress: 'Clear egress channel. Invert Escalator 2 to outbound speed.', marshals: 'Squad Delta (2 Marshals clearing top landing).' },
-  wait: { name: 'Zone 6: Passenger Waiting Lounge', count: 15, density: '0.6 pax/m²', clearance: '01m 30s', cctv: 'CAM-01 (Concourse Hub)', egress: 'Keep exit aisles unobstructed. Announce train delays promptly.', marshals: 'Lounge Supervisor stationed.' },
-  pbc: { name: 'Zone 7: Platform 2-A (Departure)', count: 22, density: '1.2 pax/m²', clearance: '01m 40s', cctv: 'CAM-02 (Track Monitor)', egress: 'Boarding corridor for Track 2 departure train.', marshals: 'Squad Echo (2 Marshals on Track 2 boundary).' },
-  conc: { name: 'Zone 8: Main Station Concourse', count: 28, density: '0.9 pax/m²', clearance: '00m 50s', cctv: 'CAM-01 (Concourse Hub)', egress: 'Wide dispersal zone. Direct exiting passengers to North & South plazas.', marshals: 'Squad Foxtrot (3 Marshals managing transit loop).' }
+  entry: { name: 'Zone 1: Sector 4 Holding Enclosure', count: 24, density: '1.4 pax/m²', clearance: '01m 20s', cctv: 'CAM-04 (Holding Gate 4)', egress: 'Meter inflow toward Triveni Marg approach corridor.', marshals: 'Squad Alpha (4 UP Police & SDRF Marshals managing buffer gate).' },
+  pal: { name: 'Zone 2: Triveni Marg (West Inflow Corridor)', count: 48, density: '2.8 pax/m²', clearance: '03m 15s', cctv: 'CAM-02 (Triveni Flow Stream)', egress: 'Primary diversion vector: Reroute excess influx to Holding Area 2.', marshals: 'Squad Bravo (4 Marshals actively cordoning approach).' },
+  par: { name: 'Zone 3: Sangam Approach (Confluence Feeder)', count: 32, density: '1.9 pax/m²', clearance: '02m 10s', cctv: 'CAM-01 (Sangam Ghat Ramp)', egress: 'Pace pilgrims along barricaded lanes toward bathing steps.', marshals: 'Squad Charlie (6 NDRF personnel guiding bathing devotees).' },
+  ticket: { name: 'Zone 4: Pontoon Bridge 3 (Inbound Crossing)', count: 18, density: '1.1 pax/m²', clearance: '01m 00s', cctv: 'CAM-03 (Pontoon 3 Span)', egress: 'Regulate one-way river crossing flow. Maintain 2m spacing.', marshals: 'Jal Police & PWD floating bridge inspection squad.' },
+  exit: { name: 'Zone 5: Pontoon Bridge 4 (Outbound Return Vector)', count: 12, density: '0.8 pax/m²', clearance: '00m 45s', cctv: 'CAM-03 (Pontoon 4 Span)', egress: 'Clear egress vector. Divert return batches toward Parade Ground.', marshals: 'Squad Delta (4 Marshals keeping egress artery clear).' },
+  wait: { name: 'Zone 6: Akshayavat Parikrama (Circular Path)', count: 15, density: '0.6 pax/m²', clearance: '01m 30s', cctv: 'CAM-04 (Akshayavat Outer)', egress: 'Continuous clockwise parikrama. Prevent stalling at temple gate.', marshals: 'Temple corridor marshals pacing pilgrim transit.' },
+  pbc: { name: 'Zone 7: Main Sangam Snan Ghat (Sacred Confluence)', count: 22, density: '1.2 pax/m²', clearance: '01m 40s', cctv: 'CAM-01 (Sangam Confluence)', egress: 'Bathing zone monitoring. Immediate diversion if water line surges.', marshals: 'NDRF Quick Response Team & Deep Water Divers with motor crafts.' },
+  conc: { name: 'Zone 8: Parade Ground Transit & Medical Post 4', count: 28, density: '0.9 pax/m²', clearance: '00m 50s', cctv: 'CAM-02 (Parade Staging)', egress: 'Wide dispersal zone. Direct exiting pilgrims to transit shuttles & camp.', marshals: 'District Magistrate Coordination post & Medical triage team.' }
 };
 
 function inspectZoneModal(zoneId) {
   const data = ZONE_METRICS_DATA[zoneId] || ZONE_METRICS_DATA.pal;
   _inspectedZone = data;
   setText('zmod-title', data.name);
-  setText('zmod-count', data.count + ' Passengers');
+  setText('zmod-count', data.count + ' Pilgrims');
   setText('zmod-density', data.density);
   setText('zmod-clearance', data.clearance);
   setText('zmod-cctv', data.cctv);
@@ -5478,7 +6144,7 @@ function larBarsHtml(snap) {
 // View / navigation switching (client-side only -- no page reload, one
 // continuous /status poll drives every view whether visible or not).
 // ------------------------------------------------------------------
-const VIEW_NAMES = { dashboard: 'Dashboard', monitoring: 'Live Monitoring', map: 'Platform Layout', simulation: 'Simulation', alerts: 'Alerts & Response', health: 'System Health', nlp: 'NLP Intelligence', enterprise: 'Enterprise SLA & Fleet' };
+const VIEW_NAMES = { dashboard: 'Dashboard', monitoring: 'Live Monitoring', map: 'Sector Layout', simulation: 'Simulation', alerts: 'Alerts & Response', health: 'System Health', nlp: 'NLP Intelligence', enterprise: 'Enterprise SLA & Multi-Sector Fleet' };
 let activeView = 'dashboard';
 
 function moveCameraFeed(view) {
@@ -5502,6 +6168,9 @@ function switchView(view) {
   if (target) target.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(function (el) { el.classList.toggle('active', el.dataset.view === view); });
   setText('topbar-view-name', VIEW_NAMES[view] || view);
+  const mainEl = document.querySelector('.main');
+  if (mainEl) mainEl.scrollTop = 0;
+  window.scrollTo(0, 0);
   if (view === 'dashboard' || view === 'monitoring' || view === 'simulation') {
     moveCameraFeed(view);
   }
@@ -5602,6 +6271,7 @@ function setOperatingMode(mode) {
       if (!data.success) {
         setText('simulation-upload-status', mode === 'SIMULATION' ? ('Simulation unavailable: ' + (data.error || 'unknown error')) : '');
       } else {
+        updateUI();
         setTimeout(reloadCameraFeed, 300);
       }
     })
@@ -6143,14 +6813,14 @@ function renderSpatialMap(snap) {
 
 
 var PLATFORM_ZONES=[
-  {id:'entry', svgId:'svgz-entry', name:'Entry Gate',        rows:[0],   cols:[0,1]},
-  {id:'pal',   svgId:'svgz-pal',   name:'Platform A Left',   rows:[0],   cols:[2]  },
-  {id:'par',   svgId:'svgz-par',   name:'Platform A Right',  rows:[0],   cols:[3]  },
-  {id:'ticket',svgId:'svgz-ticket',name:'Ticket Counter',    rows:[0],   cols:[4]  },
-  {id:'exit',  svgId:'svgz-exit',  name:'Exit / FOB',        rows:[0],   cols:[5]  },
-  {id:'wait',  svgId:'svgz-wait',  name:'Waiting Area',      rows:[1,2], cols:[0,1]},
-  {id:'pbc',   svgId:'svgz-pbc',   name:'Platform B Central',rows:[1,2], cols:[2,3]},
-  {id:'conc',  svgId:'svgz-conc',  name:'Concourse Far End', rows:[1,2], cols:[4,5]}
+  {id:'entry', svgId:'svgz-entry', name:'Holding Area 4',        rows:[0],   cols:[0,1]},
+  {id:'pal',   svgId:'svgz-pal',   name:'Triveni Marg Corridor', rows:[0],   cols:[2]  },
+  {id:'par',   svgId:'svgz-par',   name:'Sangam Ghat Approach',  rows:[0],   cols:[3]  },
+  {id:'ticket',svgId:'svgz-ticket',name:'Pontoon Bridge 3',      rows:[0],   cols:[4]  },
+  {id:'exit',  svgId:'svgz-exit',  name:'Pontoon Bridge 4',      rows:[0],   cols:[5]  },
+  {id:'wait',  svgId:'svgz-wait',  name:'Akshayavat Circular',   rows:[1,2], cols:[0,1]},
+  {id:'pbc',   svgId:'svgz-pbc',   name:'Main Sangam Snan Ghat', rows:[1,2], cols:[2,3]},
+  {id:'conc',  svgId:'svgz-conc',  name:'Parade Ground Staging', rows:[1,2], cols:[4,5]}
 ];
 function platCol(level){
   if(level==='BLACK') return {fill:'rgba(255, 34, 85, 0.35)', stroke:'#ffffff', text:'#ffffff', lbl:'#ff88aa'};
@@ -6169,7 +6839,7 @@ function getPlatLevel(count,maxCount){
 function renderPlatformLayout(snap){
   var grid=snap&&snap.occupancy_grid;
   var banner=document.getElementById('plat-hotspot-banner');
-  if(!grid||!grid.length){if(banner){banner.textContent='Waiting for AI data...';banner.className='plat-hotspot-banner sev-GREEN';}return;}
+  if(!grid||!grid.length){if(banner){banner.textContent='Waiting for AI telemetry...';banner.className='plat-hotspot-banner sev-GREEN';}return;}
   var rows=grid.length,cols=(grid[0]?grid[0].length:0);
   var globalMax=0;
   var zoneCounts=PLATFORM_ZONES.map(function(zone){
@@ -6197,10 +6867,10 @@ function renderPlatformLayout(snap){
     if(hc) hc.className='zone-detail-card '+(cmap[lvl]||'z-green');
     setText('plat-detail-zone',hotZC.zc.zone.name);
     setText('plat-detail-count',hotZC.zc.count);
-    var acts={GREEN:'Normal operations. Continue routine monitoring.',ORANGE:'Elevated density. Pre-position disaster staff.',RED:'DANGER: Restrict inflow immediately. Deploy NDRF / Police.',BLACK:'CRITICAL: Halt all entry. Escalate to Kumbh War Room NOW.'};
+    var acts={GREEN:'Nominal flow. Continue routine Sector 4 monitoring.',ORANGE:'Elevated density. Pre-position disaster response marshals.',RED:'DANGER: Restrict inflow immediately. Deploy NDRF / Jal Police.',BLACK:'CRITICAL: Halt all ghat entry. Escalate to Kumbh War Room NOW.'};
     setText('plat-detail-action',acts[lvl]||'');
     var bcls={GREEN:'sev-GREEN',ORANGE:'sev-ORANGE',RED:'sev-RED',BLACK:'sev-BLACK'};
-    var bmsg={GREEN:'All zones CLEAR — Normal operations',ORANGE:'Elevated density: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' people)',RED:'DANGER — '+hotZC.zc.zone.name+': Restrict inflow ('+hotZC.zc.count+' people)',BLACK:'CRITICAL EMERGENCY: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' people) — HALT ALL ENTRY'};
+    var bmsg={GREEN:'All zones CLEAR — Normal pilgrim flow',ORANGE:'Elevated density: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' pilgrims)',RED:'DANGER — '+hotZC.zc.zone.name+': Restrict inflow ('+hotZC.zc.count+' pilgrims)',BLACK:'CRITICAL EMERGENCY: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' pilgrims) — HALT ALL SECTOR ENTRY'};
     if(banner){banner.className='plat-hotspot-banner '+(bcls[lvl]||'sev-GREEN');banner.textContent=bmsg[lvl]||'';}
   }
   var overallSev=(snap&&snap.severity)||'GREEN';
