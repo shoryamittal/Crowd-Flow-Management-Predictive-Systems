@@ -257,12 +257,10 @@ def test_default_simulation_endpoint_reports_error_when_bundled_file_missing(mon
     assert "not available" in body["error"]
 
 
-def _wait_until(predicate, timeout_s=25.0, interval_s=0.02):
-    # 25s, not a tighter number: a cold-started real YOLO model (import +
-    # first predict()) measured ~7.8s on this machine when this test runs
-    # in isolation instead of after other tests that already warmed
-    # deploy._shared_detector. This margin keeps the test real (actual
-    # PersonDetector, no fake shortcut) instead of racing the model load.
+def _wait_until(predicate, timeout_s=45.0, interval_s=0.02):
+    # 45s margin: a cold-started real YOLO model on Windows CPU takes ~25s
+    # on first inference. This margin ensures the test suite reliably tests
+    # the real model without racing background load.
     deadline = time.monotonic() + timeout_s
     while time.monotonic() < deadline:
         if predicate():
@@ -289,6 +287,7 @@ def test_simulation_loop_restarts_after_clip_exhausts(monkeypatch, tiny_video):
         # which is the only thing allowed to call process_once() on it --
         # calling it again from the test thread would race the same
         # cv2.VideoCapture handle. Wait for that thread to drain the clip.
+        assert _wait_until(lambda: deploy.runtime.get_latest_snapshot() is not None)
         assert _wait_until(lambda: deploy.runtime.source.health().value in ("INPUT_RECOVERING", "CAMERA_LOST"))
 
         restarted = deploy._maybe_restart_simulation_loop()
