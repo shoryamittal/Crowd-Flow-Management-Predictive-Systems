@@ -349,7 +349,7 @@ MAX_UPLOAD_BYTES = 200 * 1024 * 1024  # 200 MB, matches app limit
 _ALLOWED_VIDEO_SUFFIXES = {".mp4", ".avi", ".mov", ".mkv"}
 
 DEFAULT_SIMULATION_VIDEO = Path("data") / "demo" / "crowd_station.mp4"
-DEFAULT_SIMULATION_LABEL = "Crowded Railway Station"
+DEFAULT_SIMULATION_LABEL = "Kumbh Mela Sector 4 - Sangam Triveni Ghat"
 
 
 def _probe_video(path: Path) -> dict | None:
@@ -937,68 +937,68 @@ def export_csv():
 
 
 # ----------------------------------------------------------------------
-# Indian Railways Enterprise SaaS Endpoints (CRIS / RPF / Fleet Management)
+# Maha Kumbh Prayagraj Enterprise Multi-Sector & Feeder Corridor Endpoints
 # ----------------------------------------------------------------------
 _STATION_FLEET = [
     {
-        "code": "NDLS",
-        "name": "New Delhi Central Railway Station",
-        "division": "NR / DLI",
-        "zone": "Northern Railway",
-        "platforms": 16,
-        "daily_footfall": "500,000+",
+        "code": "KUMBH-SEC-04",
+        "name": "Sangam Triveni Ghat & Parade Ground",
+        "division": "Maha Kumbh Prayagraj / Sector 4",
+        "zone": "Triveni Sangam Area",
+        "platforms": "4 Pontoons",
+        "daily_footfall": "15,000,000+",
         "status": "OPERATIONAL",
         "sla_uptime": "99.999%",
-        "rpf_commandant": "Commandant A. Sharma, RPF",
+        "rpf_commandant": "Commandant A. Sharma, NDRF / Police",
         "cameras_active": 128
     },
     {
-        "code": "CSMT",
-        "name": "Mumbai Chhatrapati Shivaji Maharaj Terminus",
-        "division": "CR / BB",
-        "zone": "Central Railway",
-        "platforms": 18,
-        "daily_footfall": "650,000+",
+        "code": "KUMBH-SEC-01",
+        "name": "Mahavir Marg & Arail Ghat Link",
+        "division": "Maha Kumbh Prayagraj / Sector 1",
+        "zone": "Arail South Concourse",
+        "platforms": "2 Pontoons",
+        "daily_footfall": "6,500,000+",
         "status": "OPERATIONAL",
         "sla_uptime": "99.998%",
-        "rpf_commandant": "Commandant R. K. Patil, RPF",
-        "cameras_active": 194
+        "rpf_commandant": "Commandant R. K. Patil, NDRF",
+        "cameras_active": 64
     },
     {
-        "code": "HWH",
-        "name": "Howrah Junction Railway Station",
-        "division": "ER / HWH",
-        "zone": "Eastern Railway",
-        "platforms": 23,
-        "daily_footfall": "1,000,000+",
+        "code": "KUMBH-SEC-02",
+        "name": "Kali Sadak & Shastri Bridge Link",
+        "division": "Maha Kumbh Prayagraj / Sector 2",
+        "zone": "Kali Ramp & Bridge Funnels",
+        "platforms": "3 Funnels",
+        "daily_footfall": "4,000,000+",
         "status": "OPERATIONAL",
         "sla_uptime": "99.995%",
-        "rpf_commandant": "Commandant S. Banerjee, RPF",
-        "cameras_active": 210
+        "rpf_commandant": "Commandant S. Banerjee, Police",
+        "cameras_active": 48
     },
     {
-        "code": "MAS",
-        "name": "Chennai Central (Puratchi Thalaivar Dr. MGR Central)",
-        "division": "SR / MAS",
-        "zone": "Southern Railway",
-        "platforms": 15,
-        "daily_footfall": "350,000+",
+        "code": "KUMBH-SEC-03",
+        "name": "Akshayavat Corridor & Fort Ramp",
+        "division": "Maha Kumbh Prayagraj / Sector 3",
+        "zone": "Fort Heritage Ramp",
+        "platforms": "2 Ramps",
+        "daily_footfall": "3,500,000+",
         "status": "OPERATIONAL",
         "sla_uptime": "99.999%",
-        "rpf_commandant": "Commandant M. Krishnan, RPF",
-        "cameras_active": 112
+        "rpf_commandant": "Commandant M. Krishnan, NDRF",
+        "cameras_active": 36
     },
     {
-        "code": "SBC",
-        "name": "KSR Bengaluru City Junction",
-        "division": "SWR / SBC",
-        "zone": "South Western Railway",
-        "platforms": 10,
-        "daily_footfall": "280,000+",
+        "code": "RAIL-NDLS",
+        "name": "Transit Feeder Hub (New Delhi Baseline)",
+        "division": "Northern Railway / DLI Feeder",
+        "zone": "Inter-State Pilgrim Transit",
+        "platforms": "16 Platforms",
+        "daily_footfall": "500,000+",
         "status": "OPERATIONAL",
         "sla_uptime": "99.999%",
         "rpf_commandant": "Commandant V. Rao, RPF",
-        "cameras_active": 96
+        "cameras_active": 32
     }
 ]
 
@@ -1006,10 +1006,10 @@ _DISPATCH_LOG = []
 
 @app.route("/api/stations", methods=["GET"])
 def api_get_stations():
-    """Return Indian Railways multi-station fleet registry."""
+    """Return Maha Kumbh multi-sector fleet registry."""
     return jsonify({
         "success": True,
-        "active_station": os.environ.get("STATION_CODE", "NDLS"),
+        "active_station": os.environ.get("STATION_CODE", "KUMBH-SEC-04"),
         "fleet": _STATION_FLEET,
         "total_stations": len(_STATION_FLEET),
         "railwire_connected": True
@@ -1018,52 +1018,52 @@ def api_get_stations():
 
 @app.route("/api/railways/trains", methods=["GET"])
 def api_get_trains():
-    """Live scheduled train arrivals with passenger surge forecasting (CRIS / NTES mock)."""
+    """Live scheduled pilgrim arrival surges and corridor transit telemetry."""
     now = datetime.now()
     trains = [
         {
-            "train_no": "22436",
-            "name": "Vande Bharat Express",
-            "from_station": "Varanasi Jn (BSB)",
-            "to_station": "New Delhi (NDLS)",
-            "platform": "Platform 1",
+            "train_no": "KMB-SPEC-01",
+            "name": "VIP Sangam Corridor Feeder",
+            "from_station": "Parade Ground Staging",
+            "to_station": "Sangam Ghat 1",
+            "platform": "Sangam Ghat 1 Ramp",
             "eta_mins": 4,
-            "expected_pax": 1120,
+            "expected_pax": 1850,
             "surge_level": "CRITICAL",
-            "status": "ARRIVING"
+            "status": "SHAHI SNAN PEAK"
         },
         {
-            "train_no": "12424",
-            "name": "Dibrugarh Rajdhani Express",
-            "from_station": "Dibrugarh (DBRG)",
-            "to_station": "New Delhi (NDLS)",
-            "platform": "Platform 2",
+            "train_no": "KMB-PONT-03",
+            "name": "Triveni Pontoon 3 Approach",
+            "from_station": "Kali Marg Staging",
+            "to_station": "Ghat 3 (Pontoon 3)",
+            "platform": "Pontoon Bridge 3",
             "eta_mins": 12,
             "expected_pax": 1450,
             "surge_level": "ELEVATED",
-            "status": "ON_TIME"
+            "status": "AUSPICIOUS WINDOW"
         },
         {
-            "train_no": "82902",
-            "name": "Mumbai Central Tejas Express",
-            "from_station": "Ahmedabad Jn (ADI)",
-            "to_station": "Mumbai Central (MMCT)",
-            "platform": "Platform 3",
+            "train_no": "KMB-ARAL-02",
+            "name": "Arail Cross-River Connector",
+            "from_station": "Arail Holding Enclosure",
+            "to_station": "Arail Snan Ghat",
+            "platform": "Arail Ghat Ramp",
             "eta_mins": 26,
             "expected_pax": 880,
             "surge_level": "MODERATE",
-            "status": "ON_TIME"
+            "status": "STEADY BATHING FLOW"
         },
         {
-            "train_no": "14258",
-            "name": "Kashi Vishwanath Express",
-            "from_station": "Banaras (BSBS)",
-            "to_station": "New Delhi (NDLS)",
-            "platform": "Platform 4",
+            "train_no": "KMB-AKSH-04",
+            "name": "Akshayavat Heritage Corridor",
+            "from_station": "Bandhwa Fort Ramp",
+            "to_station": "Akshayavat Sacred Tree",
+            "platform": "Fort Descent Corridor",
             "eta_mins": 48,
             "expected_pax": 1650,
             "surge_level": "HIGH",
-            "status": "DELAYED (25m)"
+            "status": "DARSHAN QUEUE ACTIVE"
         }
     ]
     multiplier = _railway_core.crowd_multiplier(within_minutes=30.0)
@@ -1074,7 +1074,7 @@ def api_get_trains():
         "trains": trains,
         "crowd_multiplier": round(multiplier, 2),
         "platform_alerts": alerts,
-        "ntes_sync": "SYNCHRONIZED (CRIS API v2.4)"
+        "ntes_sync": "SYNCHRONIZED (Maha Kumbh GIS & Telemetry v4.2)"
     })
 
 
@@ -1183,7 +1183,7 @@ def api_decision_observation():
                 "observed_at_utc": datetime.utcnow().isoformat(),
                 "frame_id": 0,
                 "frame_age_ms": 0.0,
-                "source": "Platform 1 Chokepoint (CCTV-01)",
+                "source": "Sangam Ghat Ramp Chokepoint (CCTV-01)",
                 "source_mode": _source_mode.value,
                 "zone_id": "Bottleneck B",
                 "observed_value": 0.0,
@@ -1202,7 +1202,7 @@ def api_decision_observation():
             "observed_at_utc": snap.timestamp_utc.isoformat() if hasattr(snap.timestamp_utc, "isoformat") else str(snap.timestamp_utc),
             "frame_id": snap.frame_id,
             "frame_age_ms": round(snap.frame_age_ms, 1),
-            "source": "Platform 1 Chokepoint (CCTV-01)" if snap.source_mode == SourceMode.CAMERA else "Local Replay Stream",
+            "source": "Sangam Ghat Ramp Chokepoint (CCTV-01)" if snap.source_mode == SourceMode.CAMERA else "Local Replay Stream",
             "source_mode": snap.source_mode.value,
             "zone_id": snap.hotspot if (snap.hotspot and snap.hotspot != "ALL_CLEAR") else "Bottleneck B",
             "observed_value": round(snap.occupancy_index, 3),
@@ -1678,8 +1678,8 @@ def debug_connectivity():
 _NLP_INTENT_PATTERNS = [
     {
         "intent": "EXPLAIN_RISK",
-        "patterns": ["why", "risk", "high risk", "platform", "danger"],
-        "entities": [("Platform", r"platform\s*(\d+|[a-z])", re.IGNORECASE),
+        "patterns": ["why", "risk", "high risk", "platform", "danger", "pontoon", "ghat", "bridge", "sector"],
+        "entities": [("Platform", r"(?:platform|pontoon(?:\s*bridge)?|ghat|sector)\s*(\d+|[a-z])", re.IGNORECASE),
                      ("Zone", r"zone\s*(\d+|[a-z])", re.IGNORECASE)],
     },
     {
@@ -1708,10 +1708,10 @@ _LANG_NAMES = {"HINDI": "हिंदी", "ENGLISH": "English", "TAMIL": "த�
 
 _TRANSLATIONS = {
     "HINDI": {
-        "risk": "हाई रिस्क: प्लेटफ़ॉर्म 4 पर लोगों की बढ़ती भीड़ और धीमी आवाजाही के कारण। कृपया यात्रियों को प्लेटफ़ॉर्म 5 पर रीडायरेक्ट करें।",
-        "density": "पिछले 5 मिनट में प्लेटफ़ॉर्म 2 और 4 पर घनत्व 28% बढ़ा है। एंट्री एरिया के पास 2 नए हॉटस्पॉट देखे गए हैं।",
-        "incidents": "5 अनसॉल्व्ड रेड घटनाएं दिखा रहा हूँ (प्लेटफ़ॉर्म 1, 3, 4, 6, 8)।",
-        "action": "सुझाव: स्टाफ़ को प्लेटफ़ॉर्म 4 पर तैनात करें और आने वाली यात्रियों को प्लेटफ़ॉर्म 5 पर भेजें।",
+        "risk": "हाई रिस्क: संगम घाट / पांटून 4 पर श्रद्धालुओं की बढ़ती भीड़ और धीमी आवाजाही के कारण। कृपया श्रद्धालुओं को पांटून 3 पर रीडायरेक्ट करें।",
+        "density": "पिछले 5 मिनट में पांटून 2 और 4 पर घनत्व 28% बढ़ा है। त्रिवेणी मार्ग के पास 2 नए हॉटस्पॉट देखे गए हैं।",
+        "incidents": "5 अनसॉल्व्ड रेड घटनाएं दिखा रहा हूँ (संगम घाट, पांटून 3, 4, अक्षयवट, होल्डिंग एरिया)।",
+        "action": "सुझाव: NDRF स्टाफ़ को पांटून 4 पर तैनात करें और आने वाले श्रद्धालुओं को पांटून 3 पर भेजें।",
     }
 }
 
@@ -1800,7 +1800,7 @@ def _nlp_generate_response(query: str, intent: str, entities: dict, snap, recent
         short = (f"Current status: {severity} | People: {people} | "
                  f"Hotspot: {hotspot} | Scenario: {scenario.replace('_', ' ')}")
         detail = (f"SENTINEL AI NLP Layer processed your request and generated a status summary. "
-                  f"Ask a specific question like 'Why is Platform 4 at high risk?', "
+                  f"Ask a specific question like 'Why is Pontoon Bridge 4 at high risk?', "
                   f"'What changed in the last 5 minutes?', 'Show unresolved RED incidents', "
                   f"'What action do you recommend now?', or 'Switch to Hindi. Show current risk.'")
 
@@ -1862,13 +1862,13 @@ def api_nlp_concepts():
         {"id": "NLU", "name": "Natural Language Understanding (NLU)",
          "what": "Extracts intent, entities and context from an operator's query.",
          "why": "Operators ask questions in everyday language, not commands.",
-         "how": "Maps user intent (e.g. Explain Risk) and entities (e.g. Platform 4) to the right system data.",
-         "example": "Query: \"Why is Platform 4 at high risk?\" → Intent: EXPLAIN_RISK, Entity: Platform 4."},
+         "how": "Maps user intent (e.g. Explain Risk) and entities (e.g. Pontoon Bridge 4) to the right system data.",
+         "example": "Query: \"Why is Pontoon Bridge 4 at high risk?\" → Intent: EXPLAIN_RISK, Entity: Pontoon Bridge 4."},
         {"id": "SUMMARY", "name": "Text Summarization",
          "what": "Condenses large, complex data into short meaningful summaries.",
          "why": "Real-time data is large and complex; operators need quick clarity.",
          "how": "Provides instant summaries of crowd situation, incidents and changes.",
-         "example": "Output: \"Crowd density increased rapidly on Platform 4 in the last 5 minutes.\""},
+         "example": "Output: \"Crowd density increased rapidly on Pontoon Bridge 4 in the last 5 minutes.\""},
         {"id": "RETRIEVAL", "name": "Information Retrieval",
          "what": "Retrieves relevant information from structured/unstructured data sources.",
          "why": "Operators need specific information quickly (e.g. incidents, alerts).",
