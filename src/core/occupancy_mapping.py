@@ -5,7 +5,6 @@ and an extremely cheap GPU-friendly heatmap overlay (cv2.resize + applyColorMap)
 from __future__ import annotations
 
 from collections import deque
-import time
 
 import cv2
 import numpy as np

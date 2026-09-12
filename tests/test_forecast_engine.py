@@ -9,7 +9,7 @@ from src.decision.forecast import (
     calculate_limit_crossing,
     calculate_sensitivity_envelope,
 )
-from src.decision.models import CalibrationState, QualityState
+from src.decision.models import QualityState
 
 
 def test_positive_growth_crossing():

@@ -24,9 +24,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 import platform
 import logging
-import sys
 import time
-from pathlib import Path
 from threading import Event, Lock, Thread
 from typing import Callable, Optional
 

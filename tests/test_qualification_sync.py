@@ -7,7 +7,7 @@ from dataclasses import replace
 from src.connectivity import ConnectivityManager, ConnectivityState
 from src.persistence import IncidentJournal, SyncStatus
 from src.qualification_backend import QualificationEventStore, QualificationResult
-from src.sync import BackoffConfig, HttpSyncAdapter, SyncResult, SyncWorker
+from src.sync import BackoffConfig, HttpSyncAdapter, SyncWorker
 
 
 def _store(tmp_path):

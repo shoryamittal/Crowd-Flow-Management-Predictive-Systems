@@ -5,14 +5,11 @@ Authority: Sentinel_AI_SIH2026_Final_Strategy_Report.pdf (Section 18.2)
 import pytest
 
 from src.decision.models import (
-    ActionCandidate,
     ActionType,
     FeasibilityStatus,
     QualityState,
     RouteConfig,
     RouteStatus,
-    ZoneConfig,
-    ZoneRole,
 )
 from src.decision.safety import DecisionSafetyEngine
 from src.decision.scenario import (

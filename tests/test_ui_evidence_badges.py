@@ -1,4 +1,4 @@
-﻿"""
+"""
 Frontend & API Contract Verification Tests for Sentinel AI SIH 2026
 Verifies:
 1. Evidence provenance badges (OBSERVED, CALCULATED, SCENARIO, PLANNED) exist in index.html.
@@ -9,7 +9,6 @@ Verifies:
 """
 
 from pathlib import Path
-import re
 import pytest
 
 INDEX_HTML_PATH = Path(__file__).resolve().parent.parent / "templates" / "index.html"
