@@ -1,13 +1,15 @@
 # SENTINEL AI
-## Action-Aware Crowd Disaster Prevention for Mass Gatherings
-### Smart India Hackathon 2026 — AICTE Student Innovation — Software — Disaster Management (`SIH26206`)
+## Action-Aware Crowd Disaster Prevention & Incident Copilot for Mass Gatherings
+### Google Cloud AI Builder Cup 2026 — Sustainability & Social Impact (SDG 11: Sustainable Cities & Communities)
+### Smart India Hackathon (`SIH26206`) — Software — Disaster Management
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Flask 3.0](https://img.shields.io/badge/framework-Flask%203.0-green.svg)](https://flask.palletsprojects.com/)
+[![Google Gemini 2.0 Flash](https://img.shields.io/badge/GenAI-Google%20Gemini%202.0%20Flash-4285F4.svg)](https://cloud.google.com/vertex-ai)
+[![Google Cloud Run](https://img.shields.io/badge/deploy-Google%20Cloud%20Run-4285F4.svg)](https://cloud.google.com/run)
 [![YOLOv8 Edge Vision](https://img.shields.io/badge/vision-YOLOv8%20Edge-orange.svg)](https://github.com/ultralytics/ultralytics)
 [![SQLite WAL Offline](https://img.shields.io/badge/durability-SQLite%20WAL%20(100%25%20Offline)-purple.svg)](https://www.sqlite.org/wal.html)
-[![SIH Track](https://img.shields.io/badge/SIH%20Theme-Disaster%20Management%20(SIH26206)-red.svg)](https://www.sih.gov.in/)
-[![Tests](https://img.shields.io/badge/tests-125%2F125%20passing%20(100%25)-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/tests-137%2F137%20passing%20(100%25)-brightgreen.svg)]()
 
 > **Primary Operational Deployment Target:**  
 > **Maha Kumbh Mela Prayagraj (2025–2026) — Sector 04 (Sangam Triveni Ghat & Parade Ground Pilot)**  
@@ -19,9 +21,9 @@
 ## 1. Executive Summary & Core Product Thesis
 
 ### What Sentinel AI Is
-Sentinel AI is an **offline-first, action-aware crowd-flow decision-support system** engineered for mass-gathering disaster prevention and multi-agency response coordination.
+Sentinel AI is an **offline-first, action-aware crowd-flow decision-support system and Generative AI Incident Copilot** engineered for mass-gathering disaster risk reduction (DRR) and multi-agency response coordination.
 
-Built specifically for high-density religious congregations such as the **Maha Kumbh Mela Prayagraj**, Sentinel AI observes developing pilgrim accumulation, forecasts time to configured sector operating limits using transparent mass-conservation flow equations, compares candidate operational interventions across connected corridors, **automatically rejects actions that would transfer congestion into secondary bottlenecks (such as pontoon bridges or ghat ramps)**, and enforces an auditable human-in-the-loop operational lifecycle.
+Built specifically for high-density religious congregations such as the **Maha Kumbh Mela Prayagraj**, Sentinel AI observes developing pilgrim accumulation, forecasts time to configured sector operating limits using transparent mass-conservation flow equations, compares candidate operational interventions across connected corridors, **automatically rejects actions that would transfer congestion into secondary bottlenecks (such as pontoon bridges or ghat ramps)**, explains decisions via **SENTINEL Incident Copilot (Google Gemini 2.0 Flash)** grounded in official **NDMA Section 4.2 SOPs**, and enforces an auditable human-in-the-loop operational lifecycle.
 
 ```
        +-----------------------------------------------------------------------+
@@ -39,7 +41,8 @@ In strict accordance with disaster management science and Indian mass-gathering 
 - **NOT a universal stampede predictor:** No camera system can predict individual human injury or the physics of crowd collapse.
 - **NOT a fabricated countdown:** Sentinel AI never generates sensational "time to crush" countdowns or arbitrary "95% confidence" claims. It calculates the **Time to Configured Operating Limit ($T_{\text{limit}}$)** under explicit, inspectable rate assumptions.
 - **NOT autonomous crowd control:** Sentinel AI never actuates physical barricades or overrides police command. It provides structured decision support to the **Sector Magistrate, NDRF commanders, and Police Marshals**.
-- **NOT a cloud-dependent system:** Sentinel AI executes 100% locally on edge hardware with SQLite WAL persistence, guaranteeing full operational continuity during the inevitable cellular/WAN blackout that accompanies multi-million devotee gatherings.
+- **NOT an unchecked LLM decision-maker:** Google Gemini sits strictly **ABOVE** the deterministic safety engine. Gemini translates verified machine state into grounded tactical briefs and multilingual public announcements; it **never** makes feasibility or capacity clearance decisions.
+- **NOT a fragile cloud-only system:** Sentinel AI executes 100% locally on edge hardware with SQLite WAL persistence. If the WAN or Gemini API drops, the core safety plane continues with zero degradation.
 
 ---
 
@@ -69,76 +72,80 @@ graph LR
 4. **Ghat Area G & Exit Corridor E (Triveni Sangam Bathing Area & Egress):** Sacred confluence bathing area and downstream dispersal corridor.
 5. **Relief Corridor R (East Pontoon Bridge Bypass):** Alternate floating pontoon bridge bypass. Configured operating limit: 160 persons.
 
-*Historical Note on Prior Work:* The prior engineering prototype developed for Indian Railways passenger foot-over-bridge (FOB) monitoring is retained strictly as laboratory baseline evidence. All operational scenarios, sector configurations, command rosters, and UI directives in the SIH 2026 system are centered on Kumbh Mela mass-gathering disaster prevention.
+*Historical Note on Prior Work:* The prior engineering prototype developed for Indian Railways passenger foot-over-bridge (FOB) monitoring is retained strictly as laboratory baseline evidence. The operational deployment target is Maha Kumbh Mela mass-gathering disaster prevention.
 
 ---
 
-## 3. The "Three-Brain" Architecture
+## 3. End-to-End System Architecture
 
-Sentinel AI separates sensing uncertainty from deterministic flow physics and multi-agency human authorization:
+Sentinel AI separates sensing uncertainty from deterministic flow physics, grounded GenAI communication, and multi-agency human authorization:
 
-```mermaid
-graph TD
-    subgraph "Engine 1: Perception Engine"
-        CCTV["Local CCTV / Replay Stream<br/>(CAM-01 to CAM-04)"] -->|YOLOv8 Edge Detection| DET["Spatial Occupancy Tracker<br/>(4x6 Grid, Relative Load)"]
-        DET --> SNAP["Observation Snapshot<br/>[OBSERVED CCTV SIGNAL]<br/>Latency: 28ms · Frame Age: 42ms"]
-    end
-
-    subgraph "Engine 2: Flow Forecast Engine"
-        SNAP -.->|Feeds Baseline| CONS["Conservation of People:<br/>dN/dt = Inflow - Outflow"]
-        SCEN["Calibrated / Scenario Input<br/>[SCENARIO / CALIBRATED INPUT]"] --> CONS
-        CONS --> TLIM["Time to Configured Operating Limit:<br/>T_limit = (C - N) / g<br/>+ Sensitivity Envelope [T_min, T_max]"]
-    end
-
-    subgraph "Engine 3: Decision Safety Layer (The Differentiator)"
-        TLIM --> DSL["Connected Zone Simulation Engine"]
-        DSL --> CHK1["Check 1: Receiving Area Capacity Breach"]
-        DSL --> CHK2["Check 2: Route Closure & Verification"]
-        DSL --> CHK3["Check 3: One-Way Directionality Constraint"]
-        DSL --> CHK4["Check 4: Holding Area Saturation & Delay"]
-        DSL --> EVAL["Evaluate Candidate Interventions:<br/>- No Action (Unsafe Baseline)<br/>- Divert to Relief R (REJECTED at t=48s)<br/>- Upstream Metering at H (FEASIBLE, +205 queue)"]
-    end
-
-    subgraph "Human Operator Workflow"
-        EVAL --> PROP["PROPOSED (Sector Magistrate Review)"]
-        PROP -->|Magistrate Authorizes| APPR["APPROVED"]
-        APPR -->|Dispatched to Field| DELIV["DELIVERED (NDRF / Police)"]
-        DELIV -->|Field Staff Radio ACK| ACK["ACKNOWLEDGED"]
-        ACK -->|Cordon / Gates Set| COMP["COMPLETED"]
-        COMP -->|Post-Action Camera Delta| VERIF["VERIFIED (Trend Reversal Confirmed)"]
-    end
-
-    subgraph "Durability & Recovery"
-        PROP -.->|Synchronous Commit| WAL[("Local SQLite Journal<br/>(WAL Mode · 100% Offline)")]
-        APPR -.-> WAL
-        ACK -.-> WAL
-        VERIF -.-> WAL
-        WAL -.->|On WAN Restoral| SYNC["Idempotent Background Sync<br/>(Deduplicated Event UUIDs)"]
-    end
+```
+ CCTV / REPLAY (CAM-01 to CAM-04)
+        │
+        ▼
+ YOLOv8 Person Detection & 4x6 Grid Tracking [OBSERVED CCTV SIGNAL]
+        │
+        ▼
+ Flow Forecast Engine [CALCULATED] ──► T_limit = (C - N) / g
+        │
+        ▼
+ Decision Safety Layer (The Differentiator)
+ [Capacity Constraints · Route Validity · Secondary Bottleneck Checks]
+        │
+        ├──► REJECTED: Diversion to Relief Corridor R (overload @ 48s)
+        └──► FEASIBLE: Upstream Metering at Holding Area H (+205s wait)
+        │
+        ▼
+ SENTINEL INCIDENT COPILOT (Google Gemini 2.0 Flash / Vertex AI)
+ Grounded in: NDMA Section 4.2 Guidelines & Kumbh Sector 4 SOPs
+ ├── Rationale Explanation: Explains secondary bottleneck physics
+ ├── Command Briefing: Sector Magistrate executive tactical summary
+ ├── Multilingual Operations: English, हिन्दी (Hindi), मराठी (Marathi)
+ └── Public Address Draft: Reassuring, non-sensational wayfinding
+        │
+        ▼
+ HUMAN-IN-THE-LOOP LIFECYCLE (Audited in SQLite WAL)
+ PROPOSED ──► APPROVED ──► DELIVERED ──► ACKNOWLEDGED ──► COMPLETED ──► VERIFIED
+        │
+        ▼
+ Post-Action Sensor Verification (CCTV Delta Confirms Queue Stabilization)
 ```
 
 ---
 
-## 4. Mathematical Formulation & The Reference Worked Scenario
+## 4. SENTINEL Incident Copilot (Meaningful Google GenAI)
 
-### 4.1 Zone Flow Conservation Equation
+Unlike generic chatbots, the **SENTINEL Incident Copilot** sits strictly **ABOVE** the deterministic safety engine:
+- **Architectural Placement**: It receives structured machine state (counts, capacities, growth rates, candidate statuses) and official NDMA SOP guidelines.
+- **AI Safety Contract**:
+  - Never overrides deterministic rejections (if marked `REJECTED`, Gemini cannot approve it).
+  - Never predicts stampede physics or invents counts/capacities.
+  - Rejects sensational or panic-inducing phrasing.
+- **Degraded Mode Resilience**: If Gemini is unreachable or WAN is severed, local edge safety functions continue with zero interruption. The UI displays: `COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES`.
+
+### Grounded SOP Knowledge Layer (`src/knowledge_base.py`)
+Provides deterministic citations from the National Disaster Management Authority (NDMA) Section 4.2:
+- `SOP-NDMA-042-A`: Chokepoint Inflow Metering at Pilgrim Staging Area.
+- `SOP-NDMA-042-B`: Secondary Bottleneck & Divergent Route Capacity Guard.
+- `SOP-NDMA-042-C`: Pontoon Bridge Unidirectional Egress Enforcement.
+- `SOP-NDMA-042-D`: Holding Area Staging & Pilgrim Welfare Maintenance.
+- `SOP-NDMA-042-E`: Public Address Calming & Wayfinding Protocol.
+
+---
+
+## 5. Mathematical Formulation & The Reference Worked Scenario
+
+### 5.1 Zone Flow Conservation Equation
 For any named zone $i$ over discrete time step $dt$:
 $$\Delta N_i = dt \times \left[ \sum q_{\text{in}} - \sum q_{\text{out}} + \text{arrivals} - \text{departures} \right]$$
 $$N_i(t + dt) = N_i(t) + \Delta N_i$$
 
-**Conservation Invariants:**
-1. Every transfer between zones is symmetrical (departure from source = arrival at target).
-2. Outflow cannot exceed persons physically present in the source zone: $q_{\text{out}} \le N_i(t) / dt$.
-3. Overloaded zones are **NEVER** clipped at their limit in simulation; doing so masks catastrophic accumulation.
-
-### 4.2 Time to Configured Operating Limit ($T_{\text{limit}}$)
+### 5.2 Time to Configured Operating Limit ($T_{\text{limit}}$)
 For a zone with current headcount $N$, configured operating limit $C$, and net inflow rate $g = q_{\text{in}} - q_{\text{out}}$:
 $$T_{\text{limit}} = \frac{C - N}{g} \quad (\text{for } g > 0 \text{ and } N < C)$$
-- If $N \ge C$: Report **Current Configured-Limit Breach**.
-- If $g \le 0$: Report **No Modeled Crossing Within Horizon**.
-- If camera signal is stale ($>5.0\text{ s}$), occluded, or uncalibrated: Output **`FORECAST UNAVAILABLE`** (never guess).
 
-### 4.3 The SIH Reference Worked Scenario (Strategy Report Page 9)
+### 5.3 The SIH Reference Worked Scenario (Strategy Report Page 9)
 This exact scenario is embedded and demonstrable in the Sentinel AI interface:
 
 | Parameter / Zone | Initial State | Transition Dynamics | Decision Safety Layer Outcome |
@@ -149,7 +156,7 @@ This exact scenario is embedded and demonstrable in the Sentinel AI interface:
 
 ---
 
-## 5. Four Strict Evidence Tiers
+## 6. Strict Evidence Tiers
 
 Sentinel AI eliminates fraudulent or uncalibrated AI claims by tagging every metric with an evidence tier:
 
@@ -159,105 +166,71 @@ Sentinel AI eliminates fraudulent or uncalibrated AI claims by tagging every met
 | `[CALCULATED]` | Deterministic flow mathematics ($T_{\text{limit}}$) | Modeled limit crossing under stated rate assumptions. |
 | `[SCENARIO / CALIBRATED INPUT]` | Timestamped manual, calibrated, or synthetic scenario | Scenario behavior and multi-zone constraint checks under defined conditions. |
 | `[PLANNED]` | Multi-agency disaster dispatch roster | Target sector, dispatched personnel count, and intended tactical cordon. |
+| `[AI-GENERATED EXPLANATION]` | Grounded Gemini Incident Copilot text | Explanations, briefings, and public announcements based on verified machine state. |
 
 ---
 
-## 6. Offline Durability & The Zero-WAN Resilience Guarantee
+## 7. Google Cloud Run Deployment
 
-At Maha Kumbh 2025–2026, with over 10 million pilgrims gathered at the Sangam, cellular towers suffer total uplink saturation. A disaster prevention system that relies on AWS or cloud dashboards fails instantly.
+Sentinel AI is containerized for production deployment on **Google Cloud Run**:
+- Dynamic `$PORT` handling (default 8080)
+- Liveness health probe (`GET /health`) and readiness probe (`GET /readiness`)
+- Structured JSON logging and environment-driven configuration
 
-Sentinel AI implements an **Offline-First SQLite WAL (Write-Ahead Logging)** architecture:
-- **Zero Cloud Runtime Dependency:** Edge perception, deterministic forecasting, Decision Safety Layer evaluation, and operator actions execute locally with zero external network access.
-- **Microsecond WAL Persistence:** Every state change (`PROPOSED` $\rightarrow$ `APPROVED` $\rightarrow$ `ACKNOWLEDGED` $\rightarrow$ `VERIFIED`) is committed to disk in `< 1.2\text{ ms}`.
-- **Idempotent Synchronization:** When WAN connectivity is restored, an asynchronous worker synchronizes pending records using stable incident UUIDs, preventing duplicates.
+### 1-Command Deploy
+```bash
+chmod +x deploy_cloud_run.sh
+./deploy_cloud_run.sh
+```
+
+See [`docs/CLOUD_RUN_DEPLOYMENT.md`](docs/CLOUD_RUN_DEPLOYMENT.md) for full cloud configuration details.
 
 ---
 
-## 7. Automated Test Suite & Verification Evidence
+## 8. Automated Test Suite (137/137 Passing · 100% Pass Rate)
 
-The system is rigorously validated by a 125-test automated test suite covering deterministic mathematical models, safety constraints, offline persistence, and web routes.
+Rigorously validated by 137 automated unit, integration, and red-team tests:
 
 ```powershell
 pytest -v
 ```
 
-### Verified Test Categories (125/125 Passing · 100% Pass Rate):
-1. **Perception Engine Tests (`tests/test_vision_diagnostics.py`, `tests/test_perceptual_integrity.py`):** Frame age degradation, occlusion detection, uncalibrated occupancy reporting, and zero fake headcounts.
-2. **Forecast Engine Tests (`tests/test_forecast_engine.py`):** Strict conservation of people, symmetric inter-zone transfers, zero clipping of overloaded queues, and exact worked scenario arithmetic ($T_{\text{limit}} = 30.0\text{ s}$).
-3. **Decision Safety Layer Tests (`tests/test_decision_safety.py`):** Deterministic rejection of Relief Corridor R at $t=48\text{ s}$, route closure enforcement, stale observation invalidation, contraflow rejection, and fallback to `"NO FEASIBLE OPTION FOUND"`.
-4. **Lifecycle & Audit Tests (`tests/test_incident_lifecycle.py`, `tests/test_offline_durability.py`):** Real non-automated dispatch acknowledgement, post-action verification requirements, SQLite crash/restart recovery, and zero duplicate sync entries.
-5. **UI & Evidence Badge Tests (`tests/test_ui_evidence_badges.py`):** Verified presence of `OBSERVED`, `CALCULATED`, and `SCENARIO` badges across all operator views.
+### Verified Test Categories:
+1. **Adversarial Red-Team Tests (`tests/test_copilot_safety.py` — 12 tests):**
+   - Scenario 1: Broken camera sensing -> `UNKNOWN/STALE`, never `GREEN`.
+   - Scenario 2: Diversion overloading relief corridor -> `REJECTED`.
+   - Scenario 3: All candidates unsafe -> `NO_FEASIBLE_OPTION_FOUND`.
+   - Scenario 4: Hallucinated stampede claim -> Suppressed by safety filter.
+   - Scenario 5: Capacity hallucination -> Suppressed by validation filter.
+   - Scenario 6: Field ACK under unsafe conditions -> Keeps incident `OPEN`.
+   - Scenario 7: WAN failure -> Edge safety continues with zero interruption.
+   - Scenario 8: Gemini API offline -> Explicit degraded fallback banner.
+   - Grounded SOP citation checks & Hindi/Marathi technical preservation checks.
+   - Deterministic 6-step Judge Demo Mode progression and reset tests.
+2. **Decision Safety Layer Tests (`tests/test_decision_safety.py`):** Route closure enforcement, capacity breach checks, and contraflow rejection.
+3. **Forecast Engine Tests (`tests/test_forecast_engine.py`):** Mass conservation equations and sensitivity envelopes.
+4. **Offline Durability & Persistence Tests (`tests/test_persistence.py`, `tests/test_offline_continuity.py`):** SQLite WAL journaling and restart recovery.
+5. **Perception Engine Tests (`tests/test_occupancy.py`, `tests/test_pipeline.py`):** 4×6 spatial grid tracking and frame age freshness.
 
 ---
 
-## 8. Quickstart & Deployment Runbook
+## 9. 3-Minute Interactive Judge Demo Flow
 
-### Prerequisites
-- Python 3.10, 3.11, or 3.12
-- Windows 10/11 or Ubuntu 22.04 LTS
-- Modern web browser (Chrome / Edge / Firefox)
-
-### Installation
-```bash
-# Clone the repository
-git clone https://github.com/shoryamittal/Crowd-Flow-Management-Predictive-Systems.git
-cd Crowd-Flow-Management-Predictive-Systems
-
-# Create and activate virtual environment
-python -m venv venv
-.\venv\Scripts\Activate.ps1    # Windows PowerShell
-# source venv/bin/activate     # Linux / macOS
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### Launching the Maha Kumbh Command Console
-```bash
-# Run with local offline persistence
-$env:FLASK_ENV="production"
-$env:SENTINEL_AUTH_ENABLED="false"
-$env:STATION_NAME="Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)"
-python deploy.py
-```
-- Open your browser to: **`http://localhost:5000`**
-- Toggle between **English** and **Hindi (राजभाषा)** via the topbar language switch.
+The dashboard includes a dedicated, resettable **Jury Pitch Controller** at the bottom of the screen:
+1. **Step 1: Safe Baseline**: Baseline nominal operations at Sangam Sector 04 (Threat Level 4, Green, 85 pax).
+2. **Step 2: Inflow Surge**: Shahi Snan wave arrives. Inflow jumps to +2.0 p/s. $T_{\text{limit}} = 6.0\text{ s}$.
+3. **Step 3: Decision Safety Rejection**: Naive diversion to Relief Corridor R is REJECTED at $t=48\text{ s}$ (108% secondary bottleneck). Upstream Metering at Holding H is FEASIBLE.
+4. **Step 4: Incident Copilot Briefing**: Gemini generates grounded NDMA Section 4.2 executive brief and tri-lingual public announcements (English, Hindi, Marathi).
+5. **Step 5: Operator Authorization**: Sector Magistrate authorizes intervention. State advances `PROPOSED` $\rightarrow$ `APPROVED` $\rightarrow$ `DELIVERED` $\rightarrow$ `ACKNOWLEDGED`.
+6. **Step 6: Post-Action Verification & Zero-WAN**: Inflow throttles to 1.0 p/s. Bottleneck B clears down to 95 persons. Safety engine marks action `VERIFIED`.
 
 ---
 
-## 9. Regulatory & Ethical Compliance
+## 10. Regulatory & Ethical Compliance
 
-- **Digital Personal Data Protection Act (DPDP Rules 2025):** Sentinel AI operates exclusively on aggregate spatial density signals. It employs **ZERO facial recognition, ZERO pilgrim profiling, ZERO religious tracking, and ZERO smartphone surveillance**.
-- **National Institute of Disaster Management (NIDM 2022 Guidelines):** Implements capacity-aware holding reservoirs, rate-metered release valves, and designated emergency corridors.
-- **Bureau of Police Research & Development (BPR&D Mass Gathering Guidelines):** Enforces human command authority, structured response cordons, and tamper-evident audit logs.
-
----
-
-## 10. Repository Structure
-
-```
-Crowd-Flow-Management-Predictive-Systems/
-|-- README.md                              # Master System Documentation (This File)
-|-- deploy.py                              # Production Edge Server & API Gateway
-|-- requirements.txt                       # Core Python Dependencies
-|-- docs/
-|   |-- MAHA_KUMBH_SYSTEM_DOCUMENTATION.md # Exhaustive Kumbh Mela Technical Specification
-|   |-- FINAL_STRATEGY_SOURCE_OF_TRUTH.md  # 17-Page Strategy Source of Truth & Seam Rules
-|   |-- FINAL_SYSTEM_ARCHITECTURE.md       # Three-Brain Architecture & Data Contracts
-|   |-- DEMO_RUNBOOK.md                    # 3-Minute SIH Winning Jury Pitch Guide
-|   |-- DATA_AND_STATE_CONTRACTS.md        # Telemetry, Incident, and Action Data Schemas
-|   |-- FAILURE_AND_LIMITATIONS.md         # Operational Boundaries & Failure Mode Matrix
-|   |-- VALIDATION_TEST_PLAN.md            # Empirical Verification & Scenario Benchmarks
-|   `-- LOW_CONNECTIVITY_24_AUDIT.md       # Offline Durability & WAL Benchmarks
-|-- src/
-|   |-- core/                              # Decision Safety Layer, Forecast Engine, SQLite WAL
-|   |-- vision/                            # YOLOv8 Person Detector, Spatial Grid, Camera Sources
-|   `-- api/                               # Flask Endpoints, Event Streams, Dispatch APIs
-|-- templates/
-|   `-- index.html                         # Palantir/NASA-Grade Tactical Operator Dashboard
-|-- static/                                # Tactical CSS, WebSockets, Audio Chimes
-`-- tests/                                 # 125 Automated Unit, Scenario, & Durability Tests
-```
+- **Digital Personal Data Protection Act (DPDP Rules 2025):** Operates exclusively on aggregate spatial density signals. **ZERO facial recognition, ZERO pilgrim profiling, ZERO religious tracking, ZERO smartphone surveillance**.
+- **National Disaster Management Authority (NDMA Section 4.2):** Strict compliance with mass-gathering crowd-flow metering and secondary bottleneck prevention.
+- **Bureau of Police Research & Development (BPR&D):** Human incident command primacy, auditable tamper-evident logs, and zero autonomous physical barrier actuation.
 
 ---
 
