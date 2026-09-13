@@ -41,12 +41,17 @@ RUN chown -R sentinel_user:sentinel_user /app
 # Switch to non-root user
 USER sentinel_user
 
-# Expose port
-EXPOSE 5000
+# Default Cloud Run environment variables
+ENV PORT=8080 \
+    HOST=0.0.0.0 \
+    PYTHONUNBUFFERED=1
 
-# Add healthcheck
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:5000/ || exit 1
+# Expose container port (8080 for Cloud Run, 5000 for local)
+EXPOSE 8080 5000
+
+# Add liveness healthcheck using standard Python urllib
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+    CMD python -c "import os, urllib.request; p = os.environ.get('PORT', '8080'); urllib.request.urlopen(f'http://localhost:{p}/health')" || exit 1
 
 # Run the application
 CMD ["python", "deploy.py"]
