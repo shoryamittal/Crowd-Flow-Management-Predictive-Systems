@@ -194,8 +194,20 @@ def logout():
 
 
 # ----------------------------------------------------------------------
-# Configuration (env-driven; no new dependencies, no hard-coded demo values)
+# Configuration (env-driven; loads .env if present)
 # ----------------------------------------------------------------------
+def _load_dotenv_if_present():
+    env_file = Path(".env")
+    if env_file.is_file():
+        for line in env_file.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip())
+
+_load_dotenv_if_present()
+
+
 def _env_float(name: str, default: float) -> float:
     try:
         return float(os.environ.get(name, default))
@@ -219,7 +231,7 @@ def _resolve_camera_source(raw: str):
 
 
 STATION_NAME = os.environ.get("STATION_NAME", "Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)")
-CAMERA_SOURCE = os.environ.get("CAMERA_SOURCE", "0")
+CAMERA_SOURCE = os.environ.get("CAMERA_SOURCE", "1")
 DB_PATH = os.environ.get("SENTINEL_DB_PATH", str(Path("data") / "sentinel.db"))
 SYNC_ADAPTER_MODE = os.environ.get("SYNC_ADAPTER_MODE", MockSyncAdapter.NORMAL)
 SYNC_ADAPTER_TYPE = os.environ.get("SYNC_ADAPTER_TYPE", "MOCK").upper()
