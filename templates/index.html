@@ -3568,6 +3568,68 @@
           </div>
         </div>
 
+        <!-- ============================================================
+             SENTINEL INCIDENT COPILOT (GOOGLE GEMINI / VERTEX AI)
+        =============================================================== -->
+        <div class="copilot-container" style="background:rgba(15,23,42,0.75);border:1px solid rgba(0,240,255,0.25);border-radius:12px;padding:16px 20px;margin:1.25rem 0;box-shadow:0 8px 32px rgba(0,0,0,0.37);">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#00f0ff,#38bdf8);color:#04070c;font-weight:900;font-size:14px;">✦</span>
+              <div>
+                <div style="font-size:0.85rem;font-weight:800;letter-spacing:0.04em;color:#ffffff;display:flex;align-items:center;gap:8px;">
+                  SENTINEL INCIDENT COPILOT
+                  <span style="font-size:0.62rem;color:#38bdf8;font-weight:600;background:rgba(56,189,248,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(56,189,248,0.3);">POWERED BY GOOGLE GEMINI</span>
+                </div>
+                <div style="font-size:0.68rem;color:var(--text-secondary);">
+                  Operational decision explanation, NDMA Section 4.2 grounded briefing &amp; multilingual communications.
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span class="evidence-badge badge-observed" id="copilot-evidence-badge" style="font-size:0.65rem;">AI-GENERATED EXPLANATION</span>
+              <span id="copilot-degraded-badge" style="display:none;font-size:0.62rem;font-weight:700;color:#f59e0b;background:rgba(245,158,11,0.15);padding:3px 8px;border-radius:4px;border:1px solid #f59e0b;">
+                COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES
+              </span>
+            </div>
+          </div>
+
+          <!-- Grounded SOP Citation Bar -->
+          <div style="display:flex;align-items:center;gap:8px;background:rgba(0,240,255,0.04);border:1px solid rgba(0,240,255,0.12);border-radius:6px;padding:6px 12px;margin-bottom:12px;font-size:0.68rem;color:var(--neon-cyan);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span id="copilot-grounding-citation">Grounded in: • Live Machine State • Decision Safety Engine • Approved SOP (NDMA Section 4.2.1, NDMA Section 4.2.2)</span>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+            <button class="lc-btn lc-btn-primary" onclick="triggerCopilotAction('explain')" style="font-size:0.72rem;padding:6px 12px;">
+              💬 Explain Decision Rationale
+            </button>
+            <button class="lc-btn" onclick="triggerCopilotAction('brief')" style="font-size:0.72rem;padding:6px 12px;">
+              📋 Sector Magistrate Brief
+            </button>
+            <button class="lc-btn" onclick="triggerCopilotAction('announcement')" style="font-size:0.72rem;padding:6px 12px;">
+              📢 Draft Public Announcement
+            </button>
+            <div style="display:flex;align-items:center;gap:4px;margin-left:auto;">
+              <span style="font-size:0.65rem;color:var(--text-muted);margin-right:4px;">Language:</span>
+              <button class="btn btn-sm secondary active" id="btn-copilot-lang-en" onclick="setCopilotLanguage('en')" style="font-size:0.65rem;padding:3px 8px;">English</button>
+              <button class="btn btn-sm secondary" id="btn-copilot-lang-hi" onclick="setCopilotLanguage('hi')" style="font-size:0.65rem;padding:3px 8px;">हिन्दी</button>
+              <button class="btn btn-sm secondary" id="btn-copilot-lang-mr" onclick="setCopilotLanguage('mr')" style="font-size:0.65rem;padding:3px 8px;">मराठी</button>
+            </div>
+          </div>
+
+          <!-- Copilot Output Display Box -->
+          <div id="copilot-output-container" style="background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;position:relative;min-height:70px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:0.62rem;color:var(--text-muted);">
+              <span id="copilot-output-meta">SOURCE: DETERMINISTIC SAFETY ENGINE (0.4 ms)</span>
+              <span id="copilot-output-status" style="color:var(--neon-emerald);">● READY</span>
+            </div>
+            <div id="copilot-output-text" style="font-size:0.78rem;color:#f1f5f9;line-height:1.55;white-space:pre-wrap;">
+Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 168/180 capacity. Deterministic flow forecast indicates time to configured operating limit is 6.0 seconds. Intervention 'Diversion to Relief Corridor R' was REJECTED by Decision Safety Engine to prevent secondary bottlenecking at t=48s (108% capacity). Intervention 'Upstream Metering at Holding Area H' is FEASIBLE under NDMA Section 4.2.1. Awaiting Sector Magistrate human authorization.
+            </div>
+          </div>
+        </div>
+
         <!-- Human Operator Action Lifecycle Stepper & Controls -->
         <div class="lifecycle-bar">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.6rem;">
@@ -5670,6 +5732,96 @@ function computeTimeToOperatingLimit(snap) {
   }
 
   updateFruinLOS(snap);
+// Sentinel Incident Copilot UI Controller
+let _copilotCurrentText = '';
+let _copilotCurrentLang = 'en';
+
+async function triggerCopilotAction(actionType) {
+  const meta = document.getElementById('copilot-output-meta');
+  const statusEl = document.getElementById('copilot-output-status');
+  const textEl = document.getElementById('copilot-output-text');
+  const citationEl = document.getElementById('copilot-grounding-citation');
+  const degradedEl = document.getElementById('copilot-degraded-badge');
+  const evidenceBadge = document.getElementById('copilot-evidence-badge');
+
+  if (statusEl) {
+    statusEl.innerHTML = '⏳ PROCESSING...';
+    statusEl.style.color = 'var(--neon-cyan)';
+  }
+
+  let endpoint = '/api/copilot/explain';
+  if (actionType === 'brief') endpoint = '/api/copilot/brief';
+  else if (actionType === 'announcement') endpoint = '/api/copilot/announcement';
+
+  try {
+    const resp = await fetch(endpoint, { method: 'POST' });
+    const data = await resp.json();
+    _copilotCurrentText = data.text || '';
+    if (textEl) textEl.textContent = _copilotCurrentText;
+    if (citationEl && data.grounded_citation) citationEl.textContent = data.grounded_citation;
+    if (evidenceBadge && data.evidence_tier) evidenceBadge.textContent = data.evidence_tier;
+    if (meta) {
+      meta.textContent = `SOURCE: ${data.source || 'GEMINI'} (${data.latency_ms || 0} ms) | MODEL: ${data.model_name || 'gemini-2.0-flash'}`;
+    }
+    if (degradedEl) {
+      if (data.degraded_banner) {
+        degradedEl.style.display = 'inline-block';
+        degradedEl.textContent = data.degraded_banner;
+      } else {
+        degradedEl.style.display = 'none';
+      }
+    }
+    if (statusEl) {
+      statusEl.innerHTML = '● READY';
+      statusEl.style.color = 'var(--neon-emerald)';
+    }
+
+    if (_copilotCurrentLang !== 'en') {
+      await setCopilotLanguage(_copilotCurrentLang);
+    }
+  } catch (err) {
+    console.warn('Copilot request error:', err);
+    if (statusEl) {
+      statusEl.innerHTML = '⚠ OFFLINE FALLBACK';
+      statusEl.style.color = '#f59e0b';
+    }
+  }
+}
+
+async function setCopilotLanguage(lang) {
+  _copilotCurrentLang = lang;
+  ['en', 'hi', 'mr'].forEach(l => {
+    const btn = document.getElementById(`btn-copilot-lang-${l}`);
+    if (btn) {
+      if (l === lang) btn.classList.add('active');
+      else btn.classList.remove('active');
+    }
+  });
+
+  const textEl = document.getElementById('copilot-output-text');
+  if (!_copilotCurrentText && textEl) {
+    _copilotCurrentText = textEl.textContent.trim();
+  }
+  if (!_copilotCurrentText) return;
+
+  if (lang === 'en') {
+    if (textEl) textEl.textContent = _copilotCurrentText;
+    return;
+  }
+
+  try {
+    const resp = await fetch('/api/copilot/translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: _copilotCurrentText, target_lang: lang })
+    });
+    const data = await resp.json();
+    if (textEl && data.text) {
+      textEl.textContent = data.text;
+    }
+  } catch (e) {
+    console.warn('Translation error:', e);
+  }
 }
 
 // Decision Safety Layer & Operator Lifecycle UI Logic
@@ -5927,6 +6079,7 @@ function runJudgeTourStep(step) {
     forceConnectivity('');
     playTacticalChime(440, 0.08);
     setCorridorSimMode('NORMAL');
+    fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 1}) }).catch(() => {});
     if (narrator) narrator.textContent = 'Step 1: Safe Baseline — Nominal operations (Threat Level 4, Green, 14 pax). All 24 zones clear. Topological corridor flow balanced.';
     toast('success', 'Judge Tour Step 1: Safe Baseline', 'Demonstrating nominal operations (Threat Level 4, Green). All 24 zones clear.');
   } else if (step === 2) {
@@ -5936,32 +6089,38 @@ function runJudgeTourStep(step) {
     setText('topo-flow-gate1', '8.0 pax/s (Surge)');
     setText('topo-queue-h', '220 / 450 pax');
     setText('topo-load-b', '140 / 180 pax');
-    if (narrator) narrator.textContent = 'Step 2: Pilgrim Arrival Surge & T_limit Forecast — Shahi Snan Sangam wave arrived. Operating Limit T_limit = (180 - 120)/(4.0 - 2.0) = 30.0s [envelope: 20.0s — 46.7s].';
-    toast('warning', 'Judge Tour Step 2: Inflow Surge & Limit Forecast', 'Shahi Snan Sangam wave arrived. Operating Limit T_limit = 30.0s forecast active [earliest 20.0s].');
+    fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 2}) }).catch(() => {});
+    if (narrator) narrator.textContent = 'Step 2: Pilgrim Arrival Surge & T_limit Forecast — Shahi Snan Sangam wave arrived. Operating Limit T_limit = (180 - 168)/2.0 = 6.0s.';
+    toast('warning', 'Judge Tour Step 2: Inflow Surge & Limit Forecast', 'Shahi Snan Sangam wave arrived. Operating Limit T_limit = 6.0s forecast active.');
     fetch('/api/decision/scenario/load', { method: 'POST' }).then(() => fetch('/api/decision/evaluate', { method: 'POST' })).catch(() => {});
   } else if (step === 3) {
     _injectedDemo = 'BOTTLENECK';
     playRailwayChime();
     triggerPABroadcast();
     setCorridorSimMode('DIVERT_R');
+    fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 3}) }).catch(() => {});
+    triggerCopilotAction('explain');
     if (narrator) narrator.textContent = 'Step 3: Decision Safety Layer Rejection — Candidate 2 (Divert to Relief R) REJECTED (108% chokepoint breach @ 48s). Upstream Metering FEASIBLE (+205 queue cost).';
     toast('error', 'Judge Tour Step 3: Decision Safety Layer Active', 'Relief Route R diversion REJECTED (overload at 48s). Upstream Metering FEASIBLE (+205 queue cost).');
   } else if (step === 4) {
+    playTacticalChime(600, 0.1);
+    fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 4}) }).catch(() => {});
+    triggerCopilotAction('brief');
+    if (narrator) narrator.textContent = 'Step 4: Sentinel Incident Copilot (Gemini) — Generating grounded NDMA Section 4.2 command brief and tri-lingual public announcements.';
+    toast('info', 'Judge Tour Step 4: Incident Copilot Active', 'Gemini Incident Copilot generates grounded tactical brief and public announcement.');
+  } else if (step === 5) {
     forceConnectivity('OFFLINE');
     setCorridorSimMode('METER_H');
-    if (narrator) narrator.textContent = 'Step 4: Operator Action Lifecycle & Zero-WAN Safety — Sector Magistrate authorizes ACT-METER-001. SQLite WAL continues zero-packet-drop audit offline.';
-    toast('warning', 'Judge Tour Step 4: Zero-WAN Outage', 'WAN cut simulated. SAFETY PLANE ACTIVE: Detection, SQLite WAL persistence continue with zero packet drop!');
-  } else if (step === 5) {
-    forceConnectivity('');
-    playTacticalChime(660, 0.1);
-    setCorridorSimMode('NORMAL');
-    if (narrator) narrator.textContent = 'Step 5: WAN Restored & Failsafe Auto-Recovery — Outbox sync worker idempotently replays SQLite journal with exact UUID preservation and 0 duplicate rows.';
-    toast('success', 'Judge Tour Step 5: Failsafe Recovery', 'WAN restored. SyncWorker idempotently replays SQLite outbox with exact UUID preservation and 0 duplicate rows.');
+    fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 5}) }).catch(() => {});
+    triggerCopilotAction('announcement');
+    if (narrator) narrator.textContent = 'Step 5: Operator Authorization & Zero-WAN Safety — Sector Magistrate authorizes ACT-METER-001. SQLite WAL continues zero-packet-drop audit offline.';
+    toast('warning', 'Judge Tour Step 5: Zero-WAN Outage', 'WAN cut simulated. SAFETY PLANE ACTIVE: Detection, SQLite WAL persistence continue with zero packet drop!');
   } else {
     _injectedDemo = null;
     forceConnectivity('');
     playTacticalChime(440, 0.08);
     setCorridorSimMode('NORMAL');
+    fetch('/api/demo/judge_flow/reset', { method: 'POST' }).catch(() => {});
     if (narrator) narrator.textContent = 'Live Telemetry Active — Streaming raw authoritative CCTV hardware feed and YOLOv8 real-time detection.';
     toast('info', 'Live Telemetry Active', 'Reverted to raw authoritative backend feed.');
   }
