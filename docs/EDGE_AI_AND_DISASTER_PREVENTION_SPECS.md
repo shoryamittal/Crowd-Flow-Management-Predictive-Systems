@@ -48,8 +48,8 @@ When an upstream bottleneck triggers a diversion proposal, Sentinel AI simulates
 If N_receiving exceeds C_receiving at any point during delta_t, the proposed diversion is REJECTED AS DANGEROUS.
 
 Example:
-- Candidate Action: 'Divert Triveni flow to Pontoon Bridge 4'
-- Simulation Result: Secondary bottleneck breach in 48 seconds (108% Pontoon capacity).
+- Candidate Action: 'Divert Concourse flow to Alternate East FOB'
+- Simulation Result: Secondary bottleneck breach in 48 seconds (108% East FOB capacity).
 - Safety Layer Decision: REJECTED (Unsafe transfer of risk).
 - Counter-Directive: Engage upstream holding buffer at Parade Ground; pace inflow to 1.5 pax/s.
 

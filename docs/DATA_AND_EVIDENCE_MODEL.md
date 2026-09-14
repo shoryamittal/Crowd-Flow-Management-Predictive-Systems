@@ -27,7 +27,7 @@ All data passed between perception, forecasting, decision support, and the UI im
   "value": 138.0,
   "unit": "devotees",
   "timestamp_utc": "2026-09-14T17:35:12.450Z",
-  "source": "Sangam Ghat Ramp Chokepoint (CCTV-01)",
+  "source": "Platform 1-2 Staircase Chokepoint (CCTV-01)",
   "evidence_tier": "OBSERVED",
   "quality_state": "LIVE",
   "calibration_state": "UNCALIBRATED",

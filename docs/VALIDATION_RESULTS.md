@@ -3,7 +3,7 @@
 ## 1. Automated Test Suite Results
 
 > [!IMPORTANT]
-> **Scope & Validation Seam**: The 162 automated software tests executed below verify deterministic code correctness, mathematical rate conservation, boundary invariant enforcement, and offline fallback mechanisms under simulated inputs. They do **not** claim or represent uncalibrated physical field deployment at Maha Kumbh, which requires site-specific homography calibration, variable illumination tuning, and statutory authority approval.
+> **Scope & Validation Seam**: The 162 automated software tests executed below verify deterministic code correctness, mathematical rate conservation, boundary invariant enforcement, and offline fallback mechanisms under simulated inputs. They do **not** claim or represent uncalibrated physical field deployment at Railway Station, which requires site-specific homography calibration, variable illumination tuning, and statutory authority approval.
 
 The full automated test suite was executed locally and verified:
 
@@ -52,7 +52,7 @@ Execution Time: 17.75s (100% PASS)
 | **Vision** | Frame Rate | **24.5 FPS** | 24.8 FPS | 23.9 FPS | 500 frames continuous evaluation |
 | **Vision** | Inference Latency | **38.2 ms** | 37.4 ms | 43.1 ms | YOLOv8s person-class forward pass |
 | **Vision** | End-to-End Latency | **50.2 ms** | 49.1 ms | 56.8 ms | Ingest $\to$ Infer $\to$ BBox Draw $\to$ MJPEG Encode |
-| **Vision** | Precision / Recall | *NOT MEASURED* | — | — | Requires ground-truth annotated Kumbh dataset |
+| **Vision** | Precision / Recall | *NOT MEASURED* | — | — | Requires ground-truth annotated Railway Station dataset |
 | **Forecast** | $T_{\text{limit}}$ Calculation | **0.4 ms** | 0.3 ms | 0.8 ms | Rate integration: $T_{\text{limit}} = (C - N)/g$ |
 | **Forecast** | Controlled Scenario Error| **< 2.0%** | < 1.5% | < 2.0% | Tested against deterministic fluid model |
 | **Decision Safety**| Multi-Candidate Eval | **1.8 ms** | 1.6 ms | 2.4 ms | 4 candidate trajectories across 5 zones (90s horizon) |
@@ -68,9 +68,9 @@ Execution Time: 17.75s (100% PASS)
 Automated navigation was verified via Chrome Remote Debugging Protocol (CDP) on `http://127.0.0.1:5000/`:
 
 ```
-✓ View 'dashboard   ': Active=True (Heading: Maha Kumbh Prayagraj Sector 04) -> PASS
+✓ View 'dashboard   ': Active=True (Heading: Central Railway Station Central Junction Terminal) -> PASS
 ✓ View 'monitoring  ': Active=True (Heading: Live Video Ingestion & CCTV)    -> PASS
-✓ View 'map         ': Active=True (Heading: Sector 04 Spatial Topology)     -> PASS
+✓ View 'map         ': Active=True (Heading: Central Junction Terminal Spatial Topology)     -> PASS
 ✓ View 'simulation  ': Active=True (Heading: Scenario Demonstrator)          -> PASS
 ✓ View 'alerts      ': Active=True (Heading: Incident Log & Active Alerts)  -> PASS
 ✓ View 'health      ': Active=True (Heading: Subsystem Health Matrix)        -> PASS

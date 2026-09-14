@@ -16,7 +16,7 @@
 > It is:
 > **an offline-first crowd-flow decision-support system that observes developing crowd conditions, forecasts configured operating-limit crossings, compares finite pre-approved interventions, rejects actions that transfer congestion into another constrained zone, records the human response, and verifies the observed outcome.**
 
-Sentinel AI must **never** be pitched as "AI predicts stampedes" or "eliminates crowd crushes." It is an operational decision-support tool for **Sector Magistrates, Kumbh Mela Disaster Management Authorities, NDRF commanders, and police coordinators** managing mass gatherings (specifically piloted for **Maha Kumbh Mela Prayagraj Sector 04 — Sangam Triveni Ghat**, with the earlier Indian Railways transit prototype retained as prior laboratory evidence).
+Sentinel AI must **never** be pitched as "AI predicts stampedes" or "eliminates crowd crushes." It is an operational decision-support tool for **Station Director / RPF Duty Officers, Railway Station Disaster Management Authorities, NDRF commanders, and police coordinators** managing mass gatherings (specifically piloted for **Central Railway Station Junction Terminal Central Junction Terminal — Central Junction Terminal (Platforms 1-4 & Main FOB)**, with the earlier Indian Railways transit prototype retained as prior laboratory evidence).
 
 ### Competitive Positioning in One Sentence
 > **"Most crowd systems tell you where congestion is high. Sentinel asks the next operational question: if I move this crowd somewhere else, will I create the next dangerous bottleneck?"**
@@ -34,7 +34,7 @@ During peak mass-gathering windows, people enter a corridor faster than downstre
 ### What Sentinel AI Is NOT
 - **NOT** a universal stampede or injury predictor.
 - **NOT** a claim that crowd crush can be predicted at a fixed physical countdown (e.g., "90 seconds to crush").
-- **NOT** a fully calibrated Kumbh or railway digital twin.
+- **NOT** a fully calibrated Railway Station or railway digital twin.
 - **NOT** autonomous physical crowd control (no automated gate closures or robotic barrier overrides).
 - **NOT** an all-disaster general platform.
 
@@ -48,12 +48,12 @@ During peak mass-gathering windows, people enter a corridor faster than downstre
 ## 3. Product Scope & Operational Boundaries
 
 ### Scope of the Final MVP
-- **Operational Sector:** One mass-gathering sector configured as approximately six named zones (modeled on **Maha Kumbh Mela Prayagraj — Sector 04 Sangam Triveni Ghat**):
-  - **Holding Area (H):** Controlled staging reservoir with configured capacity (e.g., *Parade Ground Pilgrim Staging Enclosure*, limit 450 pax).
-  - **Approach Corridor (A):** Feeder pathway into the primary chokepoint (e.g., *Sangam Approach Marg*).
-  - **Bottleneck (B):** Constrained passage (e.g., *Sangam Ghat Descent Ramp*, limit 180 pax).
-  - **Ghat / Downstream Area (G):** Primary sacred bathing destination (*Triveni Sangam Snan Ghat*).
-  - **Relief Corridor (R):** Pre-designated alternate bypass corridor (e.g., *East Pontoon Bridge Bypass*, limit 160 pax).
+- **Operational Sector:** One mass-gathering sector configured as approximately six named zones (modeled on **Central Railway Station Junction Terminal — Central Junction Terminal Central Junction Terminal (Platforms 1-4 & Main FOB)**):
+  - **Holding Area (H):** Controlled staging reservoir with configured capacity (e.g., *Station Concourse & Waiting Hall H*, limit 450 pax).
+  - **Approach Corridor (A):** Feeder pathway into the primary chokepoint (e.g., *Main FOB Approach A Marg*).
+  - **Bottleneck (B):** Constrained passage (e.g., *Platform 1-2 Staircase B Descent Ramp*, limit 180 pax).
+  - **Ghat / Downstream Area (G):** Primary sacred bathing destination (*Triveni Central Junction Snan Ghat*).
+  - **Relief Corridor (R):** Pre-designated alternate bypass corridor (e.g., *Alternate East FOB Bypass*, limit 160 pax).
   - **Exit / Dispersal (E):** Final egress clearing zone toward mela perimeter.
 - **Intervention Comparison:** Compares a finite set of pre-approved candidate interventions:
   1. `NO ACTION` (Baseline — Bottleneck B crosses limit in 30s, reaches 300 pax at 90s)
@@ -101,8 +101,8 @@ Every displayed numeric metric must state:
 | `"90-second guaranteed warning"` | Unscientific guarantee; depends entirely on inflow velocity and camera. | `"Short-horizon forecast under stated assumptions"` |
 | `"exactly where and when"` | Overclaim. | `"Identifies modeled limit crossing windows"` |
 | `"Zero dependency / fully offline"` | Dishonest if local camera, LAN, or power is still required. | `"Local functions continue without WAN"` |
-| `"First AI crowd system"` | False; commercial analytics and Kumbh AI have existed for years. | Focus on `"Decision Safety Layer & auditability"` |
-| `"Production ready for Kumbh"` | Prototype requires site survey, calibration, and operational sign-off. | `"Supervised pilot prototype"` |
+| `"First AI crowd system"` | False; commercial analytics and Railway Station AI have existed for years. | Focus on `"Decision Safety Layer & auditability"` |
+| `"Production ready for Railway Station"` | Prototype requires site survey, calibration, and operational sign-off. | `"Supervised pilot prototype"` |
 | `"95% confidence"` | Statistically fraudulent without empirical error distribution calibration. | `"Sensitivity range under stated assumptions"` |
 
 ---
@@ -128,7 +128,7 @@ Every displayed numeric metric must state:
 - React frontend rewrite (keep Flask SSR).
 - WhatsApp / SMS / voice assistant integrations.
 - Live telecom or live IRCTC API integrations.
-- Facial recognition, pilgrim identity tracking, or biometric profiling.
+- Facial recognition, passenger identity tracking, or biometric profiling.
 - Automated barrier actuation or robotic crowd controls.
 
 ---

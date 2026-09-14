@@ -57,19 +57,19 @@ python deploy.py
 
 ---
 
-### Step 1 [0:00 – 0:25]: Live Observation Mode (Kumbh Sector 4 Edge Vision)
+### Step 1 [0:00 – 0:25]: Live Observation Mode (Railway Station Platform & FOB Edge Vision)
 - **What the Jury Sees:**
-  - Full-screen tactical dashboard displaying live edge video replay (`CAM-02: Sangam Ghat Access Bottleneck B`).
-  - Active bounding boxes detecting devotees entering the riverfront access ramp.
+  - Full-screen tactical dashboard displaying live edge video replay (`CAM-02: Platform 1-2 Staircase Chokepoint B`).
+  - Active bounding boxes detecting passengers descending the foot overbridge staircase.
   - Telemetry bar showing:
-    - Sector: `KUMBH-SEC-04 (Sangam Triveni Ghat & Parade Ground)`
-    - Source: `CAM-02 — Sangam Ghat Access Bottleneck B (YOLO)`
+    - Sector: `NDLS-MAIN (Central Railway Station — Junction Terminal)`
+    - Source: `CAM-02 — Platform 1-2 Staircase Chokepoint B (YOLO)`
     - Frame Age: `< 45 ms`
     - Model: `YOLOv8s (Local TensorRT / CPU Inference)`
     - Latency: `28.4 ms`
     - Prominent Badge: `[OBSERVED CCTV SIGNAL]`
 - **Speaker Script (15 s):**
-  > *"Respected jury, in mass gatherings like the Maha Kumbh Mela, detecting a crowd hotspot is not enough. The next decision can save lives or simply shift the disaster onto a pontoon bridge or riverbank ramp. Here is Sentinel AI's Perception Engine running 100% locally at Sector 4. Notice we do not claim exact headcount from an uncalibrated camera; our UI explicitly tags this as an uncalibrated relative occupancy signal with a 28 millisecond edge latency."*
+  > *"Respected jury, in high-density transit facilities like Indian Railways junction terminals, detecting a crowd hotspot is not enough. The next decision can save lives or simply shift the disaster onto a narrow foot overbridge or overcrowded platform staircase. Here is Sentinel AI's Perception Engine running 100% locally at Central Junction Terminal. Notice we do not claim exact headcount from an uncalibrated camera; our UI explicitly tags this as an uncalibrated relative occupancy signal with a 28 millisecond edge latency."*
 
 ---
 
@@ -167,7 +167,7 @@ python deploy.py
 | **"Can you predict stampedes?"** | *"No, and no one scientifically can from CCTV alone. We model when a configured operating threshold will be crossed under explicit flow rates, allowing staff to intervene before the chokepoint becomes saturated."* |
 | **"What if the alternative route is also crowded?"** | *"Our Decision Safety Layer rejects it! If Relief Corridor R is crowded, diversion is rejected. If all routes fail, the system outputs 'NO FEASIBLE OPTION FOUND' and escalates to manual emergency protocols."* |
 | **"How do you know staff actually acted?"** | *"We separate Delivered, Acknowledged, Completed, and Verified. Acknowledged only proves receipt; the incident is only marked Verified when subsequent CCTV observations confirm crowd reduction."* |
-| **"Is this production-ready for the Kumbh Mela?"** | *"No, this is an MVP designed for a supervised sector pilot. A full rollout requires physical site geometry surveys, Kumbh Mela Administration and Police operational sign-offs, camera calibration, and DPDP privacy compliance."* |
+| **"Is this production-ready for Indian Railways?"** | *"No, this is an MVP designed for a supervised junction pilot. A full rollout requires physical site geometry surveys, Railway Administration (Divisional Railway Manager / RPF) operational sign-offs, camera calibration, and DPDP privacy compliance."* |
 | **"What is actually offline?"** | *"The entire local safety plane: video ingestion, YOLO inference, decision logic, and SQLite WAL persistence run locally. WAN is only used for secondary remote synchronization."* |
 
 ---

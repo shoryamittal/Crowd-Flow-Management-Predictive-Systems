@@ -2,7 +2,7 @@
 
 ## 1. Architectural Mission & Philosophy
 
-SENTINEL-AI is an **action-aware, hybrid edge-to-cloud crowd intelligence and decision-support platform** engineered for high-density mass gatherings (modeled case study: **Maha Kumbh Mela Prayagraj Sector 04 Operational Layout**).
+SENTINEL-AI is an **action-aware, hybrid edge-to-cloud crowd intelligence and decision-support platform** engineered for high-density mass gatherings (modeled case study: **Central Railway Station Junction Terminal Central Junction Terminal Operational Layout**).
 
 The core operational thesis of SENTINEL-AI addresses the fatal flaw of traditional crowd management tools:
 > *"Most crowd systems tell you where congestion is high. Sentinel asks the next operational question: **If I move this crowd somewhere else, will I create the next dangerous bottleneck downstream?**"*
@@ -60,13 +60,13 @@ The core operational thesis of SENTINEL-AI addresses the fatal flaw of tradition
 
 3. **Decision Safety Layer (Deterministic Feasibility)**:
    - Simulates downstream corridor impacts over a 90-second horizon before any recommendation is proposed.
-   - **Secondary Bottleneck Check**: Automatically rejects crowd diversions if the receiving zone will breach its operating limit (e.g. Relief Pontoon Bridge R rejected at $t=48\text{s}$ due to 108% peak load).
+   - **Secondary Bottleneck Check**: Automatically rejects crowd diversions if the receiving zone will breach its operating limit (e.g. Relief Foot Overbridge R rejected at $t=48\text{s}$ due to 108% peak load).
    - Route status verification (`OPEN`, `CLOSED`, `UNVERIFIED`) and flow directionality enforcement.
 
 4. **Incident Copilot (Google Gemini / gemini-2.5-flash)**:
    - Sits strictly **above** the safety engine as an interpretation and communication layer.
    - Grounded in verified official guidance: **NDMA National Disaster Management Guidelines — Managing Crowds at Events and Venues of Mass Gathering (2014)** and operational procedures (`SOP-CFM-FLOW-01` through `05`).
-   - Generates tactical briefs for Sector Magistrates, explainable rejection rationales, and calm public address announcements in English, Hindi, and Marathi.
+   - Generates tactical briefs for Station Director / RPF Duty Officers, explainable rejection rationales, and calm public address announcements in English, Hindi, and Marathi.
    - **Hallucination Firewall**: Rejects any LLM output attempting to approve rejected actions, claim stampede certainty, or invent numbers.
 
 5. **Human-in-the-Loop Lifecycle**:

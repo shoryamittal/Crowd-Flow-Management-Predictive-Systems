@@ -29,7 +29,7 @@ The deployment adheres to a resilient **Hybrid Edge-to-Cloud Architecture**:
  │                            ▼                            │
  │  SENTINEL Incident Copilot (Google Gemini)              │
  │  • Operational Decision Rationale Explanation          │
- │  • Sector Magistrate Executive Briefings               │
+ │  • Station Director & RPF Executive Briefings          │
  │  • Non-Sensational Public Address Announcements        │
  │  • Tri-Lingual Operations (English / हिन्दी / मराठी)   │
  └────────────────────────────┬────────────────────────────┘
@@ -37,7 +37,7 @@ The deployment adheres to a resilient **Hybrid Edge-to-Cloud Architecture**:
                               ▼
  ┌─────────────────────────────────────────────────────────┐
  │             HUMAN-IN-THE-LOOP LIFECYCLE                 │
- │  Sector Magistrate Review & Approval                    │
+ │  Station Director Review & Authorization                │
  │  PROPOSED ──► APPROVED ──► DELIVERED ──► ACKNOWLEDGED   │
  │                                                         │
  │  Post-Action Verification via CCTV Sensors              │
@@ -86,8 +86,8 @@ gcloud run deploy sentinel-ai \
 | `GEMINI_API_KEY` | *(empty)* | Optional API key for Google Gemini (`gemini-2.5-flash` / configurable). If absent, system automatically runs with the deterministic local safety fallback. |
 | `GOOGLE_CLOUD_PROJECT`| *(auto)* | GCP project identifier for Vertex AI / Cloud Logging. |
 | `GOOGLE_CLOUD_LOCATION` | `asia-south1` | Preferred Cloud Run / Vertex AI regional endpoint. |
-| `STATION_NAME` | `Prayagraj Maha Kumbh — Sector 04` | Mass gathering sector name. |
-| `STATION_CODE` | `KUMBH-SEC-04` | Operational sector identifier. |
+| `STATION_NAME` | `Central Railway Station — Junction Terminal` | Station name. |
+| `STATION_CODE` | `NDLS-MAIN` | Operational station identifier. |
 | `SENTINEL_ADMIN_USER` | `admin` | Console administrator username. |
 | `SENTINEL_ADMIN_PASS` | `sentinel2026` | Console administrator password. |
 | `SENTINEL_AUTH_ENABLED` | `true` | Enforces authentication for command console (`/login/bypass` available for evaluators). |
@@ -105,14 +105,14 @@ Google Cloud Run leverages native HTTP health and readiness probes:
     ```json
     {
       "status": "ready",
-      "service": "sentinel-ai-mass-gathering-safety",
-      "operating_sector": "Maha Kumbh Prayagraj Sector 04 (Sangam Triveni Ghat)",
+      "service": "sentinel-ai-railway-station-safety",
+      "operating_sector": "Central Railway Station — Junction Terminal (Platforms 1-4 & Main FOB)",
       "deterministic_safety_engine": "ACTIVE",
       "flow_forecast_engine": "ACTIVE",
-      "grounded_sop_knowledge_base": "ACTIVE (NDMA 4.2 / Kumbh Sector 4)",
+      "grounded_sop_knowledge_base": "ACTIVE (Railway Board / NDMA 2014)",
       "copilot": {
         "available": true,
-        "model_name": "gemini-2.0-flash",
+        "model_name": "gemini-2.5-flash",
         "provider": "Google GenAI (Gemini)"
       },
       "offline_continuity_plane": "HEALTHY"
@@ -120,7 +120,7 @@ Google Cloud Run leverages native HTTP health and readiness probes:
     ```
 - **Copilot Endpoints**:
   - `POST /api/copilot/explain`: Decision rationale and risk trajectory explanation.
-  - `POST /api/copilot/brief`: Sector Magistrate executive command briefing.
+  - `POST /api/copilot/brief`: Station Director & RPF executive command briefing.
   - `POST /api/copilot/announcement`: Calm public address drafts.
   - `POST /api/copilot/translate`: Accurate Hindi / Marathi translation preserving technical markers.
   - `POST /api/copilot/whatif`: Candidate intervention comparison.

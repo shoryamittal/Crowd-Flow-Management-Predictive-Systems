@@ -133,7 +133,7 @@ To maintain strict scientific and engineering integrity before hackathon judges,
    Sentinel AI does not claim global network optimality. It *compares finite, pre-approved candidate interventions* and weeds out those that violate safety constraints.
 4. **NO Autonomous Actuation:**
    Sentinel AI does not actuate motorized turnstiles, drop physical gates, or override human authority. Every action requires human approval and confirmation.
-5. **NO Production Readiness for Live Kumbh:**
-   This system is an MVP prototype for a supervised sector pilot. A full production rollout requires surveyed physical geometry, Kumbh Mela Administration and Police operational sign-offs, camera calibration, and legal DPDP compliance validation.
+5. **NO Production Readiness for Live Railway Station:**
+   This system is an MVP prototype for a supervised sector pilot. A full production rollout requires surveyed physical geometry, Railway Station Administration and Police operational sign-offs, camera calibration, and legal DPDP compliance validation.
 6. **NO "100% Guaranteed" Casualty Prevention:**
    Disaster management is probabilistic and human-dependent. The system provides decision support, constraint checking, and auditable accountability.
