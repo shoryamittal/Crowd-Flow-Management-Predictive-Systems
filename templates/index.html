@@ -3600,14 +3600,14 @@
                   <span style="font-size:0.62rem;color:#38bdf8;font-weight:600;background:rgba(56,189,248,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(56,189,248,0.3);">POWERED BY GOOGLE GEMINI</span>
                 </div>
                 <div style="font-size:0.68rem;color:var(--text-secondary);">
-                  Operational decision explanation, NDMA Section 4.2 grounded briefing &amp; multilingual communications.
+                  Operational decision explanation, NDMA (2014) Mass Gathering Guidelines briefing &amp; multilingual communications.
                 </div>
               </div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
               <span class="evidence-badge badge-observed" id="copilot-evidence-badge" style="font-size:0.65rem;">AI-GENERATED EXPLANATION</span>
               <span id="copilot-degraded-badge" style="display:none;font-size:0.62rem;font-weight:700;color:#f59e0b;background:rgba(245,158,11,0.15);padding:3px 8px;border-radius:4px;border:1px solid #f59e0b;">
-                COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES
+                LOCAL SAFETY PLANE ACTIVE — GEMINI COPILOT UNAVAILABLE
               </span>
             </div>
           </div>
@@ -3615,7 +3615,7 @@
           <!-- Grounded SOP Citation Bar -->
           <div style="display:flex;align-items:center;gap:8px;background:rgba(0,240,255,0.04);border:1px solid rgba(0,240,255,0.12);border-radius:6px;padding:6px 12px;margin-bottom:12px;font-size:0.68rem;color:var(--neon-cyan);">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span id="copilot-grounding-citation">Grounded in: • Live Machine State • Decision Safety Engine • Approved SOP (NDMA Section 4.2.1, NDMA Section 4.2.2)</span>
+            <span id="copilot-grounding-citation">Grounded in verified official guidance: NDMA National Disaster Management Guidelines — Managing Crowds at Events and Venues of Mass Gathering (2014) [Ingress &amp; Flow Control / Queue Safety]</span>
           </div>
 
           <!-- Quick Action Buttons -->
@@ -3644,7 +3644,7 @@
               <span id="copilot-output-status" style="color:var(--neon-emerald);">● READY</span>
             </div>
             <div id="copilot-output-text" style="font-size:0.78rem;color:#f1f5f9;line-height:1.55;white-space:pre-wrap;">
-Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 168/180 capacity. Deterministic flow forecast indicates time to configured operating limit is 6.0 seconds. Intervention 'Diversion to Relief Corridor R' was REJECTED by Decision Safety Engine to prevent secondary bottlenecking at t=48s (108% capacity). Intervention 'Upstream Metering at Holding Area H' is FEASIBLE under NDMA Section 4.2.1. Awaiting Sector Magistrate human authorization.
+Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 168/180 capacity. Deterministic flow forecast indicates time to configured operating limit is 6.0 seconds. Intervention 'Diversion to Relief Corridor R' was REJECTED by Decision Safety Engine to prevent secondary bottlenecking at t=48s (108% capacity). Intervention 'Upstream Metering at Holding Area H' is FEASIBLE under NDMA Mass Gathering Guidelines 2014 (SOP-CFM-FLOW-01). Awaiting Sector Magistrate human authorization.
             </div>
           </div>
         </div>
@@ -4883,9 +4883,9 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
               <li>Up to 32 Edge RTSP / CCTV Streams</li>
               <li>Local YOLOv8 Real-Time Crowd Analytics</li>
               <li>Bottleneck B &amp; Chokepoint Alerting</li>
-              <li>Local SQLite WAL Durability (100% Offline)</li>
+              <li>Local SQLite WAL Durability (Local Edge Continuity)</li>
               <li>VHF Tactical Radio &amp; SMS Notifier Integration</li>
-              <li>99.9% Local Sector Uptime SLA Guarantee</li>
+              <li>High-Availability Local Sector Continuous Monitoring</li>
             </ul>
             <button class="btn btn-sm secondary" style="width:100%;" onclick="toast('info', 'Tier Selected', 'Sector Command Tier documentation requested.')">DOWNLOAD RFP SPECIFICATION</button>
           </div>
@@ -5176,9 +5176,9 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
         <span class="sjd-btn-num">4</span>
         <span class="sjd-btn-text">Operator Lifecycle</span>
       </button>
-      <button class="sjd-btn sjd-purple" id="sjd-btn-5" onclick="runJudgeTourStep(5)" title="Step 5: Zero-WAN Survival &amp; Failsafe Recovery">
+      <button class="sjd-btn sjd-purple" id="sjd-btn-5" onclick="runJudgeTourStep(5)" title="Step 5: Offline Continuity &amp; Failsafe Recovery">
         <span class="sjd-btn-num">5</span>
-        <span class="sjd-btn-text">Zero-WAN Recovery</span>
+        <span class="sjd-btn-text">Offline Resilience</span>
       </button>
       <button class="sjd-btn sjd-reset" id="sjd-btn-reset" onclick="runJudgeTourStep(0)" title="Return to Live Physical Hardware Feed">
         <span class="sjd-btn-num">↺</span>
@@ -6241,15 +6241,15 @@ function runJudgeTourStep(step) {
     playTacticalChime(600, 0.1);
     fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 4}) }).catch(() => {});
     triggerCopilotAction('brief');
-    if (narrator) narrator.textContent = 'Step 4: Sentinel Incident Copilot (Gemini) — Generating grounded NDMA Section 4.2 command brief and tri-lingual public announcements.';
+    if (narrator) narrator.textContent = 'Step 4: Sentinel Incident Copilot (Gemini) — Generating grounded NDMA (2014) command brief and tri-lingual public announcements.';
     toast('info', 'Judge Tour Step 4: Incident Copilot Active', 'Gemini Incident Copilot generates grounded tactical brief and public announcement.');
   } else if (step === 5) {
     forceConnectivity('OFFLINE');
     setCorridorSimMode('METER_H');
     fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 5}) }).catch(() => {});
     triggerCopilotAction('announcement');
-    if (narrator) narrator.textContent = 'Step 5: Operator Authorization & Zero-WAN Safety — Sector Magistrate authorizes ACT-METER-001. SQLite WAL continues zero-packet-drop audit offline.';
-    toast('warning', 'Judge Tour Step 5: Zero-WAN Outage', 'WAN cut simulated. SAFETY PLANE ACTIVE: Detection, SQLite WAL persistence continue with zero packet drop!');
+    if (narrator) narrator.textContent = 'Step 5: Operator Authorization & Offline Continuity — Sector Magistrate authorizes ACT-METER-001. SQLite WAL continues audit logging locally.';
+    toast('warning', 'Judge Tour Step 5: WAN Loss Resilience', 'WAN loss simulated. LOCAL SAFETY PLANE ACTIVE: Detection and SQLite WAL persistence continue locally!');
   } else {
     _injectedDemo = null;
     forceConnectivity('');
@@ -7957,7 +7957,8 @@ var _i18n = {
   'Arrival Surge':   { hi: 'आगमन वृद्धि' },
   'Safety Layer Rejection': { hi: 'सुरक्षा अस्वीकृति' },
   'Operator Lifecycle': { hi: 'ऑपरेटर जीवनचक्र' },
-  'Zero-WAN Recovery': { hi: 'शून्य-WAN पुनर्प्राप्ति' },
+  'Offline Resilience': { hi: 'ऑफ़लाइन निरंतरता' },
+  'Offline Recovery': { hi: 'ऑफ़लाइन निरंतरता' },
   'Live Camera':     { hi: 'लाइव कैमरा' },
   'AUTO-PITCH':      { hi: 'ऑटो-पिच' },
   'PAUSE PITCH':     { hi: 'पिच रोकें' },
