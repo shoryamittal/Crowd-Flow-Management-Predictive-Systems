@@ -10,7 +10,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SENTINEL AI · Maha Kumbh Mela Prayagraj 2025–26 · Sector 04 Operations Command</title>
+<title>SENTINEL AI · Indian Railways · Station Crowd Flow Management &amp; Predictive Safety Console</title>
 <style>
 
   :root {
@@ -3131,7 +3131,7 @@
   <nav class="sidebar" role="navigation" aria-label="Operations Navigation">
     <div class="brand">
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M12 2 L21 6 V12 C21 17 17 20.5 12 22 C7 20.5 3 17 3 12 V6 Z" stroke="#22d3ee" stroke-width="1.6" fill="rgba(34,211,238,.06)"/><path d="M6.5 12.5 H9.2 L10.4 9.5 L12.2 15.5 L13.4 12.5 H17.5" stroke="#22d3ee" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <div><div class="brand-title-wrap"><div class="brand-name">SENTINEL AI</div><div class="brand-sub" id="brand-station">Maha Kumbh Crowd Safety (SIH26206)</div></div></div>
+      <div><div class="brand-title-wrap"><div class="brand-name">SENTINEL AI</div><div class="brand-sub" id="brand-station">Station Crowd Flow Management (SIH26206)</div></div></div>
     </div>
 
     <div class="nav-item active" data-view="dashboard">
@@ -3144,7 +3144,7 @@
     </div>
     <div class="nav-item" data-view="map">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M3 9 H21 M3 15 H21 M9 3 V21 M15 3 V21"/></svg>
-      <span class="nav-label">Sector Layout</span>
+      <span class="nav-label">Station Layout</span>
     </div>
     <div class="nav-item" data-view="simulation">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="1.5"/><path d="M9.5 8 L15 11 L9.5 14 Z" fill="currentColor" stroke="none"/><path d="M3 21 H21" stroke-linecap="round"/></svg>
@@ -3169,24 +3169,23 @@
     </div>
 
     <div class="nav-spacer"></div>
-    <div class="nav-foot">SENTINEL AI &middot; Maha Kumbh Mela Authority</div>
+    <div class="nav-foot">SENTINEL AI &middot; Indian Railways / RPF Safety Division</div>
   </nav>
 
   <header class="topbar" role="banner">
     <div class="topbar-left">
-      <span class="ir-emblem-badge"><span style="font-size:0.7rem;font-weight:800;letter-spacing:0.03em;">महाकुंभ मेला 2025-26</span> · <span style="font-weight:700;">MAHA KUMBH PRAYAGRAJ</span> · <span style="opacity:0.7;">NDMA &amp; आपदा प्रबंधन / Disaster Management</span></span>
+      <span class="ir-emblem-badge"><span style="font-size:0.7rem;font-weight:800;letter-spacing:0.03em;">भारतीय रेल</span> · <span style="font-weight:700;">INDIAN RAILWAYS</span> · <span style="opacity:0.7;">RPF &amp; आपदा प्रबंधन / Station Safety Console</span></span>
       <div class="station-fleet-selector">
         <span style="font-size:0.65rem;color:var(--text-muted);font-weight:800;">SECTOR:</span>
         <select class="station-fleet-select" id="station-fleet-select" onchange="switchStationHub(this.value)">
-          <option value="KUMBH-SEC-04" selected>KUMBH-SEC-04 — Sangam Triveni Ghat &amp; Parade Ground (Pilot)</option>
-          <option value="KUMBH-SEC-01">KUMBH-SEC-01 — Mahavir Marg &amp; Arail Ghat Link</option>
-          <option value="KUMBH-SEC-02">KUMBH-SEC-02 — Kali Sadak &amp; Shastri Bridge</option>
-          <option value="KUMBH-SEC-03">KUMBH-SEC-03 — Akshayavat Corridor &amp; Fort Ramp</option>
-          <option value="RAIL-NDLS">RAIL-NDLS — Transit Feeder Hub (Prior Prototype Reference)</option>
+          <option value="NDLS-MAIN" selected>NDLS-MAIN — New Delhi Central Junction (Platforms 1-4 &amp; Main FOB)</option>
+          <option value="PRYJ-JCT">PRYJ-JCT — Prayagraj Junction (Civil Lines &amp; City Side FOBs)</option>
+          <option value="CSMT-TERM">CSMT-TERM — Mumbai CSMT Main Concourse &amp; Suburban FOB</option>
+          <option value="HWH-STN">HWH-STN — Howrah Junction Terminal (Old &amp; New Complex Overpasses)</option>
         </select>
       </div>
       <b>SENTINEL AI</b><span class="sep">/</span><span id="topbar-view-name">Dashboard</span>
-      <div class="railwire-sla-badge"><span class="pulse-dot" style="background:#00ff88;"></span> KUMBH SECURE-NET 99.999% OFFLINE SAFETY PLANE</div>
+      <div class="railwire-sla-badge"><span class="pulse-dot" style="background:#00ff88;"></span> RAILWIRE 99.999% OFFLINE SAFETY PLANE</div>
       <div id="live-clock" style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-secondary);letter-spacing:0.04em;"></div>
     </div>
     <div class="topbar-right">
@@ -3234,7 +3233,7 @@
         <div class="jgt-badge"><span class="pulse-dot"></span> SCENARIO DEMONSTRATOR:</div>
         <div class="jgt-steps">
           <button class="jgt-btn active" id="jgt-step-1" onclick="runJudgeTourStep(1)" title="Step 1: Normal baseline operations with YOLO detection">1. Normal Operations</button>
-          <button class="jgt-btn jgt-warn" id="jgt-step-2" onclick="runJudgeTourStep(2)" title="Step 2: Sangam Snan surge (+45% devotee accumulation)">2. Influx Surge</button>
+          <button class="jgt-btn jgt-warn" id="jgt-step-2" onclick="runJudgeTourStep(2)" title="Step 2: Central Junction Boarding surge (+45% passenger accumulation)">2. Influx Surge</button>
           <button class="jgt-btn jgt-red" id="jgt-step-3" onclick="runJudgeTourStep(3)" title="Step 3: Chokepoint bottleneck with emergency alarm and evacuation vectors">3. Emergency Response</button>
           <button class="jgt-btn jgt-warn" id="jgt-step-4" onclick="runJudgeTourStep(4)" title="Step 4: WAN cut - Safety plane continues zero packet drop in SQLite">4. Network Outage</button>
           <button class="jgt-btn jgt-cyan" id="jgt-step-5" onclick="runJudgeTourStep(5)" title="Step 5: WAN restored - Idempotent background sync with 0 duplicates">5. Auto-Recovery</button>
@@ -3360,14 +3359,14 @@
 
         <div class="card">
           <h2>
-            <span>Live Sector &amp; Ghat Crowd Intelligence</span>
+            <span>Live Platform &amp; FOB Crowd Intelligence</span>
             <span class="badge" id="cs-risk-badge">--</span>
           </h2>
           
           <!-- Large Headcount Display with Real-Time Occupancy Gauge -->
           <div style="display:flex;align-items:baseline;justify-content:space-between;padding-bottom:0.85rem;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:0.85rem;flex-wrap:wrap;gap:0.75rem;">
             <div>
-              <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);font-weight:800;">Detected Pilgrims &amp; Devotees</div>
+              <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);font-weight:800;">Detected Passengers &amp; Passengers</div>
               <div style="display:flex;align-items:baseline;gap:0.4rem;margin-top:2px;">
                 <span class="cs-num" id="cs-people" style="font-size:2.4rem;font-weight:900;font-family:var(--mono);color:var(--text-pure);line-height:1;">--</span>
                 <span style="font-size:0.8rem;color:var(--text-secondary);font-weight:700;">Persons in frame</span>
@@ -3445,7 +3444,7 @@
             </div>
             <button class="pa-broadcast-btn" onclick="triggerPABroadcast()" style="width:100%;justify-content:center;">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-              BROADCAST EMERGENCY SANGAM SECTOR PA ANNOUNCEMENT
+              BROADCAST EMERGENCY STATION CONCOURSE &amp; PLATFORM PA ANNOUNCEMENT
             </button>
           </div>
 
@@ -3706,7 +3705,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             </button>
           </div>
           <div style="font-size:0.65rem;color:var(--text-secondary);margin-top:0.5rem;" id="lc-status-note">
-            Current Action: <b>ACT-METER-001</b> | Authority: Sector Magistrate (Kumbh Sector 4) | Waiting for operator approval.
+            Current Action: <b>ACT-METER-001</b> | Authority: Station Director / RPF Duty Officer | Waiting for operator approval.
           </div>
         </div>
 
@@ -3785,7 +3784,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
                 </tr>
                 <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
                   <td style="padding:6px 10px;font-weight:600;color:var(--text-primary);">Secondary Bottleneck Hazard</td>
-                  <td style="padding:6px 10px;color:var(--neon-crimson);">HIGH: Naive pontoon diversion causes 108% breach at t=48s</td>
+                  <td style="padding:6px 10px;color:var(--neon-crimson);">HIGH: Naive East FOB diversion causes 108% breach at t=48s</td>
                   <td style="padding:6px 10px;color:var(--neon-emerald);"><b>ZERO</b>: Automatically detected and REJECTED before dispatch</td>
                 </tr>
                 <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
@@ -3797,18 +3796,18 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             </table>
           </div>
           <div style="font-size:0.62rem;color:var(--text-muted);margin-top:6px;">
-            * Measured in Maha Kumbh Sector 04 reference simulation scenario. Clearly labeled as SCENARIO / SIMULATION per scientific honesty guidelines.
+            * Measured in Central Railway Station reference simulation scenario. Clearly labeled as SCENARIO / SIMULATION per scientific honesty guidelines.
           </div>
         </div>
       </div>
 
-      <!-- LIVE PILGRIM INFLUX & GHAT SURGE TELEMETRY (KUMBH MELA SECTOR 4) -->
+      <!-- LIVE PASSENGER INFLUX & TRAIN SURGE TELEMETRY (INDIAN RAILWAYS) -->
       <div class="train-timetable-card">
         <div class="train-timetable-header">
           <div style="display:flex;align-items:center;gap:8px;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff9933" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span style="font-weight:800;font-size:0.78rem;color:#ffffff;letter-spacing:0.04em;">LIVE PILGRIM MOVEMENT &amp; GHAT ARRIVAL SURGE TELEMETRY</span>
-            <span class="ir-emblem-badge" style="font-size:0.6rem;padding:2px 6px;">PRAYAGRAJ MELA GIS SYNCED</span>
+            <span style="font-weight:800;font-size:0.78rem;color:#ffffff;letter-spacing:0.04em;">LIVE PASSENGER MOVEMENT &amp; TRAIN ARRIVAL SURGE TELEMETRY</span>
+            <span class="ir-emblem-badge" style="font-size:0.6rem;padding:2px 6px;">NATIONAL TRAIN ENQUIRY SYSTEM (NTES) SYNCED</span>
           </div>
           <button class="btn btn-sm secondary" onclick="refreshTrainTimetable()" style="font-size:0.65rem;padding:3px 8px;">⟳ SYNC TELEMETRY</button>
         </div>
@@ -3816,76 +3815,76 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
           <table class="train-timetable-table">
             <thead>
               <tr>
-                <th>Pilgrim Corridor / Sector Channel</th>
-                <th>Origin &rarr; Dispersal Ghat</th>
-                <th>Assigned Ghat / Passage</th>
-                <th>Snan Window / Movement Status</th>
-                <th>Expected Pilgrim Influx Rate</th>
+                <th>Train Service / Corridor</th>
+                <th>Origin &rarr; Destination</th>
+                <th>Assigned Platform / FOB</th>
+                <th>Schedule &amp; Arrival Status</th>
+                <th>Expected Passenger Influx Rate</th>
                 <th>Surge Warning</th>
-                <th>Sector Tactical Action</th>
+                <th>Station Tactical Action</th>
               </tr>
             </thead>
             <tbody id="train-timetable-body">
               <tr>
-                <td style="font-weight:700;color:var(--neon-cyan);">VIP Sangam Corridor · Main Triveni Approach</td>
-                <td>Parade Ground Staging &rarr; Sangam Ghat 1</td>
-                <td><b style="color:#ffffff;">Sangam Ghat 1</b></td>
-                <td><span style="color:var(--neon-crimson);font-weight:800;">SHAHI SNAN PEAK (ACTIVE)</span></td>
-                <td>1,850 Pilgrims/min</td>
+                <td style="font-weight:700;color:var(--neon-cyan);">12301 Howrah Rajdhani Express · Platform 1</td>
+                <td>Howrah Junction &rarr; New Delhi Central</td>
+                <td><b style="color:#ffffff;">Platform 1 (Main FOB)</b></td>
+                <td><span style="color:var(--neon-crimson);font-weight:800;">PLATFORM ARRIVAL (ON TIME)</span></td>
+                <td>1,850 Pax/min</td>
                 <td><span class="train-badge-surge surge-CRITICAL">CRITICAL SURGE</span></td>
-                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('OPEN_BARRIERS', 'Sangam Egress Ramp')">Clear Egress</button></td>
+                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('OPEN_BARRIERS', 'Platform 1-2 Staircase B')">Clear Egress</button></td>
               </tr>
               <tr>
-                <td style="font-weight:700;color:var(--text-primary);">Corridor 2 · Kali Ramp to Ghat 3</td>
-                <td>Kali Marg Staging &rarr; Ghat 3 (Pontoon 2)</td>
-                <td><b style="color:#ffffff;">Ghat 3 Pontoon</b></td>
-                <td><span style="color:var(--neon-amber);font-weight:800;">AUSPICIOUS WINDOW (ON TIME)</span></td>
-                <td>1,450 Pilgrims/min</td>
+                <td style="font-weight:700;color:var(--text-primary);">12424 Dibrugarh Rajdhani Express · Platform 2</td>
+                <td>Dibrugarh &rarr; New Delhi Central</td>
+                <td><b style="color:#ffffff;">Platform 2 (East FOB)</b></td>
+                <td><span style="color:var(--neon-amber);font-weight:800;">APPROACHING OUTER SIGNAL</span></td>
+                <td>1,450 Pax/min</td>
                 <td><span class="train-badge-surge surge-ELEVATED">ELEVATED</span></td>
-                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Ghat 3 Bottleneck Ramp')">Pre-position NDRF</button></td>
+                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Platform 2 Staircase Landing')">Pre-position RPF</button></td>
               </tr>
               <tr>
-                <td style="font-weight:700;color:var(--text-primary);">Corridor 3 · Mahavir Staging to Arail</td>
-                <td>Arail Holding Enclosure &rarr; Arail Ghat</td>
-                <td><b style="color:#ffffff;">Arail Ghat</b></td>
-                <td><span style="color:var(--neon-emerald);font-weight:800;">STEADY BATHING FLOW</span></td>
-                <td>880 Pilgrims/min</td>
+                <td style="font-weight:700;color:var(--text-primary);">12560 Shiv Ganga Express · Platform 3</td>
+                <td>Varanasi &rarr; New Delhi Central</td>
+                <td><b style="color:#ffffff;">Platform 3 (Central FOB)</b></td>
+                <td><span style="color:var(--neon-emerald);font-weight:800;">STEADY PLATFORM BOARDING</span></td>
+                <td>880 Pax/min</td>
                 <td><span class="train-badge-surge surge-MODERATE">MODERATE</span></td>
-                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('INVERT_ESCALATORS', 'Arail Holding Barrier')">Meter Inflow</button></td>
+                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('INVERT_ESCALATORS', 'Concourse Staging Gate 3')">Meter Inflow</button></td>
               </tr>
               <tr>
-                <td style="font-weight:700;color:var(--text-secondary);">Corridor 4 · Bandhwa Fort Ramp to Akshayavat</td>
-                <td>Fort Staging Area &rarr; Akshayavat Corridor</td>
-                <td><b style="color:#ffffff;">Akshayavat Egress</b></td>
-                <td><span style="color:var(--text-muted);font-weight:800;">CIRCULATION DELAY 15 MIN</span></td>
-                <td>1,650 Pilgrims/min</td>
+                <td style="font-weight:700;color:var(--text-secondary);">12952 Mumbai Tejas Rajdhani · Platform 4</td>
+                <td>Mumbai Central &rarr; New Delhi</td>
+                <td><b style="color:#ffffff;">Platform 4 (South FOB)</b></td>
+                <td><span style="color:var(--text-muted);font-weight:800;">DELAYED 15 MIN (RESCHEDULED)</span></td>
+                <td>1,650 Pax/min</td>
                 <td><span class="train-badge-surge surge-HIGH">HIGH LOAD</span></td>
-                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Fort Chokepoint Ramp')">Hold Inflow</button></td>
+                <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Platform 4 Staircase Chokepoint')">Hold Inflow</button></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- KUMBH MELA DISASTER RESPONSE FORCE & POLICE QUICK-DISPATCH ACTION BAR -->
+      <!-- RAILWAY PROTECTION FORCE (RPF) & GRP QUICK-DISPATCH ACTION BAR -->
       <div class="rpf-quick-dispatch-bar">
         <div style="font-size:0.72rem;font-weight:800;color:#ff9933;display:flex;align-items:center;gap:6px;letter-spacing:0.05em;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff9933" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          KUMBH SECTOR 4 DISASTER FORCE (NDRF / POLICE / MARSHALS):
+          RAILWAY PROTECTION FORCE (RPF / GRP STATION MARSHALS):
         </div>
-        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Ghat Chokepoint Stairs')">
+        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('DEPLOY_BARRIER_SQUAD', 'Platform 1-2 Staircase B')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Deploy Ghat Barrier Squad (NDRF)
+          Deploy Staircase Cordon (RPF Squad)
         </button>
-        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('INVERT_ESCALATORS', 'Holding Enclosure H Gates')">
+        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('INVERT_ESCALATORS', 'Concourse Waiting Hall H Barriers')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-          Regulate Inflow at Holding H
+          Regulate Inflow at Concourse H
         </button>
-        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('EMERGENCY_GATES_OPEN', 'Emergency Pontoon Gates')">
+        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('EMERGENCY_GATES_OPEN', 'East FOB Auxiliary Egress Gates')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Open Relief Pontoon Corridor R
+          Open Alternate East FOB Corridor R
         </button>
-        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('PA_TRI_LINGUAL', 'Sangam Public Address')">
+        <button class="rpf-dispatch-btn" onclick="dispatchRpfCommand('PA_TRI_LINGUAL', 'Station Public Address')">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
           Broadcast Tri-Lingual Safety Alert
         </button>
@@ -3976,28 +3975,28 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             </div>
           </div>
 
-          <!-- Channel 2: Sangam Ghat Access Bottleneck B (YOLO Live) -->
+          <!-- Channel 2: Platform 1-2 Staircase Chokepoint B (YOLO Live) -->
           <div class="cctv-cell active-primary">
             <div class="cctv-head">
-              <span class="cctv-tag">CAM-02: SANGAM GHAT ACCESS BOTTLENECK B (YOLO)</span>
+              <span class="cctv-tag">CAM-02: PLATFORM 1-2 STAIRCASE B (YOLO)</span>
               <span class="cctv-live-badge" style="border-color:var(--neon-emerald);color:var(--neon-emerald);">● AI ACTIVE</span>
             </div>
-            <img class="cctv-img" src="/camera-feed" alt="CAM-02 Sangam Ghat Bottleneck B YOLO Feed">
+            <img class="cctv-img" src="/camera-feed" alt="CAM-02 Platform 1-2 Staircase B YOLO Feed">
             <div class="cctv-foot">
-              <span class="cctv-zone-info">Active AI Detector · Target: Devotee / Person</span>
+              <span class="cctv-zone-info">Active AI Detector · Target: Passenger / Person</span>
               <button class="cctv-focus-btn" onclick="switchCctvMode('single')">FULLSCREEN</button>
             </div>
           </div>
 
-          <!-- Channel 3: Relief Corridor R & Pontoon -->
+          <!-- Channel 3: Relief Corridor R & East FOB -->
           <div class="cctv-cell">
             <div class="cctv-head">
-              <span class="cctv-tag">CAM-03: RELIEF CORRIDOR R (EAST PONTOON BYPASS)</span>
+              <span class="cctv-tag">CAM-03: RELIEF CORRIDOR R (EAST FOB BYPASS)</span>
               <span class="cctv-live-badge">● LIVE 30 FPS</span>
             </div>
             <img class="cctv-img" src="/cctv-feed/3" alt="CAM-03 Relief Corridor R Feed" loading="lazy" onerror="cctvFeedError(this,3)">
             <div class="cctv-foot">
-              <span class="cctv-zone-info">Zone R Alternate Bypass · Pontoon Approach</span>
+              <span class="cctv-zone-info">Zone R Alternate Bypass · East FOB Approach</span>
               <button class="cctv-focus-btn" onclick="focusCctvChannel(3)">FOCUS</button>
             </div>
           </div>
@@ -4010,7 +4009,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             </div>
             <img class="cctv-img" src="/cctv-feed/4" alt="CAM-04 Sector Entry Checkpoint Feed" loading="lazy" onerror="cctvFeedError(this,4)">
             <div class="cctv-foot">
-              <span class="cctv-zone-info">Zone 1 Entry Checkpoint · Pilgrim Ingress</span>
+              <span class="cctv-zone-info">Zone 1 Entry Checkpoint · Passenger Ingress</span>
               <button class="cctv-focus-btn" onclick="focusCctvChannel(4)">FOCUS</button>
             </div>
           </div>
@@ -4043,8 +4042,8 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
     =============================================================== -->
     <section class="view" id="view-map">
       <div class="card">
-        <h2>Kumbh Mela Sector 4 Layout &mdash; Live Zone Intelligence</h2>
-        <div class="note" style="margin:-.4rem 0 .9rem 0;">Sector 4 crowd zones (Holding Area H, Approach A, Bottleneck B, Ghat G, Relief R) updated live from YOLO detection &middot; <span style="color:var(--neon-cyan);">Click any zone to inspect tactical clearance dossier</span>. <b style="color:var(--green)">GREEN</b> safe &middot; <b style="color:var(--amber)">ORANGE</b> elevated &middot; <b style="color:var(--red)">RED</b> danger &middot; <b style="color:#fff">BLACK</b> critical.</div>
+        <h2>Station Platform &amp; FOB Layout &mdash; Live Zone Intelligence</h2>
+        <div class="note" style="margin:-.4rem 0 .9rem 0;">Station passenger zones (Concourse H, FOB Approach A, Platform Staircase B, Platform Boarding G, Alternate East FOB R) updated live from YOLO detection &middot; <span style="color:var(--neon-cyan);">Click any zone to inspect tactical clearance dossier</span>. <b style="color:var(--green)">GREEN</b> safe &middot; <b style="color:var(--amber)">ORANGE</b> elevated &middot; <b style="color:var(--red)">RED</b> danger &middot; <b style="color:#fff">BLACK</b> critical.</div>
         <div id="plat-hotspot-banner" class="plat-hotspot-banner sev-GREEN">All zones CLEAR &mdash; Normal operations</div>
         <div class="platform-wrapper">
           <div class="platform-canvas">
@@ -4075,12 +4074,12 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
                 <!-- Terminal Floor Slab -->
                 <rect width="760" height="410" fill="#030710"/>
                 
-                <!-- Sacred Sangam Riverfront (Top) -->
+                <!-- Railway Platform Tracks & Boarding Edge (Top) -->
                 <rect x="0" y="0" width="760" height="38" fill="url(#trainGrad)"/>
                 <path d="M0 16 Q 38 8, 76 16 T 152 16 T 228 16 T 304 16 T 380 16 T 456 16 T 532 16 T 608 16 T 684 16 T 760 16" fill="none" stroke="#bae6fd" stroke-width="1.8" opacity="0.8"/>
                 <path d="M0 24 Q 38 32, 76 24 T 152 24 T 228 24 T 304 24 T 380 24 T 456 24 T 532 24 T 608 24 T 684 24 T 760 24" fill="none" stroke="#7dd3fc" stroke-width="1.2" opacity="0.6"/>
                 <rect x="130" y="6" width="500" height="26" rx="5" fill="rgba(8, 20, 38, 0.88)" stroke="#38bdf8" stroke-width="1.2"/>
-                <text x="380" y="23" text-anchor="middle" fill="#38bdf8" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="800" letter-spacing="1.5">SANGAM SNAN GHAT — HOLY CONFLUENCE (GANGA • YAMUNA • SARASWATI)</text>
+                <text x="380" y="23" text-anchor="middle" fill="#38bdf8" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="800" letter-spacing="1.5">PLATFORMS 1-4 BOARDING TRACKS — MAIN JUNCTION ISLAND</text>
 
                 <!-- Riverfront Safety Barricade & Jal Police Line -->
                 <rect x="0" y="38" width="760" height="6" fill="url(#hazardPattern)"/>
@@ -4088,80 +4087,80 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
                 <!-- Sector 4 Egress / Parade Ground Transit Corridor (Bottom) -->
                 <rect x="0" y="372" width="760" height="38" fill="#050a12"/>
                 <line x1="0" y1="384" x2="760" y2="384" stroke="rgba(0, 240, 255, 0.35)" stroke-width="2" stroke-dasharray="12 6"/>
-                <text x="380" y="396" text-anchor="middle" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="2.5">SECTOR 4 RETURN ARTERY • PARADE GROUND TRANSIT • MEDICAL CAMP 4</text>
+                <text x="380" y="396" text-anchor="middle" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="2.5">MAIN CONCOURSE PASSENGER STAGING &amp; CIRCULATING AREA</text>
                 <!-- Corridor Safety Strip -->
                 <rect x="0" y="366" width="760" height="6" fill="url(#hazardPattern)"/>
 
-                <!-- ZONE 1: HOLDING AREA 4 -->
+                <!-- ZONE 1: CONCOURSE H -->
                 <rect id="svgz-entry" x="14" y="52" width="130" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('entry')"/>
                 <circle cx="79" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('entry')"/>
                 <text x="79" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">1</text>
-                <text x="79" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">HOLDING AREA 4</text>
+                <text x="79" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">CONCOURSE H</text>
                 <text id="svgz-entry-n" x="79" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="79" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
+                <text x="79" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
                 <text id="svgz-entry-s" x="79" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 2: TRIVENI MARG INFLOW CORRIDOR -->
+                <!-- ZONE 2: MAIN FOB APPROACH INFLOW CORRIDOR -->
                 <rect id="svgz-pal" x="156" y="52" width="145" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('pal')"/>
                 <circle cx="228" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('pal')"/>
                 <text x="228" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">2</text>
-                <text x="228" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">TRIVENI MARG</text>
+                <text x="228" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">MAIN FOB APPROACH</text>
                 <text id="svgz-pal-n" x="228" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="228" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
+                <text x="228" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
                 <text id="svgz-pal-s" x="228" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 3: SANGAM APPROACH -->
+                <!-- ZONE 3: FOB APPROACH A -->
                 <rect id="svgz-par" x="313" y="52" width="160" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('par')"/>
                 <circle cx="393" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('par')"/>
                 <text x="393" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">3</text>
-                <text x="393" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">SANGAM APPROACH</text>
+                <text x="393" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">STAIRCASE B</text>
                 <text id="svgz-par-n" x="393" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="393" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
+                <text x="393" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
                 <text id="svgz-par-s" x="393" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 4: PONTOON BRIDGE 3 (INBOUND) -->
+                <!-- ZONE 4: EAST FOB OVERPASS (INBOUND) -->
                 <rect id="svgz-ticket" x="485" y="52" width="125" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('ticket')"/>
                 <circle cx="547" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('ticket')"/>
                 <text x="547" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">4</text>
-                <text x="547" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PONTOON BR-3</text>
+                <text x="547" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">EAST FOB-1</text>
                 <text id="svgz-ticket-n" x="547" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="547" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
+                <text x="547" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
                 <text id="svgz-ticket-s" x="547" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 5: PONTOON BRIDGE 4 (OUTBOUND) -->
+                <!-- ZONE 5: EAST FOB OVERPASS (OUTBOUND) -->
                 <rect id="svgz-exit" x="622" y="52" width="125" height="142" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('exit')"/>
                 <circle cx="684" cy="84" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('exit')"/>
                 <text x="684" y="88" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">5</text>
-                <text x="684" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PONTOON BR-4</text>
+                <text x="684" y="108" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">EAST FOB-2</text>
                 <text id="svgz-exit-n" x="684" y="142" text-anchor="middle" fill="#00ff88" font-size="34" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="684" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
+                <text x="684" y="158" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
                 <text id="svgz-exit-s" x="684" y="180" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 6: AKSHAYAVAT CIRCULAR ROUTE -->
+                <!-- ZONE 6: PLATFORM 3-4 CIRCULAR ROUTE -->
                 <rect id="svgz-wait" x="14" y="208" width="220" height="148" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('wait')"/>
                 <circle cx="124" cy="242" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('wait')"/>
                 <text x="124" y="246" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">6</text>
-                <text x="124" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">AKSHAYAVAT</text>
+                <text x="124" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PLATFORM 3-4</text>
                 <text id="svgz-wait-n" x="124" y="302" text-anchor="middle" fill="#00ff88" font-size="36" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="124" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
+                <text x="124" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
                 <text id="svgz-wait-s" x="124" y="338" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 7: MAIN SANGAM SNAN GHAT -->
+                <!-- ZONE 7: PLATFORM 1-2 BOARDING ISLAND G -->
                 <rect id="svgz-pbc" x="246" y="208" width="235" height="148" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('pbc')"/>
                 <circle cx="363" cy="242" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('pbc')"/>
                 <text x="363" y="246" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">7</text>
-                <text x="363" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">MAIN SNAN GHAT</text>
+                <text x="363" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PLATFORM 1-2</text>
                 <text id="svgz-pbc-n" x="363" y="302" text-anchor="middle" fill="#00ff88" font-size="36" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="363" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
+                <text x="363" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
                 <text id="svgz-pbc-s" x="363" y="338" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
 
-                <!-- ZONE 8: PARADE GROUND TRANSIT & MEDICAL POST 4 -->
+                <!-- ZONE 8: WAITING HALL TRANSIT & MEDICAL POST 4 -->
                 <rect id="svgz-conc" x="493" y="208" width="254" height="148" rx="8" fill="#0b1320" stroke="#00f0ff" stroke-width="1.8" style="cursor:pointer;" onclick="inspectZoneModal('conc')"/>
                 <circle cx="620" cy="242" r="14" fill="rgba(0, 240, 255, 0.15)" style="cursor:pointer;" onclick="inspectZoneModal('conc')"/>
                 <text x="620" y="246" text-anchor="middle" fill="#00f0ff" font-size="11" font-weight="900" style="pointer-events:none;">8</text>
-                <text x="620" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">PARADE GROUND</text>
+                <text x="620" y="266" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="1" style="pointer-events:none;">WAITING HALL</text>
                 <text id="svgz-conc-n" x="620" y="302" text-anchor="middle" fill="#00ff88" font-size="36" font-family="'JetBrains Mono', monospace" font-weight="900" style="pointer-events:none;">0</text>
-                <text x="620" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PILGRIMS</text>
+                <text x="620" y="318" text-anchor="middle" fill="#64748b" font-size="8" font-family="'JetBrains Mono', monospace" style="pointer-events:none;">PASSENGERS</text>
                 <text id="svgz-conc-s" x="620" y="338" text-anchor="middle" fill="#00ff88" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="800" style="pointer-events:none;">SAFE</text>
               </svg>
             </div>
@@ -4179,7 +4178,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
               <div class="zd-lbl">Most Congested Zone</div>
               <div class="zd-name" id="plat-detail-zone">All Clear</div>
               <div class="zd-count" id="plat-detail-count">0</div>
-              <div class="zd-lbl">pilgrims detected</div>
+              <div class="zd-lbl">passengers detected</div>
               <div class="zd-action" id="plat-detail-action">Normal operations. No intervention needed.</div>
             </div>
             <div class="zone-detail-card" id="plat-risk-card" style="border-color:var(--border);">
@@ -4287,7 +4286,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
       <div class="card" style="margin-bottom:1rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
           <div>
-            <h2 style="margin-bottom:2px;">Kumbh Sector 4 Disaster Response Force (NDRF / Police) Dispatcher</h2>
+            <h2 style="margin-bottom:2px;">Station Disaster Response Force (RPF / GRP Police) Dispatcher</h2>
             <div style="font-size:0.68rem;color:var(--text-muted);font-family:var(--mono);">Tactical SOP Execution &middot; Real-Time Response SLA Compliance</div>
           </div>
           <div style="display:flex;align-items:center;gap:0.6rem;">
@@ -4303,22 +4302,22 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
         <div class="marshal-checklist">
           <div class="marshal-item" id="m-step-1">
             <input type="checkbox" id="chk-m1" onchange="toggleMarshalStep(1)">
-            <label for="chk-m1"><strong>1. Deploy 4 NDRF / Police Marshals to Hotspot Sector:</strong> Form perimeter cordon and guide incoming pilgrim streams away from Sangam Ghat ramp.</label>
+            <label for="chk-m1"><strong>1. Deploy 4 RPF / GRP Police Marshals to Hotspot Staircase:</strong> Form perimeter cordon and guide incoming passenger streams away from Platform 1-2 staircase.</label>
             <span class="sla-timer-badge" id="m-time-1">STANDBY</span>
           </div>
           <div class="marshal-item" id="m-step-2">
             <input type="checkbox" id="chk-m2" onchange="toggleMarshalStep(2)">
-            <label for="chk-m2"><strong>2. Regulate Inflow at Holding Enclosure H Gates:</strong> Meter inflow from Parade Ground staging to 1.5 pax/s to buffer approach corridor.</label>
+            <label for="chk-m2"><strong>2. Regulate Inflow at Concourse Waiting Hall H Barriers:</strong> Meter inflow from Parade Ground staging to 1.5 pax/s to buffer approach corridor.</label>
             <span class="sla-timer-badge" id="m-time-2">STANDBY</span>
           </div>
           <div class="marshal-item" id="m-step-3">
             <input type="checkbox" id="chk-m3" onchange="toggleMarshalStep(3)">
-            <label for="chk-m3"><strong>3. Hold Inbound Feeder Flow at Kali &amp; Arail Checkpoints:</strong> Coordinate with upstream sector magistrates to pace approaching devotee influx.</label>
+            <label for="chk-m3"><strong>3. Hold Inbound Feeder Flow at Concourse Entry Gates:</strong> Coordinate with RPF gate marshals to pace approaching passenger influx.</label>
             <span class="sla-timer-badge" id="m-time-3">STANDBY</span>
           </div>
           <div class="marshal-item" id="m-step-4">
             <input type="checkbox" id="chk-m4" onchange="toggleMarshalStep(4)">
-            <label for="chk-m4"><strong>4. Open Auxiliary Emergency Pontoon Egress Gates:</strong> Unlock Pontoon emergency gates for unrestricted pilgrim discharge toward mela perimeter.</label>
+            <label for="chk-m4"><strong>4. Open Auxiliary Emergency FOB Egress Gates:</strong> Unlock East FOB emergency gates for unrestricted passenger discharge toward station circulating area.</label>
             <span class="sla-timer-badge" id="m-time-4">STANDBY</span>
           </div>
         </div>
@@ -4515,15 +4514,15 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
                   <td class="concept-name"><span class="icon">💬</span>Natural Language Understanding (NLU)</td>
                   <td>Extracts intent, entities and context from operator's query.</td>
                   <td>Operators ask questions in everyday language, not commands.</td>
-                  <td>Maps user intent (e.g. Explain Risk) and entities (e.g. Pontoon Bridge 4) to the right system data.</td>
-                  <td class="example">"Why is Pontoon Bridge 4 at high risk?"<br>→ Intent: Explain Risk,<br>&nbsp;&nbsp;Entity: Pontoon Bridge 4</td>
+                  <td>Maps user intent (e.g. Explain Risk) and entities (e.g. Foot Overbridge 2) to the right system data.</td>
+                  <td class="example">"Why is Platform 1 Staircase at high risk?"<br>→ Intent: Explain Risk,<br>&nbsp;&nbsp;Entity: Alternate East FOB</td>
                 </tr>
                 <tr>
                   <td class="concept-name"><span class="icon">📝</span>Text Summarization</td>
                   <td>Condenses large, complex data into short, meaningful summaries.</td>
                   <td>Real-time data is large and complex; operators need quick clarity.</td>
                   <td>Provides instant summaries of crowd situation, incidents and changes.</td>
-                  <td class="example">"Crowd density increased rapidly on Pontoon Bridge 4 in the last 5 minutes."</td>
+                  <td class="example">"Crowd density increased rapidly on Alternate East FOB in the last 5 minutes."</td>
                 </tr>
                 <tr>
                   <td class="concept-name"><span class="icon">🔍</span>Information Retrieval</td>
@@ -4542,7 +4541,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
                 <tr>
                   <td class="concept-name"><span class="icon">🌐</span>Multilingual NLP</td>
                   <td>Detects and processes multiple languages (NLP translation).</td>
-                  <td>Maha Kumbh pilgrim congregation is multilingual and regionally diverse.</td>
+                  <td>Indian Railways passenger congregation is multilingual and regionally diverse.</td>
                   <td>Provides responses in the operator's preferred language for better understanding.</td>
                   <td class="example">"Switch to Hindi. Show current risk."<br>→ Response: हिंदी में रिस्पॉन्स</td>
                 </tr>
@@ -4555,7 +4554,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
       <!-- Tab 4: Why Essential -->
       <div class="nlp-panel" id="nlp-tab-why">
         <div class="card reveal">
-          <div class="nlp-section-title">4. WHY NLP IS ESSENTIAL IN MASS GATHERING &amp; KUMBH DISASTER SAFETY</div>
+          <div class="nlp-section-title">4. WHY NLP IS ESSENTIAL IN HIGH-DENSITY STATION TRANSIT SAFETY</div>
           <div class="why-grid">
             <div class="why-card">
               <div class="wc-icon">⏱️</div>
@@ -4580,7 +4579,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             <div class="why-card">
               <div class="wc-icon">🌍</div>
               <div class="wc-title">Inclusive &amp; Scalable</div>
-              <div class="wc-body">Multilingual and voice-enabled design ensures the system works for diverse disaster response teams and multi-state pilgrim cohorts across the Kumbh Mela.</div>
+              <div class="wc-body">Multilingual and voice-enabled design ensures the system works for diverse railway staff, RPF inspectors, and multi-state passenger cohorts across major junctions.</div>
             </div>
           </div>
         </div>
@@ -4636,7 +4635,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
               <div class="how-step-label">Step 4 · Generate</div>
               <p style="font-size:.66rem;color:var(--muted);line-height:1.45;margin-bottom:.45rem;">NLP generates clear, concise response.</p>
               <div class="how-step-response">
-                "Pilgrim density increased by 32% on Pontoon Bridge 4 and movement speed decreased."
+                "Passenger density increased by 32% on Alternate East FOB and movement speed decreased."
               </div>
               <div class="how-step-op" style="margin-top:.7rem;">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00ff41" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -4670,20 +4669,20 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             </thead>
             <tbody>
               <tr>
-                <td class="query">Why is Pontoon Bridge 4 at high risk?</td>
-                <td class="response">High risk due to increased pilgrim density and slow movement near Sangam Ghat descent ramp and Pontoon Bridge 4. Two new hotspots detected near Triveni Marg approach.</td>
+                <td class="query">Why is Platform 1 Staircase at high risk?</td>
+                <td class="response">High risk due to increased passenger density and slow movement near Platforms 1-4 descent ramp and Alternate East FOB. Two new hotspots detected near Triveni Marg approach.</td>
               </tr>
               <tr>
                 <td class="query">What changed in the last 5 minutes?</td>
-                <td class="response">Pilgrim density increased by 28% on Pontoon Bridge 4 and Sangam Approach. Two new hotspots detected near Triveni Marg.</td>
+                <td class="response">Passenger density increased by 28% on Alternate East FOB and Main FOB Approach. Two new hotspots detected near Triveni Marg.</td>
               </tr>
               <tr>
                 <td class="query">Show unresolved RED incidents.</td>
-                <td class="response">Displaying 5 unresolved RED incidents.<br>(Sangam Ghat, Pontoon Bridge 3 &amp; 4, Akshayavat, Holding Enclosure 4)</td>
+                <td class="response">Displaying 5 unresolved RED incidents.<br>(Platforms 1-4, Main Foot Overbridge &amp; 4, Platforms 1-8, Holding Enclosure 4)</td>
               </tr>
               <tr>
                 <td class="query">What do you recommend now?</td>
-                <td class="response">Deploy NDRF marshals to Pontoon Bridge 4 and redirect incoming pilgrims to Pontoon Bridge 3. Open alternate egress barriers to reduce queue pressure at Sangam Ghat descent.</td>
+                <td class="response">Deploy RPF marshals to Alternate East FOB and redirect incoming passengers to Main Foot Overbridge. Open alternate egress barriers to reduce queue pressure at Platforms 1-4 descent.</td>
               </tr>
               <tr>
                 <td class="query">Switch to Hindi. Show current risk.</td>
@@ -4783,7 +4782,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
               <div class="nlp-live-head">
                 <h3>Interactive NLP Query</h3>
                 <div class="nlp-presets">
-                  <button class="nlp-preset-btn" onclick="nlpPreset(this)">Why is Pontoon Bridge 4 at high risk?</button>
+                  <button class="nlp-preset-btn" onclick="nlpPreset(this)">Why is Platform 1 Staircase at high risk?</button>
                   <button class="nlp-preset-btn" onclick="nlpPreset(this)">What changed in the last 5 minutes?</button>
                   <button class="nlp-preset-btn" onclick="nlpPreset(this)">Show unresolved RED incidents</button>
                   <button class="nlp-preset-btn" onclick="nlpPreset(this)">What action do you recommend now?</button>
@@ -4860,11 +4859,11 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
     </section>
 
     <!-- ============================================================
-         MAHA KUMBH PRAYAGRAJ MULTI-SECTOR DISASTER COMMAND & NDMA OPERATIONS
+         INDIAN RAILWAYS MULTI-STATION DISASTER COMMAND & RAILWAY BOARD OPERATIONS
     =============================================================== -->
     <section class="view" id="view-enterprise">
       <div class="explainer" style="border-left-color:#ff9933;background:rgba(255,153,51,0.06);color:#ffbe76;">
-        <b>MAHA KUMBH EMERGENCY OPERATIONS CONSOLE</b> &mdash; Unified crowd disaster prevention deployment across Sangam Triveni (Sector 4), Arail Ghat (Sector 1), Kali Ramp (Sector 2), and Akshayavat Corridor (Sector 3). Edge computing with zero cloud dependency and 99.999% Kumbh Secure-Net SLA guarantee.
+        <b>INDIAN RAILWAYS STATION CROWD SAFETY CONSOLE</b> &mdash; Unified crowd disaster prevention deployment across Central Junction Triveni (Sector 4), Platform 3 (Central FOB) (Sector 1), Suburban Platforms (Sector 2), and Platforms 1-8 Corridor (Sector 3). Edge computing with zero cloud dependency and 99.999% RailWire Enterprise SLA guarantee.
       </div>
 
       <div class="card reveal">
@@ -4875,10 +4874,10 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
         <div class="enterprise-sla-grid">
           <div class="sla-card">
             <div class="sla-tier-name">
-              <span style="font-size:1.2rem;">🥉</span> Sector Command Unit (Single Ghat / Pontoon)
+              <span style="font-size:1.2rem;">🥉</span> Station Command Unit (Single Terminal / FOB)
             </div>
-            <div class="sla-price">₹ 4,50,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ sector / mela cycle</span></div>
-            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Ideal for regional approach sectors handling up to 500,000 pilgrims daily.</p>
+            <div class="sla-price">₹ 4,50,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ station / year</span></div>
+            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Ideal for regional junction stations handling up to 250,000 passengers daily.</p>
             <ul class="sla-feature-list">
               <li>Up to 32 Edge RTSP / CCTV Streams</li>
               <li>Local YOLOv8 Real-Time Crowd Analytics</li>
@@ -4893,19 +4892,19 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
           <div class="sla-card" style="border-color:var(--neon-cyan);box-shadow:0 0 25px rgba(0,240,255,0.15);">
             <div style="position:absolute;top:10px;right:10px;background:var(--neon-cyan);color:#000;font-size:0.58rem;font-weight:900;padding:2px 6px;border-radius:3px;">PRIMARY PILOT</div>
             <div class="sla-tier-name">
-              <span style="font-size:1.2rem;">🥈</span> Maha Kumbh Central Command Hub (All 25 Sectors)
+              <span style="font-size:1.2rem;">🥈</span> Zonal Railway Command Hub (Multi-Division Terminal Fleet)
             </div>
-            <div class="sla-price">₹ 14,00,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ mela zone / cycle</span></div>
-            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Engineered for high-density riverfront sectors (Sangam, Arail, Phaphamau) with 10M+ peak day footfall.</p>
+            <div class="sla-price">₹ 14,00,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ railway division / year</span></div>
+            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Engineered for Category A1 junction terminals (NDLS, PRYJ, CSMT, HWH) with high-density peak hour footfall.</p>
             <ul class="sla-feature-list">
               <li>Up to 128 NVR Channels with Quad-CCTV Matrix</li>
-              <li>Real-time Pilgrim Headcount &amp; Deterministic Flow Forecasting</li>
-              <li>Shahi Snan Surge Timing &amp; Pacing Integration</li>
-              <li>NDRF / UP Police Tactical Dispatch API</li>
+              <li>Real-time Passenger Headcount &amp; Deterministic Flow Forecasting</li>
+              <li>National Train Enquiry System (NTES) Express Surge Pacing</li>
+              <li>RPF / GRP Tactical Dispatch &amp; Alert API</li>
               <li>Automated Multi-lingual Voice / PA Safety Alerts</li>
-              <li>99.995% High-Availability Kumbh Secure-Net SLA</li>
+              <li>99.995% High-Availability RailWire Enterprise SLA</li>
             </ul>
-            <button class="btn btn-sm" style="width:100%;" onclick="toast('success', 'Central Command', 'Maha Kumbh Central Command Hub Proposal generated.')">GENERATE SECTOR PROPOSAL</button>
+            <button class="btn btn-sm" style="width:100%;" onclick="toast('success', 'Central Command', 'Zonal Railway Command Hub Proposal generated.')">GENERATE SECTOR PROPOSAL</button>
           </div>
 
           <div class="sla-card">
@@ -4913,10 +4912,10 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
               <span style="font-size:1.2rem;">👑</span> Apex NDMA / State Multi-Congregation Grid
             </div>
             <div class="sla-price">₹ 75,00,000 <span style="font-size:0.75rem;color:var(--text-muted);font-weight:600;">/ disaster authority / year</span></div>
-            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Statewide mass-gathering oversight with centralized Prayagraj Integrated Command &amp; Control Center (ICCC).</p>
+            <p style="font-size:0.72rem;color:var(--text-secondary);margin-bottom:0.8rem;">Nationwide railway station oversight integrated with CRIS &amp; Ministry of Railways Central Command.</p>
             <ul class="sla-feature-list">
               <li>Unlimited Sector Fleets &amp; NVR Edge Nodes</li>
-              <li>Centralized Prayagraj ICCC Emergency War Room</li>
+              <li>Ministry of Railways / CRIS Emergency War Room Integration</li>
               <li>Cryptographically Signed Forensic Incident Dossiers</li>
               <li>Custom NDMA / BPR&amp;D Mass Gathering Compliant Audits</li>
               <li>Dedicated 24/7 On-Premises NDRF / RAF Tactical Support</li>
@@ -4931,13 +4930,13 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
 
       <div class="cols-2">
         <div class="card">
-          <h2>Maha Kumbh Prayagraj Sector Fleet Matrix</h2>
+          <h2>Indian Railways Terminal Station Fleet Matrix</h2>
           <table class="events-table">
             <thead>
               <tr>
                 <th>Sector Code</th>
                 <th>Zone / Description</th>
-                <th>Pontoons / Ghats</th>
+                <th>Platforms / FOBs</th>
                 <th>Peak Footfall</th>
                 <th>Cameras</th>
                 <th>SLA Uptime</th>
@@ -4945,23 +4944,23 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             </thead>
             <tbody id="enterprise-fleet-table">
               <tr>
-                <td><b style="color:var(--neon-cyan);">KUMBH-SEC-04</b> · Sangam Ghat</td>
-                <td>Sangam / Parade Ground (Primary Pilot)</td>
-                <td>4 Pontoons</td>
+                <td><b style="color:var(--neon-cyan);">NDLS-MAIN</b> · Platforms 1-4</td>
+                <td>New Delhi Central Terminal (Primary Pilot)</td>
+                <td>4 Platforms / 2 FOBs</td>
                 <td>15,000,000+</td>
                 <td>128 Active</td>
                 <td><span style="color:var(--neon-emerald);font-weight:800;">99.999%</span></td>
               </tr>
               <tr>
-                <td><b style="color:var(--neon-cyan);">KUMBH-SEC-01</b> · Arail Ghat</td>
+                <td><b style="color:var(--neon-cyan);">PRYJ-JCT</b> · Platform 3 (Central FOB)</td>
                 <td>Arail South Concourse</td>
-                <td>2 Pontoons</td>
+                <td>6 Platforms / 3 FOBs</td>
                 <td>6,500,000+</td>
                 <td>64 Active</td>
                 <td><span style="color:var(--neon-emerald);font-weight:800;">99.998%</span></td>
               </tr>
               <tr>
-                <td><b style="color:var(--neon-cyan);">KUMBH-SEC-02</b> · Kali Ramp</td>
+                <td><b style="color:var(--neon-cyan);">CSMT-TERM</b> · Suburban Platforms</td>
                 <td>Kali Sadak &amp; Shastri Bridge Link</td>
                 <td>3 Funnels</td>
                 <td>4,000,000+</td>
@@ -4969,8 +4968,8 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
                 <td><span style="color:var(--neon-emerald);font-weight:800;">99.995%</span></td>
               </tr>
               <tr>
-                <td><b style="color:var(--neon-cyan);">KUMBH-SEC-03</b> · Akshayavat</td>
-                <td>Akshayavat Corridor &amp; Fort Ramp</td>
+                <td><b style="color:var(--neon-cyan);">HWH-STN</b> · Platforms 1-8</td>
+                <td>Platforms 1-8 Corridor &amp; Fort Ramp</td>
                 <td>2 Ramps</td>
                 <td>3,500,000+</td>
                 <td>36 Active</td>
@@ -5003,7 +5002,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
               <div class="audit-v" style="color:var(--neon-emerald);">₹ 0 (Zero Cloud GPU)</div>
             </div>
             <div class="audit-cell">
-              <div class="audit-k">Annual Savings Per Kumbh Sector</div>
+              <div class="audit-k">Annual Operational Savings Per Station</div>
               <div class="audit-v" style="color:var(--neon-cyan);">₹ 16,80,000 (100% saved)</div>
             </div>
             <div class="audit-cell">
@@ -5012,7 +5011,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             </div>
           </div>
           <div class="safety-note" style="border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.05);color:var(--neon-emerald);">
-            <b>NDMA &amp; BPR&amp;D MASS GATHERING COMPLIANT</b> &mdash; Guaranteed uninterrupted crowd safety alerting during peak pilgrim surges, riverbank congestion, and complete cellular/WAN network blackouts.
+            <b>INDIAN RAILWAYS &amp; NDMA TRANSIT COMPLIANT</b> &mdash; Guaranteed uninterrupted crowd safety alerting during peak passenger surges, riverbank congestion, and complete cellular/WAN network blackouts.
           </div>
         </div>
       </div>
@@ -5034,15 +5033,15 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
     <div class="modal-body">
       <div class="audit-certificate">
         <div class="audit-cert-header">
-          <div style="font-size:0.75rem;font-weight:800;color:var(--neon-cyan);letter-spacing:0.12em;font-family:var(--mono);">महाकुंभ मेला आपदा प्रबंधन प्राधिकरण · MAHA KUMBH MELA DISASTER MANAGEMENT AUTHORITY</div>
+          <div style="font-size:0.75rem;font-weight:800;color:var(--neon-cyan);letter-spacing:0.12em;font-family:var(--mono);">भारतीय रेल · रेलवे सुरक्षा बल (RPF) · INDIAN RAILWAYS CROWD SAFETY AUTHORITY</div>
           <div class="audit-cert-title">SENTINEL-AI CROWD SAFETY &amp; FLOW COMPLIANCE AUDIT CERTIFICATE</div>
-          <div class="audit-cert-sub">GOVERNED UNDER NDMA &amp; BPR&amp;D MASS GATHERING DISASTER PREVENTION GUIDELINES</div>
+          <div class="audit-cert-sub">GOVERNED UNDER RAILWAY BOARD &amp; NDMA TRANSIT DISASTER PREVENTION DIRECTIVES</div>
         </div>
 
         <div class="audit-grid">
           <div class="audit-cell">
             <div class="audit-k">Sector Location</div>
-            <div class="audit-v" id="aud-station">Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)</div>
+            <div class="audit-v" id="aud-station">Central Railway Station — Junction Terminal (Platforms 1-4 &amp; Main FOB)</div>
           </div>
           <div class="audit-cell">
             <div class="audit-k">Verification Hash</div>
@@ -5053,7 +5052,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             <div class="audit-v" id="aud-time">--</div>
           </div>
           <div class="audit-cell">
-            <div class="audit-k">Peak Pilgrim Count</div>
+            <div class="audit-k">Peak Passenger Count</div>
             <div class="audit-v" id="aud-peak-people">0 Persons</div>
           </div>
           <div class="audit-cell">
@@ -5079,7 +5078,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
         <div class="audit-seal-box">
           <div>
             <div style="font-weight:800;color:var(--text-primary);">SECTOR MAGISTRATE &amp; CROWD DISASTER CONTROLLER:</div>
-            <div style="font-style:italic;color:var(--text-muted);margin-top:2px;">Electronically certified &middot; Kumbh Mela Command Unit 04 (Sangam Sector)</div>
+            <div style="font-style:italic;color:var(--text-muted);margin-top:2px;">Electronically certified &middot; Station Mela Command Unit 04 (Central Junction Sector)</div>
           </div>
           <div class="audit-seal-tag">
             &#10003; CRYPTOGRAPHICALLY VERIFIED
@@ -5100,7 +5099,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
     <div class="modal-header">
       <div class="modal-title">
         <span id="zmod-badge" style="width:10px;height:10px;border-radius:50%;background:var(--neon-emerald);display:inline-block;"></span>
-        <span id="zmod-title">ZONE DOSSIER: SANGAM GHAT BOTTLENECK B</span>
+        <span id="zmod-title">ZONE DOSSIER: PLATFORM 1-2 STAIRCASE B</span>
       </div>
       <button class="modal-close-btn" onclick="closeZoneModal()">&times;</button>
     </div>
@@ -5108,7 +5107,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
         <div class="audit-cell">
           <div class="audit-k">Headcount in Sector</div>
-          <div class="audit-v" id="zmod-count">0 Pilgrims</div>
+          <div class="audit-v" id="zmod-count">0 Passengers</div>
         </div>
         <div class="audit-cell">
           <div class="audit-k">Crowd Density Load</div>
@@ -5120,21 +5119,21 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
         </div>
         <div class="audit-cell">
           <div class="audit-k">Assigned Surveillance Feed</div>
-          <div class="audit-v" id="zmod-cctv">CAM-02 (Sangam Ghat Ramp)</div>
+          <div class="audit-v" id="zmod-cctv">CAM-02 (Platforms 1-4 Ramp)</div>
         </div>
       </div>
 
       <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-sm);padding:0.85rem;margin-bottom:1rem;">
         <div style="font-weight:800;color:var(--neon-cyan);font-size:0.75rem;margin-bottom:0.25rem;">PRIMARY EGRESS &amp; EVACUATION VECTOR:</div>
         <div id="zmod-egress-route" style="font-size:0.75rem;color:var(--text-secondary);line-height:1.4;">
-          Redirect pilgrim flow south toward East Pontoon Relief Corridor R and Egress Route E.
+          Redirect passenger flow toward Alternate East FOB Corridor R and Egress Route E.
         </div>
       </div>
 
       <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-sm);padding:0.85rem;margin-bottom:1rem;">
-        <div style="font-weight:800;color:var(--neon-emerald);font-size:0.75rem;margin-bottom:0.25rem;">KUMBH DISASTER FORCE &amp; NDRF SQUADS:</div>
+        <div style="font-weight:800;color:var(--neon-emerald);font-size:0.75rem;margin-bottom:0.25rem;">RAILWAY PROTECTION FORCE (RPF) &amp; GRP TASK FORCE:</div>
         <div id="zmod-marshals" style="font-size:0.75rem;color:var(--text-secondary);line-height:1.4;">
-          NDRF Sector 4 Alpha Squad (4 Marshals stationed at Sangam Ghat Descent Ramp).
+          RPF Station Alpha Squad (4 Officers stationed at Platform 1-2 Staircase B).
         </div>
       </div>
 
@@ -5249,7 +5248,7 @@ function broadcastPA(text, lang) {
       utter.pitch = 1.0;
       utter.lang = (lang === 'hi') ? 'hi-IN' : 'en-US';
       window.speechSynthesis.speak(utter);
-      toast('success', 'Kumbh Sector PA Broadcast', text);
+      toast('success', 'Station PA Broadcast', text);
     } catch(e) {
       toast('info', 'PA Broadcast', text);
     }
@@ -5260,14 +5259,14 @@ function triggerPABroadcast() {
   const snap = _currentRenderSnap || {};
   const hotspot = formatHotspotName(snap.hotspot || 'r0c2');
   const sev = snap.severity || 'RED';
-  /* Maha Kumbh trilingual safety broadcast: Hindi → English */
+  /* Indian Railways trilingual safety broadcast: Hindi → English */
   let hindiMsg, engMsg;
   if (sev === 'BLACK' || sev === 'RED') {
     hindiMsg = `आपातकालीन सूचना। ${hotspot} क्षेत्र में अत्यधिक भीड़ का पता चला है। कृपया तुरंत पूर्व पांटून पुल निकास द्वार की ओर बढ़ें। NDRF एवं आपदा प्रबंधन दल तैनात किया जा रहा है।`;
-    engMsg = `Emergency directive. Severe crowd density detected at ${hotspot}. Inbound flow is restricted. Proceed immediately toward East Pontoon Relief Corridor R. NDRF and disaster response teams being deployed.`;
+    engMsg = `Emergency directive. Severe crowd density detected at ${hotspot}. Inbound flow is restricted. Proceed immediately toward East East FOB Relief Corridor R. NDRF and disaster response teams being deployed.`;
   } else {
     hindiMsg = `ध्यान दें श्रद्धालुगण। ${hotspot} क्षेत्र में भीड़ बढ़ रही है। कृपया खुले गलियारों की ओर बढ़ें और कुंभ मेला आपदा मार्शलों के निर्देशों का पालन करें।`;
-    engMsg = `Attention pilgrims. Crowd density near ${hotspot} is elevated. Please proceed toward open corridors and follow Kumbh disaster marshal directives.`;
+    engMsg = `Attention passengers. Crowd density near ${hotspot} is elevated. Please proceed toward open corridors and follow Station disaster marshal directives.`;
   }
   broadcastPA(hindiMsg, 'hi');
   setTimeout(function() { broadcastPA(engMsg, 'en'); }, 4500);
@@ -5276,7 +5275,7 @@ function triggerPABroadcast() {
 function broadcastZonePA() {
   if (!_inspectedZone) return;
   const zname = _inspectedZone.name || 'Current Zone';
-  const msg = `Attention pilgrims and devotees in ${zname}. Please keep ghat stairs and pontoon bridge paths clear. Proceed forward calmly toward designated safe egress corridors.`;
+  const msg = `Attention passengers and passengers in ${zname}. Please keep platform stairs and east fob bridge paths clear. Proceed forward calmly toward designated safe egress corridors.`;
   broadcastPA(msg, 'en');
   closeZoneModal();
 }
@@ -5336,7 +5335,7 @@ function handleVoiceCommand(cmd) {
     const snap = _currentRenderSnap || {};
     const count = snap.people_count != null ? snap.people_count : 0;
     const sev = snap.severity || 'GREEN';
-    broadcastPA(`SENTINEL AI status report. Threat Level ${sev}. ${count} pilgrims detected in Sector 4. Operations nominal.`, 'en');
+    broadcastPA(`SENTINEL AI status report. Threat Level ${sev}. ${count} passengers detected in Sector 4. Operations nominal.`, 'en');
   } else if (cmd.includes('evacuate') || cmd.includes('bottleneck') || cmd.includes('danger') || cmd.includes('red')) {
     runJudgeTourStep(3);
     broadcastPA('Alert Level Red initiated. Evacuation routing active on Sector 4 GIS layout.', 'en');
@@ -5730,19 +5729,19 @@ let _inspectedZone = null;
 const ZONE_METRICS_DATA = {
   entry: { name: 'Zone 1: Sector 4 Holding Enclosure', count: 24, density: '1.4 pax/m²', clearance: '01m 20s', cctv: 'CAM-04 (Holding Gate 4)', egress: 'Meter inflow toward Triveni Marg approach corridor.', marshals: 'Squad Alpha (4 UP Police & SDRF Marshals managing buffer gate).' },
   pal: { name: 'Zone 2: Triveni Marg (West Inflow Corridor)', count: 48, density: '2.8 pax/m²', clearance: '03m 15s', cctv: 'CAM-02 (Triveni Flow Stream)', egress: 'Primary diversion vector: Reroute excess influx to Holding Area 2.', marshals: 'Squad Bravo (4 Marshals actively cordoning approach).' },
-  par: { name: 'Zone 3: Sangam Approach (Confluence Feeder)', count: 32, density: '1.9 pax/m²', clearance: '02m 10s', cctv: 'CAM-01 (Sangam Ghat Ramp)', egress: 'Pace pilgrims along barricaded lanes toward bathing steps.', marshals: 'Squad Charlie (6 NDRF personnel guiding bathing devotees).' },
-  ticket: { name: 'Zone 4: Pontoon Bridge 3 (Inbound Crossing)', count: 18, density: '1.1 pax/m²', clearance: '01m 00s', cctv: 'CAM-03 (Pontoon 3 Span)', egress: 'Regulate one-way river crossing flow. Maintain 2m spacing.', marshals: 'Jal Police & PWD floating bridge inspection squad.' },
-  exit: { name: 'Zone 5: Pontoon Bridge 4 (Outbound Return Vector)', count: 12, density: '0.8 pax/m²', clearance: '00m 45s', cctv: 'CAM-03 (Pontoon 4 Span)', egress: 'Clear egress vector. Divert return batches toward Parade Ground.', marshals: 'Squad Delta (4 Marshals keeping egress artery clear).' },
-  wait: { name: 'Zone 6: Akshayavat Parikrama (Circular Path)', count: 15, density: '0.6 pax/m²', clearance: '01m 30s', cctv: 'CAM-04 (Akshayavat Outer)', egress: 'Continuous clockwise parikrama. Prevent stalling at temple gate.', marshals: 'Temple corridor marshals pacing pilgrim transit.' },
-  pbc: { name: 'Zone 7: Main Sangam Snan Ghat (Sacred Confluence)', count: 22, density: '1.2 pax/m²', clearance: '01m 40s', cctv: 'CAM-01 (Sangam Confluence)', egress: 'Bathing zone monitoring. Immediate diversion if water line surges.', marshals: 'NDRF Quick Response Team & Deep Water Divers with motor crafts.' },
-  conc: { name: 'Zone 8: Parade Ground Transit & Medical Post 4', count: 28, density: '0.9 pax/m²', clearance: '00m 50s', cctv: 'CAM-02 (Parade Staging)', egress: 'Wide dispersal zone. Direct exiting pilgrims to transit shuttles & camp.', marshals: 'District Magistrate Coordination post & Medical triage team.' }
+  par: { name: 'Zone 3: Main FOB Approach A (Concourse Feeder)', count: 32, density: '1.9 pax/m²', clearance: '02m 10s', cctv: 'CAM-01 (Platforms 1-4 Ramp)', egress: 'Pace passengers along barricaded lanes toward bathing steps.', marshals: 'Squad Charlie (6 NDRF personnel guiding bathing passengers).' },
+  ticket: { name: 'Zone 4: East FOB Overpass (Inbound Crossing)', count: 18, density: '1.1 pax/m²', clearance: '01m 00s', cctv: 'CAM-03 (East FOB 3 Span)', egress: 'Regulate one-way river crossing flow. Maintain 2m spacing.', marshals: 'Jal Police & PWD floating bridge inspection squad.' },
+  exit: { name: 'Zone 5: East FOB Overpass (Outbound Return Vector)', count: 12, density: '0.8 pax/m²', clearance: '00m 45s', cctv: 'CAM-03 (East FOB 4 Span)', egress: 'Clear egress vector. Divert return batches toward Parade Ground.', marshals: 'Squad Delta (4 Marshals keeping egress artery clear).' },
+  wait: { name: 'Zone 6: Platforms 1-8 Parikrama (Circular Path)', count: 15, density: '0.6 pax/m²', clearance: '01m 30s', cctv: 'CAM-04 (Platforms 1-8 Outer)', egress: 'Continuous clockwise parikrama. Prevent stalling at temple gate.', marshals: 'Temple corridor marshals pacing passenger transit.' },
+  pbc: { name: 'Zone 7: Platform 1-2 Boarding Island G', count: 22, density: '1.2 pax/m²', clearance: '01m 40s', cctv: 'CAM-01 (Central Junction Confluence)', egress: 'Bathing zone monitoring. Immediate diversion if water line surges.', marshals: 'NDRF Quick Response Team & Deep Water Divers with motor crafts.' },
+  conc: { name: 'Zone 8: Parade Ground Transit & Medical Post 4', count: 28, density: '0.9 pax/m²', clearance: '00m 50s', cctv: 'CAM-02 (Parade Staging)', egress: 'Wide dispersal zone. Direct exiting passengers to transit shuttles & camp.', marshals: 'District Magistrate Coordination post & Medical triage team.' }
 };
 
 function inspectZoneModal(zoneId) {
   const data = ZONE_METRICS_DATA[zoneId] || ZONE_METRICS_DATA.pal;
   _inspectedZone = data;
   setText('zmod-title', data.name);
-  setText('zmod-count', data.count + ' Pilgrims');
+  setText('zmod-count', data.count + ' Passengers');
   setText('zmod-density', data.density);
   setText('zmod-clearance', data.clearance);
   setText('zmod-cctv', data.cctv);
@@ -6115,19 +6114,19 @@ function updateFruinLOS(snap) {
 }
 
 // ================================================================
-// MAHA KUMBH PRAYAGRAJ SECTOR FLEET, SURGE TELEMETRY & DISASTER DISPATCH LOGIC
+// INDIAN RAILWAYS TERMINAL FLEET, SURGE TELEMETRY & DISASTER DISPATCH LOGIC
 // ================================================================
 function switchStationHub(stationCode) {
   const stationNames = {
-    'KUMBH-SEC-04': 'Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat & Parade Ground)',
-    'KUMBH-SEC-01': 'Prayagraj Maha Kumbh — Sector 01 (Mahavir Marg & Arail Ghat Link)',
-    'KUMBH-SEC-02': 'Prayagraj Maha Kumbh — Sector 02 (Kali Sadak & Shastri Bridge Link)',
-    'KUMBH-SEC-03': 'Prayagraj Maha Kumbh — Sector 03 (Akshayavat Corridor & Fort Ramp)',
+    'NDLS-MAIN': 'Central Railway Station — Junction Terminal (Platforms 1-4 & Main FOB)',
+    'PRYJ-JCT': 'Prayagraj Junction (Civil Lines & City Side FOBs)',
+    'CSMT-TERM': 'Mumbai CSMT Main Concourse & Suburban FOB',
+    'HWH-STN': 'Howrah Junction Terminal (Old & New Complex Overpasses)',
     'RAIL-NDLS': 'Transit Feeder Hub — NDLS (Prior Railway Baseline Prototype)',
-    NDLS: 'Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)',
-    CSMT: 'Prayagraj Maha Kumbh — Sector 01 (Arail Ghat Link)',
-    HWH: 'Prayagraj Maha Kumbh — Sector 02 (Kali Ramp Link)',
-    MAS: 'Prayagraj Maha Kumbh — Sector 03 (Akshayavat Corridor)',
+    NDLS: 'Central Railway Station — Junction Terminal (Platforms 1-4 &amp; Main FOB)',
+    CSMT: 'Mumbai CSMT Main Concourse & Suburban FOB',
+    HWH: 'Howrah Junction Terminal (Old & New Complex Overpasses)',
+    MAS: 'Chennai Central Terminal (Main Concourse & Suburban FOB)',
     SBC: 'Transit Feeder Hub — NDLS (Prior Railway Baseline)'
   };
   const title = stationNames[stationCode] || stationCode;
@@ -6150,13 +6149,13 @@ async function refreshTrainTimetable() {
             <td>${t.from_station} &rarr; ${t.to_station}</td>
             <td><b style="color:#ffffff;">${t.platform}</b></td>
             <td><span style="font-weight:800;color:${t.status.includes('ARRIVING') ? 'var(--neon-crimson)' : 'var(--neon-emerald)'};">IN ${t.eta_mins} MIN (${t.status})</span></td>
-            <td>${t.expected_pax} Pilgrims</td>
+            <td>${t.expected_pax} Passengers</td>
             <td><span class="train-badge-surge ${surgeCls}">${t.surge_level}</span></td>
             <td><button class="inj-btn" style="padding:2px 6px;font-size:0.65rem;" onclick="dispatchRpfCommand('OPEN_BARRIERS', '${t.platform} Egress')">Clear Gates</button></td>
           </tr>`;
         }).join('');
       }
-      toast('info', 'Pilgrim Surge Synced', 'Sangam arrival feeder gates and Shahi Snan surge telemetry updated.');
+      toast('info', 'Passenger Surge Synced', 'Central Junction arrival feeder gates and Shahi Boarding surge telemetry updated.');
     }
   } catch(e) {
     toast('warning', 'Telemetry Offline', 'Operating on local cached sector flow schedule.');
@@ -6169,7 +6168,7 @@ async function dispatchRpfCommand(action, sector) {
     const res = await fetch('/api/rpf/dispatch', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: action, sector: sector, notes: 'Direct tactical command from Kumbh Sector Operations Console' })
+      body: JSON.stringify({ action: action, sector: sector, notes: 'Direct tactical command from Station Sector Operations Console' })
     });
     const data = await res.json();
     if (data && data.success) {
@@ -6225,8 +6224,8 @@ function runJudgeTourStep(step) {
     setText('topo-queue-h', '220 / 450 pax');
     setText('topo-load-b', '140 / 180 pax');
     fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 2}) }).catch(() => {});
-    if (narrator) narrator.textContent = 'Step 2: Pilgrim Arrival Surge & T_limit Forecast — Shahi Snan Sangam wave arrived. Operating Limit T_limit = (180 - 168)/2.0 = 6.0s.';
-    toast('warning', 'Judge Tour Step 2: Inflow Surge & Limit Forecast', 'Shahi Snan Sangam wave arrived. Operating Limit T_limit = 6.0s forecast active.');
+    if (narrator) narrator.textContent = 'Step 2: Passenger Arrival Surge & T_limit Forecast — Shahi Boarding Central Junction wave arrived. Operating Limit T_limit = (180 - 168)/2.0 = 6.0s.';
+    toast('warning', 'Judge Tour Step 2: Inflow Surge & Limit Forecast', 'Shahi Boarding Central Junction wave arrived. Operating Limit T_limit = 6.0s forecast active.');
     fetch('/api/decision/scenario/load', { method: 'POST' }).then(() => fetch('/api/decision/evaluate', { method: 'POST' })).catch(() => {});
   } else if (step === 3) {
     _injectedDemo = 'BOTTLENECK';
@@ -6358,7 +6357,7 @@ async function openForensicModal() {
     const res = await fetch('/api/incident/report');
     const data = await res.json();
     if (data && data.success) {
-      setText('aud-station', data.station_name || 'Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)');
+      setText('aud-station', data.station_name || 'Central Railway Station — Junction Terminal (Platforms 1-4 &amp; Main FOB)');
       setText('aud-hash', data.journal_sha256_seal || 'SEC-WAL-VERIFIED');
       setText('aud-peak-people', (data.metrics_summary.peak_people_count || 12) + ' Persons');
 
@@ -6542,10 +6541,10 @@ function renderAlerts(localAlerts) {
     return;
   }
   var STEPS={
-    BLACK:['1. HALT all inbound devotee influx at Holding Area H immediately.','2. Activate emergency PA &amp; Pontoon bypass &mdash; redirect to Relief Corridor R.','3. Deploy ALL NDRF/Police units to the Sangam Ghat hotspot ramp NOW.','4. Notify Sector Magistrate + escalate to Prayagraj Kumbh ICCC War Room.','5. Request boat/medical standby at riverbank. Prepare for severe crowd pressure.','6. Regulate pontoon bridge entry to prevent downstream bottlenecking.'],
-    RED:  ['1. Restrict additional inflow toward the Sangam Ghat hotspot ramp.','2. Open crowd barriers &mdash; divert into Relief Corridor R if capacity verified.','3. Alert NDRF &amp; Police &mdash; position marshals at holding enclosure boundaries.','4. Announce alternate bathing ghats/pontoons via sector PA system.','5. Monitor closely &mdash; ready to escalate to BLACK protocol.'],
-    YELLOW:['1. Pre-position disaster response marshals near the flagged sector zone.','2. Prepare inflow control at Holding Enclosure H (barriers, staff positioning).','3. Announce alternate pontoon routes via sector PA.','4. Monitor accumulation metric for escalation trigger.'],
-    GREEN:['1. Maintain normal operations across all ghat sectors.','2. Conduct routine drone and CCTV surveillance patrols.','3. Monitor for any unusual pilgrim flow accumulation changes.']
+    BLACK:['1. HALT all inbound passenger influx at Concourse Waiting Hall H immediately.','2. Activate emergency PA &amp; East FOB bypass &mdash; redirect to Relief Corridor R.','3. Deploy ALL NDRF/Police units to the Platforms 1-4 hotspot ramp NOW.','4. Notify Sector Magistrate + escalate to Prayagraj Station ICCC War Room.','5. Request boat/medical standby at riverbank. Prepare for severe crowd pressure.','6. Regulate east fob bridge entry to prevent downstream bottlenecking.'],
+    RED:  ['1. Restrict additional inflow toward Platform 1-2 Staircase B.','2. Open crowd barriers &mdash; divert into Relief Corridor R if capacity verified.','3. Alert NDRF &amp; Police &mdash; position marshals at holding enclosure boundaries.','4. Announce alternate bathing platforms/east fobs via sector PA system.','5. Monitor closely &mdash; ready to escalate to BLACK protocol.'],
+    YELLOW:['1. Pre-position RPF personnel near the flagged platform staircase zone.','2. Prepare inflow control at Holding Enclosure H (barriers, staff positioning).','3. Announce alternate east fob routes via sector PA.','4. Monitor accumulation metric for escalation trigger.'],
+    GREEN:['1. Maintain normal operations across all platform sectors.','2. Conduct routine drone and CCTV surveillance patrols.','3. Monitor for any unusual passenger flow accumulation changes.']
   };
   setHtml('alerts-body',filtered.map(function(e){
     var acked=e.local_status==='LOCAL_ACKNOWLEDGED';
@@ -7172,11 +7171,11 @@ function renderSpatialMap(snap) {
 var PLATFORM_ZONES=[
   {id:'entry', svgId:'svgz-entry', name:'Holding Area 4',        rows:[0],   cols:[0,1]},
   {id:'pal',   svgId:'svgz-pal',   name:'Triveni Marg Corridor', rows:[0],   cols:[2]  },
-  {id:'par',   svgId:'svgz-par',   name:'Sangam Ghat Approach',  rows:[0],   cols:[3]  },
-  {id:'ticket',svgId:'svgz-ticket',name:'Pontoon Bridge 3',      rows:[0],   cols:[4]  },
-  {id:'exit',  svgId:'svgz-exit',  name:'Pontoon Bridge 4',      rows:[0],   cols:[5]  },
-  {id:'wait',  svgId:'svgz-wait',  name:'Akshayavat Circular',   rows:[1,2], cols:[0,1]},
-  {id:'pbc',   svgId:'svgz-pbc',   name:'Main Sangam Snan Ghat', rows:[1,2], cols:[2,3]},
+  {id:'par',   svgId:'svgz-par',   name:'Platforms 1-4 Approach',  rows:[0],   cols:[3]  },
+  {id:'ticket',svgId:'svgz-ticket',name:'East FOB Overpass 1',      rows:[0],   cols:[4]  },
+  {id:'exit',  svgId:'svgz-exit',  name:'East FOB Overpass 2',      rows:[0],   cols:[5]  },
+  {id:'wait',  svgId:'svgz-wait',  name:'Platforms 1-8 Circular',   rows:[1,2], cols:[0,1]},
+  {id:'pbc',   svgId:'svgz-pbc',   name:'Platform 1-2 Boarding Island G', rows:[1,2], cols:[2,3]},
   {id:'conc',  svgId:'svgz-conc',  name:'Parade Ground Staging', rows:[1,2], cols:[4,5]}
 ];
 function platCol(level){
@@ -7224,10 +7223,10 @@ function renderPlatformLayout(snap){
     if(hc) hc.className='zone-detail-card '+(cmap[lvl]||'z-green');
     setText('plat-detail-zone',hotZC.zc.zone.name);
     setText('plat-detail-count',hotZC.zc.count);
-    var acts={GREEN:'Nominal flow. Continue routine Sector 4 monitoring.',ORANGE:'Elevated density. Pre-position disaster response marshals.',RED:'DANGER: Restrict inflow immediately. Deploy NDRF / Jal Police.',BLACK:'CRITICAL: Halt all ghat entry. Escalate to Kumbh War Room NOW.'};
+    var acts={GREEN:'Nominal flow. Continue routine station platform monitoring.',ORANGE:'Elevated density. Pre-position disaster response marshals.',RED:'DANGER: Restrict inflow immediately. Deploy NDRF / Jal Police.',BLACK:'CRITICAL: Halt all platform entry. Escalate to Station War Room NOW.'};
     setText('plat-detail-action',acts[lvl]||'');
     var bcls={GREEN:'sev-GREEN',ORANGE:'sev-ORANGE',RED:'sev-RED',BLACK:'sev-BLACK'};
-    var bmsg={GREEN:'All zones CLEAR — Normal pilgrim flow',ORANGE:'Elevated density: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' pilgrims)',RED:'DANGER — '+hotZC.zc.zone.name+': Restrict inflow ('+hotZC.zc.count+' pilgrims)',BLACK:'CRITICAL EMERGENCY: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' pilgrims) — HALT ALL SECTOR ENTRY'};
+    var bmsg={GREEN:'All zones CLEAR — Normal passenger flow',ORANGE:'Elevated density: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' passengers)',RED:'DANGER — '+hotZC.zc.zone.name+': Restrict inflow ('+hotZC.zc.count+' passengers)',BLACK:'CRITICAL EMERGENCY: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' passengers) — HALT ALL SECTOR ENTRY'};
     if(banner){banner.className='plat-hotspot-banner '+(bcls[lvl]||'sev-GREEN');banner.textContent=bmsg[lvl]||'';}
   }
   var overallSev=(snap&&snap.severity)||'GREEN';
@@ -7816,27 +7815,27 @@ function resetTacticalDemo() {
 const STATION_ZONE_NAMES = {
   'r0c0': 'Parade Ground Holding Area 4',
   'r0c1': 'Security Screening & Metal Detectors',
-  'r0c2': 'Pontoon Bridge 3 (Approach Sector)',
-  'r0c3': 'Pontoon Bridge 3 (Mid-Span Riverwalk)',
-  'r0c4': 'Pontoon Bridge 4 (Main Span)',
-  'r0c5': 'Pontoon Bridge 4 (Ghat Descent)',
+  'r0c2': 'East FOB Overpass 1 (Approach)',
+  'r0c3': 'East FOB Overpass 1 (Mid-Span)',
+  'r0c4': 'East FOB Overpass 2 (Main Span)',
+  'r0c5': 'East FOB Overpass 2 (Platform Descent)',
   'r1c0': 'Triveni Marg Sector Kiosks',
   'r1c1': 'Lost & Found / Khoya Paya Camp',
   'r1c2': 'Shastri Bridge Descent Ramp',
   'r1c3': 'Triveni Marg Central Corridor',
   'r1c4': 'Holding Enclosure 4 (East Staging)',
-  'r1c5': 'VIP Sangam Corridor & Media Enclosure',
-  'r2c0': 'Sangam Snan Ghat (Upper Steps)',
-  'r2c1': 'Sangam Snan Ghat (Waterfront Zone)',
-  'r2c2': 'Main Sangam Snan Ghat (Deep Waterfront)',
-  'r2c3': 'Akshayavat Corridor Entry',
+  'r1c5': 'Express Parcel & VIP Corridors',
+  'r2c0': 'Platform 1-2 Staircase (Upper Steps)',
+  'r2c1': 'Platform 1-2 Boarding Zone (Platform Edge)',
+  'r2c2': 'Platform 1-2 Boarding Island (Central Spine)',
+  'r2c3': 'Platforms 1-8 Corridor Entry',
   'r2c4': 'Holding Enclosure 4 (West Staging)',
   'r2c5': 'Bhandara & Annakshetra Area',
   'r3c0': 'Auxiliary Egress Corridor Gate A',
-  'r3c1': 'Arail Ghat Feeder Link',
+  'r3c1': 'Platform 3 (Central FOB) Feeder Link',
   'r3c2': 'Central Sector 4 Concourse',
   'r3c3': 'Sector Magistrate Ops & NDRF Camp',
-  'r3c4': 'E-Rickshaw & Pilgrim Shuttle Hub',
+  'r3c4': 'Auto-Rickshaw & Passenger Transit Hub',
   'r3c5': 'Bandhwa Embankment Ring Road'
 };
 
@@ -7850,9 +7849,9 @@ function formatHotspotName(hotspot) {
 function formatScenarioName(scenario) {
   if (!scenario || scenario === '--') return 'Calibrating Telemetry...';
   const map = {
-    'STABLE_HIGH_OCCUPANCY': 'Steady Pilgrim Flow (Safe Baseline)',
-    'ACCUMULATION': 'Rapid Pilgrim Inflow Surge (Ghat Building Up)',
-    'MASS_REDISTRIBUTION': 'Ghat Cross-Transit Surge (Crowd Shifting)',
+    'STABLE_HIGH_OCCUPANCY': 'Steady Passenger Flow (Safe Baseline)',
+    'ACCUMULATION': 'Rapid Passenger Inflow Surge (Staircase Building Up)',
+    'MASS_REDISTRIBUTION': 'Platform Cross-Transit Surge (Passenger Shifting)',
     'LOCAL_BOTTLENECK': 'Localized Bottleneck (Severe Density)',
     'UNKNOWN': 'Telemetry Standby / Camera Calibration'
   };
@@ -7872,9 +7871,9 @@ function formatOccupancyMeter(occ) {
 function formatLarBarsAdvanced(snap) {
   if (!snap) return '';
   const rows = [
-    { name: 'Hotspot Concentration', val: snap.load_anomaly, max: 1.0, unit: '%', scale: 100, desc: 'Density balance across Sector 4 ghats & pontoons' },
+    { name: 'Hotspot Concentration', val: snap.load_anomaly, max: 1.0, unit: '%', scale: 100, desc: 'Density balance across Sector 4 platforms & east fobs' },
     { name: 'Inflow Velocity (Accumulation)', val: snap.accumulation, max: 0.5, unit: '%/min', scale: 200, desc: 'Rate of incoming vs outgoing crowd' },
-    { name: 'Cross-Sector Movement', val: snap.redistribution, max: 0.5, unit: '%', scale: 200, desc: 'Pilgrim movement across ghat corridor zones' }
+    { name: 'Cross-Sector Movement', val: snap.redistribution, max: 0.5, unit: '%', scale: 200, desc: 'Passenger movement across platform corridor zones' }
   ];
 
   return rows.map(function(r) {
@@ -7927,7 +7926,7 @@ pollLoop();
 
 // ================================================================
 // HINDI / ENGLISH LANGUAGE TOGGLE (राजभाषा COMPLIANCE)
-// Maha Kumbh Administration requires bilingual/trilingual support per GIGW guidelines
+// Indian Railways / GIGW guidelines require bilingual/trilingual support
 // ================================================================
 var _currentLang = 'en';
 var _i18n = {
