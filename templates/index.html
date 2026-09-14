@@ -791,6 +791,20 @@
     color: #ffffff;
     transform: translateY(-1px);
   }
+
+  /* Two UI Modes: Judge Mode vs Engineer Mode (Section 26) */
+  .engineer-only-panel {
+    display: none;
+  }
+  body.engineer-mode-active .engineer-only-panel {
+    display: block !important;
+  }
+  body.engineer-mode-active .judge-mode-streamline {
+    border-color: rgba(16, 185, 129, 0.4) !important;
+  }
+  body:not(.engineer-mode-active) .engineer-diagnostic-dump {
+    display: none !important;
+  }
   .inj-btn.inj-red:hover {
     background: rgba(255, 34, 85, 0.2);
     border-color: rgba(255, 34, 85, 0.5);
@@ -3195,6 +3209,10 @@
         <button class="mode-btn" onclick="toggleFullScreen()">FULL SCREEN</button>
         <button class="mode-btn active" id="mode-btn-reality" onclick="setOperatingMode('REALITY')">REALITY</button>
         <button class="mode-btn" id="mode-btn-simulation" onclick="setOperatingMode('SIMULATION')">SIMULATION</button>
+      </div>
+      <div class="ui-presentation-mode-switch" style="display:inline-flex;background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.18);border-radius:6px;padding:2px;margin:0 5px;">
+        <button class="mode-btn active" id="btn-ui-judge-mode" onclick="setUIPresentationMode('JUDGE')" title="Judge Mode: Focused high-level incident cards, Copilot, & human approval" style="background:#4285f4;color:#fff;font-weight:700;padding:3px 8px;font-size:0.7rem;border-radius:4px;border:none;cursor:pointer;">⚖️ JUDGE MODE</button>
+        <button class="mode-btn" id="btn-ui-engineer-mode" onclick="setUIPresentationMode('ENGINEER')" title="Engineer Mode: Exposes raw tensors, model latency, flow rate formulas, & simulation traces" style="background:transparent;color:var(--text-secondary);font-weight:700;padding:3px 8px;font-size:0.7rem;border-radius:4px;border:none;cursor:pointer;">⚙️ ENGINEER MODE</button>
       </div>
       <span id="signal-provenance-badge" class="evidence-badge badge-observed" title="Evidence Provenance: Live Physical Signal vs Calibrated Scenario">OBSERVED CCTV SIGNAL</span>
       <span id="conn-badge" class="badge badge-ONLINE">CONNECTIVITY: --</span>
@@ -6457,6 +6475,31 @@ function forceConnectivity(state) {
 // always issues the real switch immediately -- never a local-only
 // button-visual change -- so the next /status poll confirms it rather
 // than silently reverting it.
+// ------------------------------------------------------------------
+// Two UI Presentation Modes: Judge Mode vs Engineer Mode (Section 26)
+// ------------------------------------------------------------------
+let currentUIPresentationMode = 'JUDGE';
+function setUIPresentationMode(mode) {
+  currentUIPresentationMode = mode;
+  const isEngineer = (mode === 'ENGINEER');
+  document.body.classList.toggle('engineer-mode-active', isEngineer);
+  const btnJudge = document.getElementById('btn-ui-judge-mode');
+  const btnEng = document.getElementById('btn-ui-engineer-mode');
+  if (btnJudge && btnEng) {
+    btnJudge.classList.toggle('active', !isEngineer);
+    btnJudge.style.background = isEngineer ? 'transparent' : '#4285f4';
+    btnJudge.style.color = isEngineer ? 'var(--text-secondary)' : '#fff';
+    btnEng.classList.toggle('active', isEngineer);
+    btnEng.style.background = isEngineer ? '#10b981' : 'transparent';
+    btnEng.style.color = isEngineer ? '#fff' : 'var(--text-secondary)';
+  }
+  toast(
+    isEngineer ? 'info' : 'success',
+    isEngineer ? '⚙️ Engineer Mode Active' : '⚖️ Judge Mode Active',
+    isEngineer ? 'Exposing raw tensors, latency gauges, flow formulas, and SQLite sync traces.' : 'Streamlined high-impact evaluator decision cards active.'
+  );
+}
+
 // ------------------------------------------------------------------
 let modeSwitchInFlight = false;
 function setOperatingMode(mode) {
