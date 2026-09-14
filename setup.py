@@ -16,7 +16,7 @@ setup(
     name="sentinel-ai",
     version="2.5.0",
     author="Team X Factor — MIT School of Computing",
-    description="SENTINEL-AI: Action-Aware Crowd Disaster Prevention & Incident Copilot for Mass Gatherings (Maha Kumbh Mela Prayagraj Pilot)",
+    description="SENTINEL-AI: Action-Aware Crowd Disaster Prevention & Incident Copilot for High-Density Railway Stations (Indian Railways)",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/shoryamittal/Crowd-Flow-Management-Predictive-Systems",

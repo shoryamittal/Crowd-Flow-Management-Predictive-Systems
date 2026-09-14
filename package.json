@@ -2,7 +2,7 @@
   "name": "sentinel-ai-crowd-flow-command-center",
   "version": "2.5.0",
   "private": true,
-  "description": "SENTINEL AI: Action-Aware Crowd Disaster Prevention & Incident Copilot for Mass Gatherings (Maha Kumbh Mela Prayagraj Pilot)",
+  "description": "SENTINEL AI: Action-Aware Crowd Disaster Prevention & Incident Copilot for High-Density Railway Stations (Indian Railways)",
   "scripts": {
     "build": "echo 'SENTINEL AI build complete'"
   }

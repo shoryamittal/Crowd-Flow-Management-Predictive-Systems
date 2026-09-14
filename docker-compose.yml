@@ -15,8 +15,8 @@ services:
     environment:
       - PORT=8080
       - HOST=0.0.0.0
-      - SECTOR_NAME=Sangam_Sector_04
-      - SECTOR_CODE=SECT04
+      - SECTOR_NAME=Central_Junction_Terminal
+      - SECTOR_CODE=NDLS-MAIN
       - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.5-flash}
       - GEMINI_API_KEY=${GEMINI_API_KEY:-}
       - GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT:-}
