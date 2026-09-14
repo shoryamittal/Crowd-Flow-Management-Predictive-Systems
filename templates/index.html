@@ -3279,6 +3279,7 @@
         <div class="card reveal">
           <h2>Live Input</h2>
           <div class="camera-frame cam-slot" id="camera-slot-dashboard">
+            <img id="camera-feed" src="/camera-feed" loading="eager" alt="SENTINEL local camera feed" onerror="if(typeof hideCamLoading==='function')hideCamLoading();if(typeof _camFeedErr==='function')_camFeedErr(this);">
             <button class="cam-reload-btn" title="Reload camera feed" onclick="reloadCameraFeed()">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
               RELOAD
@@ -3309,7 +3310,7 @@
             <div class="cam-controls-body" id="cam-controls-body-dashboard">
               <div class="cc-field">
                 <div class="cc-label">Camera Device</div>
-                <select id="cc-device"><option value="0" selected>Default Camera 0 (Synthetic / Edge Feed)</option></select>
+                <select id="cc-device"><option value="1" selected>Camera 1 (Primary RGB Webcam)</option><option value="0">Camera 0 (Infrared / Windows Hello Sensor)</option></select>
               </div>
               <div class="cc-field">
                 <div class="cc-label">Resolution</div>
@@ -4129,6 +4130,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
           <div class="card reveal">
             <h2>Scenario Feed</h2>
             <div class="camera-frame cam-slot" id="camera-slot-simulation">
+              <video id="simulation-feed" src="/data/demo/crowd_station.mp4" loop muted playsinline style="display:none;" onplaying="if(typeof hideCamLoading==='function')hideCamLoading();"></video>
               <button class="cam-reload-btn" title="Reload camera feed" onclick="reloadCameraFeed()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
                 RELOAD
@@ -4909,9 +4911,6 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
 
   </main>
 </div>
-
-<img id="camera-feed" src="/camera-feed" loading="eager" alt="SENTINEL local camera feed" style="display:none;" onload="if(typeof hideCamLoading==='function')hideCamLoading();if(typeof _camFeedOk==='function')_camFeedOk();" onerror="if(typeof hideCamLoading==='function')hideCamLoading();if(typeof _camFeedErr==='function')_camFeedErr(this);">
-<video id="simulation-feed" src="/data/demo/crowd_station.mp4" autoplay loop muted playsinline style="display:none;" onplaying="if(typeof hideCamLoading==='function')hideCamLoading();"></video>
 
 <!-- FORENSIC INCIDENT AUDIT DOSSIER MODAL -->
 <div class="modal-overlay" id="forensic-modal" onclick="if(event.target===this)closeForensicModal()">
@@ -5732,6 +5731,8 @@ function computeTimeToOperatingLimit(snap) {
   }
 
   updateFruinLOS(snap);
+}
+
 // Sentinel Incident Copilot UI Controller
 let _copilotCurrentText = '';
 let _copilotCurrentLang = 'en';
@@ -6347,12 +6348,15 @@ function moveCameraFeed(view) {
   const target = document.getElementById('camera-slot-' + view);
   if (!target) return;
   if (img) {
-    target.insertBefore(img, target.firstChild ? target.firstChild.nextSibling : null);
+    if (img.parentElement !== target) {
+      target.insertBefore(img, target.firstChild ? target.firstChild.nextSibling : null);
+    }
     img.style.display = 'block';
   }
   if (vid) {
-    vid.style.display = 'none';
+    vid.style.display = (view === 'simulation') ? 'block' : 'none';
   }
+  if (typeof hideCamLoading === 'function') hideCamLoading();
 }
 
 function switchView(view) {
@@ -7255,7 +7259,10 @@ function renderCamControlsPanel(scope, devices, currentSettings) {
   const s = currentSettings || {};
   const deviceOptions = devices && devices.length
     ? devices.map(function (d) { return { value: d.index, label: `Camera ${d.index} — ${d.width}x${d.height} @ ${d.fps || '?'}fps (${d.backend})` }; })
-    : [{ value: s.source == null ? 0 : s.source, label: 'Default camera (index ' + (s.source == null ? 0 : s.source) + ')' }];
+    : [
+        { value: 1, label: 'Camera 1 — Primary RGB Webcam (1280x720)' },
+        { value: 0, label: 'Camera 0 — Auxiliary / IR Sensor (640x480)' }
+      ];
   const resolutionPresets = [
     { value: '', label: 'Device default' },
     { value: '320x240',  label: '320 × 240 (low latency)' },
@@ -7280,7 +7287,7 @@ function renderCamControlsPanel(scope, devices, currentSettings) {
 
   body.dataset.primed = '1';
   body.innerHTML =
-    _ccSelectRow('device', 'Camera Device', deviceOptions, s.source == null ? 0 : s.source) +
+    _ccSelectRow('device', 'Camera Device', deviceOptions, s.source == null ? 1 : s.source) +
     _ccSelectRow('resolution', 'Resolution', resolutionPresets, currentRes) +
     _ccSelectRow('fps', 'Target FPS', fpsOptions, s.target_fps ? String(s.target_fps) : '') +
     _ccSliderRow('brightness', 'Brightness', -50, 50, 1, s.brightness, '') +
@@ -7419,6 +7426,10 @@ function _patchRenderWithCameraUX(data) {
     if (body && !body.dataset.primed) {
       let saved = {};
       try { saved = JSON.parse(localStorage.getItem(CAMERA_SETTINGS_KEY) || '{}'); } catch (e) {}
+      if (saved.source === 0 && data.camera_settings.source !== 0) {
+        saved.source = data.camera_settings.source;
+        try { localStorage.setItem(CAMERA_SETTINGS_KEY, JSON.stringify(Object.assign({}, saved, { source: data.camera_settings.source }))); } catch (e) {}
+      }
       renderCamControlsPanel('dashboard', null, Object.assign({}, _lastCameraSettings, saved));
     }
   }
@@ -7557,8 +7568,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 // Initial overlay and UX boot.
-setTimeout(function () { showCamLoading('CONNECTING TO CAPTURE BACKEND…'); }, 50);
-setTimeout(function () { hideCamLoading(); }, 1500);
+setTimeout(function () { hideCamLoading(); }, 150);
 window.addEventListener('load', function () {
   if (!_firstRenderDone) {
     document.querySelectorAll('.reveal').forEach(function (el, i) {

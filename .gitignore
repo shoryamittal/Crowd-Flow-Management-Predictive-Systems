@@ -9,6 +9,7 @@ __pycache__/
 htmlcov/
 .mypy_cache/
 .ruff_cache/
+scratch/
 *.swp
 *.swo
 *~

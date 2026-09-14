@@ -34,6 +34,7 @@ through SentinelRuntime.
 from __future__ import annotations
 
 import csv
+import json
 import logging
 import os
 import re
@@ -223,15 +224,33 @@ def _env_int(name: str, default: int) -> int:
 
 
 def _resolve_camera_source(raw: str):
-    """int-like -> webcam index; otherwise treat as a video file path."""
+    """int-like -> webcam index; otherwise treat as a video file path.
+    Supports 'auto' or auto-discovery when requested or when configured camera index is unavailable.
+    """
+    if raw is None or raw == "" or str(raw).strip().lower() == "auto":
+        try:
+            devices = FrameSource.list_camera_devices(max_index=4)
+            if devices:
+                return devices[0]["index"]
+        except Exception:
+            pass
+        return 0
     try:
-        return int(raw)
+        idx = int(raw)
+        try:
+            devices = FrameSource.list_camera_devices(max_index=4)
+            available_indices = [d["index"] for d in devices]
+            if available_indices and idx not in available_indices:
+                return available_indices[0]
+        except Exception:
+            pass
+        return idx
     except (TypeError, ValueError):
         return raw
 
 
 STATION_NAME = os.environ.get("STATION_NAME", "Prayagraj Maha Kumbh — Sector 04 (Sangam Triveni Ghat)")
-CAMERA_SOURCE = os.environ.get("CAMERA_SOURCE", "1")
+CAMERA_SOURCE = os.environ.get("CAMERA_SOURCE", "auto")
 DB_PATH = os.environ.get("SENTINEL_DB_PATH", str(Path("data") / "sentinel.db"))
 SYNC_ADAPTER_MODE = os.environ.get("SYNC_ADAPTER_MODE", MockSyncAdapter.NORMAL)
 SYNC_ADAPTER_TYPE = os.environ.get("SYNC_ADAPTER_TYPE", "MOCK").upper()
