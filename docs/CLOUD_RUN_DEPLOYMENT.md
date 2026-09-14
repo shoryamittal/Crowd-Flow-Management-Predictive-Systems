@@ -4,8 +4,8 @@
 **SENTINEL-AI** is deployed on **Google Cloud Run** for the **Google Cloud AI Builder Cup 2026** under the **Sustainability & Social Impact** theme (SDG 11: Sustainable Cities & Communities / Disaster Risk Reduction).
 
 The deployment adheres to a resilient **Hybrid Edge-to-Cloud Architecture**:
-- **Edge / Local Continuity Plane**: High-frequency video capture, YOLOv8 crowd detection, spatial occupancy grid mapping, short-horizon deterministic flow forecasting ($T_{\text{limit}} = (C - N)/g$), Decision Safety candidate evaluation, SQLite WAL persistence, and local alarms operate 100% locally with zero internet dependency.
-- **Google Cloud Plane**: Hosted on Google Cloud Run to provide scalable remote command-center access, centralized NDMA SOP knowledge management, and generative operational assistance via the **SENTINEL Incident Copilot** (Google Gemini 2.0 Flash / Vertex AI).
+- **Edge / Local Continuity Plane**: High-frequency video capture, YOLOv8 crowd detection, spatial occupancy grid mapping, short-horizon deterministic flow forecasting ($T_{\text{limit}} = (C - N)/g$), Decision Safety candidate evaluation, SQLite WAL persistence, and local alarms operate locally with robust offline continuity.
+- **Google Cloud Plane**: Hosted on Google Cloud Run to provide scalable remote command-center access, centralized NDMA SOP knowledge management, and generative operational assistance via the **SENTINEL Incident Copilot** (Google Gemini / Vertex AI, configurable via `GEMINI_MODEL`, e.g. `gemini-2.5-flash`).
 
 ```
  ┌─────────────────────────────────────────────────────────┐
@@ -24,10 +24,10 @@ The deployment adheres to a resilient **Hybrid Edge-to-Cloud Architecture**:
  ┌─────────────────────────────────────────────────────────┐
  │            GOOGLE CLOUD RUN & GEMINI COPILOT            │
  │                                                         │
- │  Grounded NDMA Section 4.2 SOP Knowledge Base           │
+ │  Grounded NDMA (2014) SOP Knowledge Base                │
  │                            │                            │
  │                            ▼                            │
- │  SENTINEL Incident Copilot (Gemini 2.0 Flash)          │
+ │  SENTINEL Incident Copilot (Google Gemini)              │
  │  • Operational Decision Rationale Explanation          │
  │  • Sector Magistrate Executive Briefings               │
  │  • Non-Sensational Public Address Announcements        │
@@ -83,7 +83,7 @@ gcloud run deploy sentinel-ai \
 | :--- | :--- | :--- |
 | `PORT` | `8080` | Container port required by Google Cloud Run. |
 | `HOST` | `0.0.0.0` | Bind host for all incoming container traffic. |
-| `GEMINI_API_KEY` | *(empty)* | Optional API key for Google GenAI Gemini 2.0 Flash. If absent, system automatically runs with the deterministic safety fallback. |
+| `GEMINI_API_KEY` | *(empty)* | Optional API key for Google Gemini (`gemini-2.5-flash` / configurable). If absent, system automatically runs with the deterministic local safety fallback. |
 | `GOOGLE_CLOUD_PROJECT`| *(auto)* | GCP project identifier for Vertex AI / Cloud Logging. |
 | `GOOGLE_CLOUD_LOCATION` | `asia-south1` | Preferred Cloud Run / Vertex AI regional endpoint. |
 | `STATION_NAME` | `Prayagraj Maha Kumbh — Sector 04` | Mass gathering sector name. |

@@ -60,10 +60,10 @@ The test suite [`tests/test_redteam_25.py`](file:///c:/Users/SHORYA%20MITTAL/One
 | **13** | Gemini claimed stampede certainty | Filter blocks sensational claims like "stampede will definitely occur". |
 | **14** | Gemini generated forbidden confidence | Suppresses claims like "100% safe" or "guaranteed zero risk". |
 | **15** | Prompt injection attack | System instruction contract strictly outranks untrusted input. |
-| **16** | Malicious RAG source | Only verified NDMA / BPR&D SOP catalog entries are queryable. |
-| **17** | Gemini timeout / failure | Immediate fallback to deterministic NDMA rule templates. |
+| **16** | Malicious RAG source | Only verified NDMA (2014) / BPR&D SOP catalog entries are queryable. |
+| **17** | Gemini timeout / failure | Immediate fallback to deterministic NDMA (2014) rule templates. |
 | **18** | Gemini unavailable | Operates in offline mode with explicit banner in UI. |
-| **19** | WAN blackout | Local YOLO detection and SQLite WAL journaling continue 100%. |
+| **19** | WAN blackout | Local YOLO detection, deterministic physics safety, and SQLite WAL journaling continue locally. |
 | **20** | Database process restart | SQLite WAL crash recovery restores exact state without corruption. |
 | **21** | Illegal lifecycle transition | State machine rejects illegal jumps (e.g. PROPOSED to VERIFIED). |
 | **22** | Scenario data mislabeled | Evidence status strictly distinguishes `OBSERVED` vs `SCENARIO`. |

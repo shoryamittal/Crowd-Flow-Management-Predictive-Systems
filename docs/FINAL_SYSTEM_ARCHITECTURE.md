@@ -2,7 +2,7 @@
 
 **Authority:** `Sentinel_AI_SIH2026_Final_Strategy_Report.pdf`  
 **Target:** Smart India Hackathon 2026 — AICTE Student Innovation — Software — Disaster Management (`SIH26206`)  
-**Operational Deployment:** Maha Kumbh Mela Prayagraj (2025–2026) — Sector 04 (Sangam Triveni Ghat & Parade Ground)  
+**Modeled Operational Domain:** Maha Kumbh Mela Prayagraj Sector 04 (Sangam Triveni Ghat & Parade Ground Reference Layout)  
 **Implementation Standard:** Deterministic, offline-first decision support (Prior railway transit prototype retained as baseline evidence)  
 
 ---
