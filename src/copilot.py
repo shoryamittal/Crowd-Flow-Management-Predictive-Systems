@@ -66,13 +66,13 @@ class SentinelCopilot:
 
     SYSTEM_INSTRUCTION = (
         "You are SENTINEL Incident Copilot, an operational crowd-safety decision-support assistant "
-        "deployed for mass-gathering operations (e.g., Prayagraj Maha Kumbh Mela Sector 04). "
-        "You receive structured telemetry, deterministic safety engine verdicts, and approved NDMA SOPs.\n\n"
+        "deployed for high-density railway station transit operations (e.g., Central Railway Station Platforms & Foot Overbridges). "
+        "You receive structured telemetry, deterministic safety engine verdicts, and approved Railway Board / NDMA Station SOPs.\n\n"
         "Your operational roles:\n"
         "1. Factually explain what is occurring using the provided metrics.\n"
         "2. Explain why specific interventions were REJECTED by the Decision Safety Layer.\n"
-        "3. Draft concise, calm operational briefings for Sector Magistrates and NDRF commanders.\n"
-        "4. Draft reassuring, panic-free public announcements directing pilgrims to safe holding areas.\n"
+        "3. Draft concise, calm operational briefings for Station Directors, RPF, and GRP commanders.\n"
+        "4. Draft reassuring, panic-free public announcements directing passengers to safe concourse holding areas.\n"
         "5. Provide accurate translations (Hindi, Marathi) strictly preserving zone letters (A, B, H, R), "
         "numbers, units, and safety meaning.\n\n"
         "STRICT SAFETY RESTRICTIONS:\n"
@@ -210,8 +210,8 @@ class SentinelCopilot:
         citation = sop_knowledge_base.format_citation(sops)
 
         prompt = (
-            f"Explain this live mass-gathering crowd incident state for the tactical controller:\n"
-            f"- Sector / Zone: Zone {zone} (Sangam Bottleneck Ramp)\n"
+            f"Explain this live railway station transit crowd incident state for the tactical controller:\n"
+            f"- Sector / Zone: Zone {zone} (Platform 1-2 Foot Overbridge Staircase)\n"
             f"- Current Occupancy: {occupancy} / {capacity} persons\n"
             f"- Net Inflow Growth Rate: {growth_rate:+.1f} persons/sec\n"
             f"- Time to Configured Operating Limit: {f'{t_limit:.1f} s' if t_limit is not None else 'Stable / Not breached'}\n"
@@ -342,13 +342,13 @@ class SentinelCopilot:
         citation = sop_knowledge_base.format_citation(sops)
 
         prompt = (
-            f"Generate a concise, structured command briefing for Sector Magistrate / Incident Commander:\n"
-            f"- Location: Maha Kumbh Sector 04 (Sangam Ghat Bottleneck {zone})\n"
+            f"Generate a concise, structured command briefing for Station Director / RPF Commander:\n"
+            f"- Location: Railway Station Transit Sector (Platform & Foot Overbridge Chokepoint {zone})\n"
             f"- Load: {occupancy}/{capacity} ({trend})\n"
             f"- Time to Configured Operating Limit: {t_limit:.1f} s\n"
             f"- Safety Verdict: {rejected_action} is REJECTED (receiving corridor overflow)\n"
             f"- Feasible Intervention: {feasible_action} ({waiting_cost})\n"
-            f"- Authority: Governed under {sops[0]['section'] if sops else 'NDMA 4.2'}\n"
+            f"- Authority: Governed under {sops[0]['section'] if sops else 'Railway Board Station SOP'}\n"
             f"Format with clear headings: INCIDENT SUMMARY, DECISION EVALUATION, ACTION DIRECTIVE, HUMAN AUTHORIZATION."
         )
 
@@ -368,15 +368,15 @@ class SentinelCopilot:
 
         # Deterministic Fallback Briefing
         fallback_brief = (
-            f"=== SECTOR 04 INCIDENT COMMAND BRIEF ===\n"
-            f"ZONE: Bottleneck {zone} (Sangam Ghat Descent Ramp)\n"
+            f"=== RAILWAY STATION INCIDENT COMMAND BRIEF ===\n"
+            f"ZONE: Bottleneck {zone} (Platform 1-2 Foot Overbridge Staircase)\n"
             f"STATUS: HIGH DENSITY LOAD | {occupancy}/{capacity} persons ({trend})\n"
             f"FORECAST: Time to configured limit = {t_limit:.1f} s\n\n"
             f"DECISION EVALUATION:\n"
             f"• {rejected_action}: REJECTED (projected secondary bottleneck)\n"
             f"• {feasible_action}: FEASIBLE (waiting queue cost {waiting_cost})\n\n"
-            f"GROUNDED DIRECTIVE: Activate upstream metering per {sops[0]['section'] if sops else 'NDMA 4.2'}.\n"
-            f"AUTHORIZATION: Sector Magistrate approval required before dispatch."
+            f"GROUNDED DIRECTIVE: Activate upstream concourse metering per {sops[0]['section'] if sops else 'Railway Board Station SOP'}.\n"
+            f"AUTHORIZATION: Station Director / RPF approval required before dispatch."
         )
 
         return CopilotResponse(
@@ -396,19 +396,19 @@ class SentinelCopilot:
     def draft_public_announcement(self, state: Dict[str, Any], tone: str = "calm") -> CopilotResponse:
         """Draft a reassuring, panic-free public address announcement."""
         start_time = time.perf_counter()
-        holding_area = state.get("holding_area", "Parade Ground Holding Area H")
-        restricted_corridor = state.get("restricted_corridor", "East Pontoon Bridge Bypass Corridor R")
-        destination = state.get("destination", "Sangam Triveni Ghat")
+        holding_area = state.get("holding_area", "Station Concourse Waiting Hall H")
+        restricted_corridor = state.get("restricted_corridor", "Alternate East Foot Overbridge Corridor R")
+        destination = state.get("destination", "Platform Area 1-2")
         sops = sop_knowledge_base.query(candidate_action="Public Address", limit=1)
         citation = sop_knowledge_base.format_citation(sops)
 
         prompt = (
-            f"Draft a calm, 2-sentence public address announcement for pilgrims at Maha Kumbh Mela:\n"
+            f"Draft a calm, 2-sentence public address announcement for passengers at the railway station:\n"
             f"- Holding Area: {holding_area}\n"
             f"- Destination: {destination}\n"
             f"- Restricted Corridor: {restricted_corridor}\n"
             f"Rules: Tone must be {tone}, respectful, reassuring, and completely free of panic words. "
-            f"Direct pilgrims to wait comfortably in the designated holding area and follow sevadars and police."
+            f"Direct passengers to wait comfortably in the designated station concourse and follow RPF and station staff."
         )
 
         llm_text = self._call_gemini(prompt, state)
@@ -426,8 +426,8 @@ class SentinelCopilot:
             )
 
         fallback_announcement = (
-            f"Pilgrims are requested to remain comfortably in {holding_area} and follow staff instructions. "
-            f"Movement toward {destination} is proceeding in orderly staged batches for everyone's safety. "
+            f"Passengers are requested to wait comfortably in {holding_area} and follow station staff instructions. "
+            f"Movement toward {destination} is proceeding in orderly staged batches for passenger safety. "
             f"Please do not enter {restricted_corridor}."
         )
 
@@ -467,7 +467,7 @@ class SentinelCopilot:
             f"Translate this crowd management operational message into natural, professional {lang_name}:\n"
             f"Source Text: \"{text}\"\n\n"
             f"CRITICAL PRESERVATION RULES:\n"
-            f"- Preserve all Zone letters, numbers, and technical identifiers exactly (e.g. Zone B, Holding Area H, Corridor R, Pontoon Bridge 3, 168/180, 6 s).\n"
+            f"- Preserve all Zone letters, numbers, and technical identifiers exactly (e.g. Zone B, Holding Area H, Corridor R, Foot Overbridge 2, 168/180, 6 s).\n"
             f"- Do NOT alter the safety verdict (REJECTED must stay rejected; FEASIBLE must stay feasible).\n"
             f"- Keep tone formal, calm, and authoritative."
         )
