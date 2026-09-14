@@ -81,8 +81,8 @@ class SentinelCopilot:
         "- Maintain an objective, calm, professional tone suitable for disaster management authorities."
     )
 
-    def __init__(self, model_name: str = "gemini-2.0-flash", timeout_seconds: float = 8.0) -> None:
-        self.model_name = model_name
+    def __init__(self, model_name: Optional[str] = None, timeout_seconds: float = 8.0) -> None:
+        self.model_name = model_name or os.environ.get("GEMINI_MODEL") or "gemini-2.5-flash"
         self.timeout_seconds = timeout_seconds
         self._client: Any = None
         self._api_key: Optional[str] = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
