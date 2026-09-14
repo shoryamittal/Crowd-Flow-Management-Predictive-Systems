@@ -2,7 +2,7 @@
 ## Comprehensive Disaster Management Specification for Sector 04 (Sangam Triveni Ghat)
 
 **Target:** Smart India Hackathon 2026 — AICTE Student Innovation — Software — Disaster Management (`SIH26206`)  
-**Deployment Anchor:** Maha Kumbh Mela Prayagraj (2025–2026)  
+**Modeled Reference Domain:** Maha Kumbh Mela Prayagraj Sector 04 (Sangam Triveni Ghat)  
 **Primary Pilot Sector:** Sector 04 (Sangam Triveni Ghat, Parade Ground Holding Enclosures, and Pontoon Bridge Corridors)  
 **Authority Reference:** `Sentinel_AI_SIH2026_Final_Strategy_Report.pdf` (Team X Factor, MIT School of Computing)  
 

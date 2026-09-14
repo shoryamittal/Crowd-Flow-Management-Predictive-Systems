@@ -1,4 +1,4 @@
-# MAHA KUMBH MELA PRAYAGRAJ 2025–2026
+# MAHA KUMBH MELA PRAYAGRAJ — SECTOR 04 REFERENCE MANUAL
 ## SECTOR 04 TACTICAL DISASTER PREVENTION & OPERATIONS MANUAL
 ### Standard Operating Procedures, Incident Command System, and Decision Support Protocol
 
@@ -6,7 +6,7 @@
 
 ## 1. Operational Overview & Administrative Authority
 
-- **Deployment Scope:** Maha Kumbh Mela Prayagraj (2025–2026), Sector 04 (Sangam Confluence & Approaches).
+- **Operational Scope:** Modeled Reference Domain for Maha Kumbh Mela Prayagraj, Sector 04 (Sangam Confluence & Approaches).
 - **Participating Agencies:** 
   - Uttar Pradesh Police (Mela Administration)
   - National Disaster Response Force (NDRF 11th Battalion)

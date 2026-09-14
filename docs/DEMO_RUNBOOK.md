@@ -142,7 +142,7 @@ python deploy.py
 
 ---
 
-### Step 6 [2:40 – 2:55]: Offline Continuity & Zero-WAN Resilience
+### Step 6 [2:40 – 2:55]: Offline Continuity & Edge Resilience
 - **What the Jury Sees:**
   - Presenter clicks **`[SIMULATE WAN DISCONNECT]`** (or pulls Ethernet / toggles Wi-Fi off).
   - Status banner turns amber: **`WAN: OFFLINE | LOCAL JOURNAL: HEALTHY (SQLite WAL) | PENDING SYNC: 1`**.

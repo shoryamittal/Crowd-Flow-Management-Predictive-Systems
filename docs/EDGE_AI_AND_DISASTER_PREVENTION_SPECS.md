@@ -55,7 +55,7 @@ Example:
 
 ---
 
-## 4. Zero-WAN Offline Durability (SQLite WAL + SyncWorker)
+## 4. Offline Continuity & Local Durability (SQLite WAL + SyncWorker)
 
 - Local Journal: SQLite in WAL (Write-Ahead Logging) mode with PRAGMA synchronous = NORMAL.
 - Idempotency Guarantee: Every incident candidate is assigned an immutable UUIDv4 upon generation.
