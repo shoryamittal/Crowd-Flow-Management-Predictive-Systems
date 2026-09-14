@@ -41,7 +41,7 @@ def test_redteam_scenario_1_broken_camera_is_unknown_stale_never_green():
     data = resp.json
     assert "deterministic_safety_engine" in data
     assert data["deterministic_safety_engine"] == "ACTIVE"
-    assert data["operating_sector"] == "Maha Kumbh Prayagraj Sector 04 (Sangam Triveni Ghat)"
+    assert "Central Railway Station" in data["operating_sector"]
 
 
 # --------------------------------------------------------------------------

@@ -447,7 +447,7 @@ def test_case_22_scenario_value_cannot_be_labeled_observed():
 
 def test_case_23_multilingual_instruction_preserves_negative_polarity():
     copilot = SentinelCopilot()
-    english = "DO NOT divert pilgrims to Pontoon Bridge Relief Route R."
+    english = "DO NOT divert passengers to Alternate East FOB Relief Route R."
     res_hi = copilot.translate_operational_text(english, "hi")
     res_mr = copilot.translate_operational_text(english, "mr")
 
