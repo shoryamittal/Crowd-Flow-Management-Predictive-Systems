@@ -22,46 +22,53 @@ from .safety import DecisionSafetyEngine
 
 
 def get_reference_zones() -> dict[str, ZoneConfig]:
-    """Return configured zones for the SIH 2026 Reference Sector."""
+    """Return configured zones for the Railway Station Reference Sector."""
     return {
         "Holding H": ZoneConfig(
             zone_id="Holding H",
-            name="Holding Area H (Sector Concourse)",
+            name="Station Concourse & Waiting Hall H",
             role=ZoneRole.HOLDING_AREA,
             configured_operating_limit=450.0,
             physical_max_capacity=600.0,
         ),
         "Approach A": ZoneConfig(
             zone_id="Approach A",
-            name="Approach Corridor A",
+            name="Foot Overbridge (FOB) Approach Corridor A",
             role=ZoneRole.APPROACH_CORRIDOR,
             configured_operating_limit=200.0,
             physical_max_capacity=300.0,
         ),
         "Bottleneck B": ZoneConfig(
             zone_id="Bottleneck B",
-            name="Bottleneck B (North Staircase)",
+            name="Platform 1-2 Staircase Chokepoint B",
             role=ZoneRole.BOTTLENECK,
             configured_operating_limit=180.0,
             physical_max_capacity=250.0,
         ),
+        "Platform G": ZoneConfig(
+            zone_id="Platform G",
+            name="Platform 1-2 Boarding Island G",
+            role=ZoneRole.DISPERSAL_DESTINATION,
+            configured_operating_limit=1000.0,
+            physical_max_capacity=1500.0,
+        ),
         "Ghat G": ZoneConfig(
             zone_id="Ghat G",
-            name="Ghat / Downstream Area G",
+            name="Platform 1-2 Boarding Island G",
             role=ZoneRole.DISPERSAL_DESTINATION,
             configured_operating_limit=1000.0,
             physical_max_capacity=1500.0,
         ),
         "Relief R": ZoneConfig(
             zone_id="Relief R",
-            name="Relief Corridor R (East Passage)",
+            name="Alternate Foot Overbridge (East FOB) Relief Corridor R",
             role=ZoneRole.RELIEF_CORRIDOR,
             configured_operating_limit=160.0,
             physical_max_capacity=220.0,
         ),
         "Exit E": ZoneConfig(
             zone_id="Exit E",
-            name="Exit E (Perimeter Dispersal)",
+            name="Station Circulating Area & Egress Exit E",
             role=ZoneRole.EGRESS_EXIT,
             configured_operating_limit=500.0,
             physical_max_capacity=800.0,
@@ -70,7 +77,7 @@ def get_reference_zones() -> dict[str, ZoneConfig]:
 
 
 def get_reference_routes() -> dict[str, RouteConfig]:
-    """Return configured routes for the SIH 2026 Reference Sector."""
+    """Return configured routes for the Railway Station Reference Sector."""
     return {
         "Holding H->Approach A": RouteConfig(
             route_id="Route H->A",
@@ -92,6 +99,14 @@ def get_reference_routes() -> dict[str, RouteConfig]:
             route_id="Route B->G",
             source_zone_id="Bottleneck B",
             target_zone_id="Ghat G",
+            max_flow_capacity=2.5,
+            permitted_direction="UNIDIRECTIONAL",
+            status=RouteStatus.OPEN,
+        ),
+        "Bottleneck B->Platform G": RouteConfig(
+            route_id="Route B->G",
+            source_zone_id="Bottleneck B",
+            target_zone_id="Platform G",
             max_flow_capacity=2.5,
             permitted_direction="UNIDIRECTIONAL",
             status=RouteStatus.OPEN,
@@ -129,7 +144,7 @@ def get_reference_candidates() -> list[ActionCandidate]:
         ActionCandidate(
             candidate_id="DIVERT_TO_RELIEF_R",
             action_type=ActionType.PERMITTED_DIVERSION,
-            title="Divert Flow to Relief Corridor R",
+            title="Divert Flow to Alternate East FOB (Relief Corridor R)",
             source_zone_id="Bottleneck B",
             target_zone_id="Relief R",
             diverted_flow_rate=2.5,
@@ -139,7 +154,7 @@ def get_reference_candidates() -> list[ActionCandidate]:
         ActionCandidate(
             candidate_id="METER_UPSTREAM_H",
             action_type=ActionType.UPSTREAM_METERING,
-            title="Upstream Metering at Holding Area H",
+            title="Upstream Inflow Metering at Station Concourse H",
             source_zone_id="Bottleneck B",
             metered_inflow_rate=1.5,
             staff_response_delay_seconds=8.0,
