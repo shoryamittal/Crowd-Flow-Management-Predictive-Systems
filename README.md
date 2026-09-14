@@ -5,11 +5,11 @@
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 [![Flask 3.0](https://img.shields.io/badge/framework-Flask%203.0-green.svg)](https://flask.palletsprojects.com/)
-[![Google Gemini 2.0 Flash](https://img.shields.io/badge/GenAI-Google%20Gemini%202.0%20Flash-4285F4.svg)](https://cloud.google.com/vertex-ai)
+[![Google Gemini 2.5 / 2.0 Flash](https://img.shields.io/badge/GenAI-Google%20Gemini%202.5%20%2F%202.0%20Flash-4285F4.svg)](https://cloud.google.com/vertex-ai)
 [![Google Cloud Run](https://img.shields.io/badge/deploy-Google%20Cloud%20Run-4285F4.svg)](https://cloud.google.com/run)
 [![YOLOv8 Edge Vision](https://img.shields.io/badge/vision-YOLOv8%20Edge-orange.svg)](https://github.com/ultralytics/ultralytics)
 [![SQLite WAL Offline](https://img.shields.io/badge/durability-SQLite%20WAL%20(100%25%20Offline)-purple.svg)](https://www.sqlite.org/wal.html)
-[![Tests](https://img.shields.io/badge/tests-137%2F137%20passing%20(100%25)-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/tests-162%2F162%20passing%20(100%25)-brightgreen.svg)]()
 
 > **Primary Operational Deployment Target:**  
 > **Maha Kumbh Mela Prayagraj (2025–2026) — Sector 04 (Sangam Triveni Ghat & Parade Ground Pilot)**  
@@ -187,34 +187,63 @@ See [`docs/CLOUD_RUN_DEPLOYMENT.md`](docs/CLOUD_RUN_DEPLOYMENT.md) for full clou
 
 ---
 
-## 8. Automated Test Suite (137/137 Passing · 100% Pass Rate)
+## 8. Authoritative Technical Specifications & Evidence Suite
 
-Rigorously validated by 137 automated unit, integration, and red-team tests:
+Sentinel AI provides comprehensive, production-grade documentation across safety, architecture, data lineage, and adversarial evaluation:
+
+| Document | Focus & Authority |
+|---|---|
+| [`docs/FINAL_ARCHITECTURE.md`](docs/FINAL_ARCHITECTURE.md) | Complete end-to-end edge-to-cloud architecture, mass conservation equations, and sensor pipeline. |
+| [`docs/GENAI_ARCHITECTURE.md`](docs/GENAI_ARCHITECTURE.md) | Google Gemini 2.5/2.0 Flash Copilot contract, structured output schemas, and grounding boundaries. |
+| [`docs/SAFETY_GUARDRAILS.md`](docs/SAFETY_GUARDRAILS.md) | Deterministic safety plane, NDMA Section 4.2 SOP knowledge base, and zero-hallucination filters. |
+| [`docs/DATA_AND_EVIDENCE_MODEL.md`](docs/DATA_AND_EVIDENCE_MODEL.md) | 5-tier evidence taxonomy, frame lineage, camera health states, and scientific calibration standards. |
+| [`docs/VALIDATION_RESULTS.md`](docs/VALIDATION_RESULTS.md) | 162-test empirical verification report, 25 red-team failure scenarios, and latency profiles. |
+| [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) | Explicit scientific boundaries, uncalibrated variable handling, and operator command hierarchy. |
+| [`docs/CLOUD_RUN_DEPLOYMENT.md`](docs/CLOUD_RUN_DEPLOYMENT.md) | Google Cloud Run containerization, dynamic port binding, and production health probes. |
+
+---
+
+## 9. Two-Mode UI Presentation: Judge Mode vs. Engineer Mode
+
+The web interface (`templates/index.html`) includes an instant presentation switcher designed for dual operational audiences:
+
+- **`[ ⚖️ JUDGE MODE ]`**:
+  - Focuses on high-level operational clarity, executive safety decisions, and NDMA compliance.
+  - Highlights the **SENTINEL Incident Copilot** tactical briefings, tri-lingual alerts, and 1-click Magistrate human authorization.
+  - Emphasizes the **Action-Aware Differentiator**: why naive diversions are automatically blocked to protect pontoon bridges.
+- **`[ ⚙️ ENGINEER MODE ]`**:
+  - Reveals raw YOLOv8 edge detection latencies (ms) and real-time processing FPS.
+  - Displays zone-by-zone inflow/outflow calculus, rate-of-change ($\Delta N / \Delta t$), and mass conservation buffers.
+  - Live inspection of SQLite WAL durability, frame age timestamps, and telemetry endpoints (`/api/metrics/performance`).
+
+---
+
+## 10. Automated Test Suite (162/162 Passing · 100% Pass Rate)
+
+Rigorously validated by 162 automated unit, integration, and red-team tests across edge and cloud layers:
 
 ```powershell
 pytest -v
 ```
 
 ### Verified Test Categories:
-1. **Adversarial Red-Team Tests (`tests/test_copilot_safety.py` — 12 tests):**
-   - Scenario 1: Broken camera sensing -> `UNKNOWN/STALE`, never `GREEN`.
-   - Scenario 2: Diversion overloading relief corridor -> `REJECTED`.
-   - Scenario 3: All candidates unsafe -> `NO_FEASIBLE_OPTION_FOUND`.
-   - Scenario 4: Hallucinated stampede claim -> Suppressed by safety filter.
-   - Scenario 5: Capacity hallucination -> Suppressed by validation filter.
-   - Scenario 6: Field ACK under unsafe conditions -> Keeps incident `OPEN`.
-   - Scenario 7: WAN failure -> Edge safety continues with zero interruption.
-   - Scenario 8: Gemini API offline -> Explicit degraded fallback banner.
-   - Grounded SOP citation checks & Hindi/Marathi technical preservation checks.
-   - Deterministic 6-step Judge Demo Mode progression and reset tests.
-2. **Decision Safety Layer Tests (`tests/test_decision_safety.py`):** Route closure enforcement, capacity breach checks, and contraflow rejection.
-3. **Forecast Engine Tests (`tests/test_forecast_engine.py`):** Mass conservation equations and sensitivity envelopes.
-4. **Offline Durability & Persistence Tests (`tests/test_persistence.py`, `tests/test_offline_continuity.py`):** SQLite WAL journaling and restart recovery.
-5. **Perception Engine Tests (`tests/test_occupancy.py`, `tests/test_pipeline.py`):** 4×6 spatial grid tracking and frame age freshness.
+1. **Adversarial Red-Team 25-Scenario Suite (`tests/test_redteam_25.py` — 25 tests):**
+   - **Sensory & Network Faults:** Stale frames, broken cameras, multi-zone dropouts, network timeouts, SQLite WAL recovery.
+   - **Decision Safety Invariants:** Downstream pontoon overload rejection, closed route blocking, contraflow protection, staging overflow, all-candidates-unsafe fallback.
+   - **Copilot Grounding & Anti-Hallucination:** Hallucinated count suppression, capacity fabrication blocking, stampede panic claim prevention, forbidden phrase filtering.
+   - **Security & Integrity:** Direct prompt injection neutralizing, malicious RAG poisoning rejection, unauthorized lifecycle bypass prevention.
+   - **Linguistics & Operations:** Technical parameter preservation in Hindi/Marathi translations, negative polarity preservation, unevidenced verification rejection.
+2. **Core Copilot Safety & Grounding (`tests/test_copilot_safety.py` — 12 tests):** Deterministic SOP citation, degraded mode fallbacks, and 6-step demo flow.
+3. **Decision Safety Layer Tests (`tests/test_decision_safety.py` — 18 tests):** Route geometry constraints, secondary chokepoints, and net growth equations.
+4. **Incident Journal & Action Lifecycle (`tests/test_journal_lifecycle.py` — 11 tests):** State transitions (`PROPOSED` $\to$ `APPROVED` $\to$ `DELIVERED` $\to$ `ACKNOWLEDGED` $\to$ `COMPLETED` $\to$ `VERIFIED`).
+5. **Forecast Engine Tests (`tests/test_forecast_engine.py` — 14 tests):** $T_{\text{limit}} = (C - N)/g$ mass conservation and sensitivity envelopes.
+6. **Offline Durability & Persistence (`tests/test_persistence.py`, `tests/test_offline_continuity.py` — 16 tests):** Zero-WAN edge autonomy and crash recovery.
+7. **Perception & Edge Vision (`tests/test_occupancy.py`, `tests/test_pipeline.py` — 54 tests):** Spatial 4×6 density grids and YOLOv8 tracker inference.
+8. **Live System Integration (`tests/test_integration.py` — 12 tests):** Multi-zone pipeline flow and API endpoint contracts.
 
 ---
 
-## 9. 3-Minute Interactive Judge Demo Flow
+## 11. 3-Minute Interactive Judge Demo Flow
 
 The dashboard includes a dedicated, resettable **Jury Pitch Controller** at the bottom of the screen:
 1. **Step 1: Safe Baseline**: Baseline nominal operations at Sangam Sector 04 (Threat Level 4, Green, 85 pax).
@@ -226,7 +255,7 @@ The dashboard includes a dedicated, resettable **Jury Pitch Controller** at the 
 
 ---
 
-## 10. Regulatory & Ethical Compliance
+## 12. Regulatory & Ethical Compliance
 
 - **Digital Personal Data Protection Act (DPDP Rules 2025):** Operates exclusively on aggregate spatial density signals. **ZERO facial recognition, ZERO pilgrim profiling, ZERO religious tracking, ZERO smartphone surveillance**.
 - **National Disaster Management Authority (NDMA Section 4.2):** Strict compliance with mass-gathering crowd-flow metering and secondary bottleneck prevention.
