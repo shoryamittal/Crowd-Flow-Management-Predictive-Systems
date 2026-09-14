@@ -58,6 +58,9 @@ class CopilotResponse:
         return asdict(self)
 
 
+DEGRADED_BANNER = "LOCAL SAFETY PLANE ACTIVE — GEMINI COPILOT UNAVAILABLE"
+
+
 class SentinelCopilot:
     """Operational Incident Copilot powered by Google Gemini with deterministic safety bounds."""
 
@@ -119,7 +122,7 @@ class SentinelCopilot:
             "model_name": self.model_name if available else "none",
             "provider": "Google GenAI (Gemini)" if available else "Deterministic Safety Fallback",
             "offline_mode": not available,
-            "banner": None if available else "COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES",
+            "banner": None if available else DEGRADED_BANNER,
         }
 
     def _validate_safety(self, text: str, context: Dict[str, Any]) -> tuple[bool, str]:
@@ -261,7 +264,7 @@ class SentinelCopilot:
             status="DEGRADED_FALLBACK" if not self.is_available() else "SUCCESS",
             model_name="deterministic_safety_rules",
             latency_ms=round(latency, 1),
-            degraded_banner="COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES" if not self.is_available() else None,
+            degraded_banner=DEGRADED_BANNER if not self.is_available() else None,
         )
 
     # -------------------------------------------------------------------------
@@ -317,7 +320,7 @@ class SentinelCopilot:
             status="DEGRADED_FALLBACK" if not self.is_available() else "SUCCESS",
             model_name="deterministic_safety_rules",
             latency_ms=round(latency, 1),
-            degraded_banner="COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES" if not self.is_available() else None,
+            degraded_banner=DEGRADED_BANNER if not self.is_available() else None,
         )
 
     # -------------------------------------------------------------------------
@@ -384,7 +387,7 @@ class SentinelCopilot:
             status="DEGRADED_FALLBACK" if not self.is_available() else "SUCCESS",
             model_name="deterministic_safety_rules",
             latency_ms=round(latency, 1),
-            degraded_banner="COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES" if not self.is_available() else None,
+            degraded_banner=DEGRADED_BANNER if not self.is_available() else None,
         )
 
     # -------------------------------------------------------------------------
@@ -436,7 +439,7 @@ class SentinelCopilot:
             status="DEGRADED_FALLBACK" if not self.is_available() else "SUCCESS",
             model_name="deterministic_announcement_template",
             latency_ms=round(latency, 1),
-            degraded_banner="COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES" if not self.is_available() else None,
+            degraded_banner=DEGRADED_BANNER if not self.is_available() else None,
         )
 
     # -------------------------------------------------------------------------
@@ -504,7 +507,7 @@ class SentinelCopilot:
             model_name="deterministic_translation_corpus",
             latency_ms=round(latency, 1),
             language=lang_code,
-            degraded_banner="COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES" if not self.is_available() else None,
+            degraded_banner=DEGRADED_BANNER if not self.is_available() else None,
         )
 
     # -------------------------------------------------------------------------
@@ -555,7 +558,7 @@ class SentinelCopilot:
             status="DEGRADED_FALLBACK" if not self.is_available() else "SUCCESS",
             model_name="deterministic_whatif_evaluator",
             latency_ms=round(latency, 1),
-            degraded_banner="COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES" if not self.is_available() else None,
+            degraded_banner=DEGRADED_BANNER if not self.is_available() else None,
         )
 
     # -------------------------------------------------------------------------
@@ -612,7 +615,7 @@ class SentinelCopilot:
             status="DEGRADED_FALLBACK" if not self.is_available() else "SUCCESS",
             model_name="deterministic_verification_tracker",
             latency_ms=round(latency, 1),
-            degraded_banner="COPILOT UNAVAILABLE — DETERMINISTIC DECISION SUPPORT CONTINUES" if not self.is_available() else None,
+            degraded_banner=DEGRADED_BANNER if not self.is_available() else None,
         )
 
 
