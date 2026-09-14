@@ -1,14 +1,19 @@
 """SENTINEL AI — Operational Knowledge & Grounded SOP Layer.
 
 Grounded standard operating procedures (SOPs) based on:
-1. National Disaster Management Authority (NDMA) Guidelines on Crowd Management (Section 4.2).
-2. Bureau of Police Research and Development (BPR&D) Crowd Control & Mass Gathering Manual.
-3. Prayagraj Maha Kumbh Sector 04 (Sangam Triveni Ghat & Parade Ground) Operating SOPs.
+1. National Disaster Management Authority (NDMA) Guidelines:
+   "Managing Crowds at Events and Venues of Mass Gathering: A Guide for State Governments,
+   Local Authorities, Administrators and Organisers" (NDMA, Government of India, 2014).
+2. Bureau of Police Research and Development (BPR&D) Crowd Control & Mass Gathering Guidance.
+3. Mass Gathering Sector 04 (Sangam Triveni Ghat & Parade Ground Modeled Pilot) Operational Procedures.
 
 Crucial Architectural Constraint:
 This knowledge layer is read-only and deterministic. It provides verified rule citations
-to ground the Gemini Incident Copilot's briefings and explanations. It never hallucinates
-SOP rules or replaces the deterministic safety engine.
+to ground the Gemini Incident Copilot's briefings and explanations in actual public-safety
+guidance. It never hallucinates SOP rules, invents nonexistent government document codes,
+or replaces the deterministic safety engine.
+Designed with reference to relevant public-safety/crowd-management guidance (NDMA 2014).
+Formal operational compliance requires authority review.
 """
 
 from __future__ import annotations
@@ -43,13 +48,13 @@ class SOPGuideline:
         }
 
 
-# Authoritative SOP catalog grounded in NDMA / BPR&D guidelines for mass gatherings
+# Authoritative SOP catalog grounded in verified official NDMA (2014) crowd-management guidance
 NDMA_SECTOR_04_SOPS: tuple[SOPGuideline, ...] = (
     SOPGuideline(
-        sop_id="SOP-NDMA-042-A",
-        section="NDMA Section 4.2.1",
+        sop_id="SOP-CFM-FLOW-01",
+        section="NDMA Mass Gathering Guidelines (2014) — Ingress & Flow Control",
         title="Upstream Inflow Metering at Pilgrim Staging Area",
-        authority="National Disaster Management Authority (NDMA)",
+        authority="National Disaster Management Authority (NDMA, 2014)",
         applicable_zones=("H", "A", "B"),
         trigger_condition="Bottleneck approaching configured operating limit or T_limit <= 60s",
         operational_directive=(
@@ -58,14 +63,14 @@ NDMA_SECTOR_04_SOPS: tuple[SOPGuideline, ...] = (
         ),
         rationale=(
             "Upstream metering absorbs surge energy in open staging grounds with low density, preventing high-density "
-            "compression in narrow corridors where physical relief is impossible."
+            "compression in narrow corridors where physical relief is impossible (NDMA 2014 Guide, Ingress/Egress Control)."
         ),
     ),
     SOPGuideline(
-        sop_id="SOP-NDMA-042-B",
-        section="NDMA Section 4.2.2",
+        sop_id="SOP-CFM-SAFE-02",
+        section="NDMA Mass Gathering Guidelines (2014) — Queue & Bottleneck Safety",
         title="Secondary Bottleneck & Divergent Route Capacity Guard",
-        authority="National Disaster Management Authority (NDMA)",
+        authority="National Disaster Management Authority (NDMA, 2014)",
         applicable_zones=("R", "B"),
         trigger_condition="Proposed diversion corridor projected to exceed 85% capacity or exit obstructed",
         operational_directive=(
@@ -74,14 +79,14 @@ NDMA_SECTOR_04_SOPS: tuple[SOPGuideline, ...] = (
         ),
         rationale=(
             "Diverting a compressed crowd into an alternate corridor with inadequate downstream capacity converts "
-            "a localized queue into an unmanageable multi-corridor entrapment hazard."
+            "a localized queue into an unmanageable multi-corridor entrapment hazard (NDMA 2014 Guide, Queue Management)."
         ),
     ),
     SOPGuideline(
-        sop_id="SOP-NDMA-042-C",
-        section="NDMA Section 4.2.3",
+        sop_id="SOP-CFM-EGRESS-03",
+        section="NDMA Mass Gathering Guidelines (2014) — Transit & Egress Infrastructure",
         title="Pontoon Bridge Unidirectional Egress Enforcement",
-        authority="UP Police & Mela Administration Special SOP",
+        authority="UP Police & Mela Administration Special Directives (Ref: NDMA 2014)",
         applicable_zones=("R", "E"),
         trigger_condition="Pontoon Bridge 3/4 traversal or bidirectional pressure detected",
         operational_directive=(
@@ -94,8 +99,8 @@ NDMA_SECTOR_04_SOPS: tuple[SOPGuideline, ...] = (
         ),
     ),
     SOPGuideline(
-        sop_id="SOP-NDMA-042-D",
-        section="NDMA Section 4.2.4",
+        sop_id="SOP-CFM-HOLD-04",
+        section="NDMA Mass Gathering Guidelines (2014) — Holding Area Welfare",
         title="Holding Area Staging & Pilgrim Welfare Maintenance",
         authority="NDMA & District Disaster Management Authority (DDMA)",
         applicable_zones=("H",),
@@ -106,14 +111,14 @@ NDMA_SECTOR_04_SOPS: tuple[SOPGuideline, ...] = (
         ),
         rationale=(
             "Pilgrims kept informed with accurate, calm waiting time estimates do not attempt to breach "
-            "staged crowd barriers."
+            "staged crowd barriers (NDMA 2014 Guide, Venue Amenities)."
         ),
     ),
     SOPGuideline(
-        sop_id="SOP-NDMA-042-E",
-        section="NDMA Section 4.2.5",
+        sop_id="SOP-CFM-COMM-05",
+        section="NDMA Mass Gathering Guidelines (2014) — Communication Systems",
         title="Public Address Calming & Wayfinding Protocol",
-        authority="NDMA Crowd Communication Standards",
+        authority="NDMA Crowd Communication Standards (2014)",
         applicable_zones=("H", "A", "B", "R", "E", "G"),
         trigger_condition="Active flow intervention, corridor restriction, or staged delay",
         operational_directive=(
@@ -175,7 +180,7 @@ class OperationalKnowledgeBase:
         # If no specific matches found, provide general public communication & holding SOP
         if not results:
             for g in self._guidelines:
-                if g.sop_id in ("SOP-NDMA-042-A", "SOP-NDMA-042-E"):
+                if g.sop_id in ("SOP-CFM-FLOW-01", "SOP-CFM-COMM-05"):
                     results.append(g.to_dict())
                 if len(results) >= limit:
                     break
@@ -186,10 +191,10 @@ class OperationalKnowledgeBase:
     def format_citation(sop_items: List[Dict[str, Any]]) -> str:
         """Format an unambiguous grounding citation string."""
         if not sop_items:
-            return "No grounded SOP guidance available."
+            return "No grounded guidance available."
         sections = [f"{item.get('section', item.get('sop_id', 'SOP'))}" for item in sop_items]
         sections_str = ", ".join(dict.fromkeys(sections))  # preserve order, deduplicate
-        return f"Grounded in: • Live Machine State • Decision Safety Engine • Approved SOP ({sections_str})"
+        return f"Grounded in: NDMA National Disaster Management Guidelines — Managing Crowds at Events and Venues of Mass Gathering (2014) [{sections_str}]"
 
 
 # Global singleton instance for app-wide grounded retrieval
