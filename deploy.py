@@ -1285,7 +1285,7 @@ def api_metrics_performance():
             "evaluation_latency_ms": 1.8,
         },
         "reliability": {
-            "offline_operation": "100% Local Continuity (Zero-WAN Certified)",
+            "offline_operation": "Local Safety Plane Active (WAN Disconnected - GenAI Degraded)",
             "persistence": "SQLite WAL Mode with immediate write lock",
             "idempotent_sync": "Zero duplication via immutable event_id",
             "recovery_time_s": 0.4,
