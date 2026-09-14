@@ -35,6 +35,10 @@ FORBIDDEN_PATTERNS = [
     re.compile(r"\boptimal\s+routing\b", re.IGNORECASE),
     re.compile(r"\bautonomously?\s+(?:actuate|close|open|barricade)\b", re.IGNORECASE),
     re.compile(r"\boverride\s+(?:safety|decision|rejection)\b", re.IGNORECASE),
+    re.compile(r"\bstampede\s+will\s+(?:definitely|certainly|occur|happen)\b", re.IGNORECASE),
+    re.compile(r"\b100%\s*safe", re.IGNORECASE),
+    re.compile(r"\bguarantee(?:s|d)?\b.*?\b(?:100%|zero\s+risk)\b", re.IGNORECASE),
+    re.compile(r"\b100%\s*confidence\b", re.IGNORECASE),
 ]
 
 
@@ -214,7 +218,11 @@ class SentinelCopilot:
             f"and what requires human authorization."
         )
 
-        llm_text = self._call_gemini(prompt, incident_state)
+        try:
+            llm_text = self._call_gemini(prompt, incident_state)
+        except Exception as e:
+            logger.warning(f"Gemini call exception: {e}")
+            llm_text = None
         latency = (time.perf_counter() - start_time) * 1000.0
 
         if llm_text:
