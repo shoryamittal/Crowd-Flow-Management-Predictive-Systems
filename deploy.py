@@ -878,7 +878,7 @@ def _synthetic_cctv_mjpeg_stream(channel_id: int):
     while True:
         frame_idx += 1
         frame = base_canvas.copy()
-        now_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S.%f")[:-4] + " UTC"
+        now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S.%f")[:-4] + " UTC"
 
         # Corner reticles
         cv2.line(frame, (15, 15), (35, 15), (0, 240, 255), 2)
@@ -1151,7 +1151,7 @@ def api_rpf_dispatch():
 
     dispatch_record = {
         "dispatch_id": f"RPF-{uuid.uuid4().hex[:8].upper()}",
-        "timestamp_utc": datetime.utcnow().isoformat(),
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "action": action,
         "sector": sector,
         "status": "DELIVERED",
@@ -1174,7 +1174,7 @@ def api_rpf_dispatch():
                 from_state="APPROVED",
                 to_state="DELIVERED",
                 actor_id="System_Dispatch",
-                timestamp_utc=datetime.utcnow().isoformat(),
+                timestamp_utc=datetime.now(timezone.utc).isoformat(),
                 notes=f"Dispatched: {action} to {sector}",
             )
         except Exception as e:
@@ -1208,7 +1208,7 @@ def api_decision_observation():
             "success": True,
             "observation": {
                 "snapshot_id": "snap-initial",
-                "observed_at_utc": datetime.utcnow().isoformat(),
+                "observed_at_utc": datetime.now(timezone.utc).isoformat(),
                 "frame_id": 0,
                 "frame_age_ms": 0.0,
                 "source": "Sangam Ghat Ramp Chokepoint (CCTV-01)",
@@ -1253,6 +1253,16 @@ def api_decision_zones():
         "zones": [z.to_dict() for z in _decision_zones.values()],
         "routes": [r.to_dict() for r in _decision_routes.values()],
     })
+
+
+@app.route("/api/decision/scenario/current", methods=["GET"])
+def api_decision_scenario_current():
+    """Return currently active scenario parameters."""
+    return jsonify({
+        "status": "ok",
+        "scenario": _current_scenario_params,
+        "action_state": _active_action_state,
+    }), 200
 
 
 @app.route("/api/decision/scenario/load", methods=["POST"])
@@ -1304,7 +1314,7 @@ def api_decision_evaluate():
         journal.save_recommendation(
             recommendation_id=recommendation.recommendation_id,
             incident_id="INC-LOCAL",
-            created_at_utc=datetime.utcnow().isoformat(),
+            created_at_utc=datetime.now(timezone.utc).isoformat(),
             selected_candidate_id=recommendation.selected_candidate_id,
             action_type=recommendation.action_type.value if recommendation.action_type else None,
             feasibility_status="FEASIBLE" if recommendation.selected_candidate_id else "REJECTED",
@@ -1349,7 +1359,7 @@ def api_operator_action_transition():
             from_state=current_state,
             to_state=to_state,
             actor_id=actor_id,
-            timestamp_utc=datetime.utcnow().isoformat(),
+            timestamp_utc=datetime.now(timezone.utc).isoformat(),
             notes=notes,
             evidence_snapshot_id=evidence_snapshot_id,
         )
@@ -1424,7 +1434,7 @@ def api_incident_report():
     return jsonify({
         "success": True,
         "station_name": STATION_NAME,
-        "generated_at_utc": datetime.utcnow().isoformat() + "Z",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "journal_sha256_seal": f"SEC-WAL-{journal_hash}",
         "database_path": str(DB_PATH),
         "system_version": "SENTINEL-AI Enterprise Defence (Transit Edition)",
@@ -1599,9 +1609,18 @@ _judge_demo_state = {
 }
 
 
-@app.route("/api/demo/judge_flow/step", methods=["POST"])
+@app.route("/api/demo/judge_flow/step", methods=["GET", "POST"])
+@app.route("/api/demo/judge_flow/state", methods=["GET"])
 def api_judge_flow_step():
-    """Advance the deterministic 6-step Judge Demo Mode for evaluators."""
+    """Advance or query the deterministic 6-step Judge Demo Mode for evaluators."""
+    if request.method == "GET":
+        return jsonify({
+            "status": "ok",
+            "demo_state": _judge_demo_state,
+            "current_scenario": _current_scenario_params,
+            "action_state": _active_action_state,
+        }), 200
+
     data = request.get_json(silent=True) or {}
     step = int(data.get("step", _judge_demo_state["current_step"] + 1))
     step = max(1, min(step, 6))
