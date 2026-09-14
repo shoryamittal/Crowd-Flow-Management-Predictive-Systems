@@ -8,13 +8,14 @@
 [![Google Gemini 2.5 / 2.0 Flash](https://img.shields.io/badge/GenAI-Google%20Gemini%202.5%20%2F%202.0%20Flash-4285F4.svg)](https://cloud.google.com/vertex-ai)
 [![Google Cloud Run](https://img.shields.io/badge/deploy-Google%20Cloud%20Run-4285F4.svg)](https://cloud.google.com/run)
 [![YOLOv8 Edge Vision](https://img.shields.io/badge/vision-YOLOv8%20Edge-orange.svg)](https://github.com/ultralytics/ultralytics)
-[![SQLite WAL Offline](https://img.shields.io/badge/durability-SQLite%20WAL%20(100%25%20Offline)-purple.svg)](https://www.sqlite.org/wal.html)
+[![SQLite WAL](https://img.shields.io/badge/durability-SQLite%20WAL%20(Local%20Continuity)-purple.svg)](https://www.sqlite.org/wal.html)
 [![Tests](https://img.shields.io/badge/tests-162%2F162%20passing%20(100%25)-brightgreen.svg)]()
 
-> **Primary Operational Deployment Target:**  
-> **Maha Kumbh Mela Prayagraj (2025–2026) — Sector 04 (Sangam Triveni Ghat & Parade Ground Pilot)**  
+> **Primary Modeled Operational Scenario:**  
+> **Maha Kumbh-style high-density mass gathering (Sector 04 — Sangam Triveni Ghat & Parade Ground Pilot)**  
+> **Target Deployment Class:** Mass gatherings and transit environments requiring site-specific calibration.  
 > *Developed by Team X Factor — MIT School of Computing*  
-> *Authority: `Sentinel_AI_SIH2026_Final_Strategy_Report.pdf` (17-page Architecture Specification, 09 Sep 2026)*
+> *Reference: `Sentinel_AI_SIH2026_Final_Strategy_Report.pdf` (17-page Architecture Specification, 09 Sep 2026)*
 
 ---
 
@@ -23,7 +24,7 @@
 ### What Sentinel AI Is
 Sentinel AI is an **offline-first, action-aware crowd-flow decision-support system and Generative AI Incident Copilot** engineered for mass-gathering disaster risk reduction (DRR) and multi-agency response coordination.
 
-Built specifically for high-density religious congregations such as the **Maha Kumbh Mela Prayagraj**, Sentinel AI observes developing pilgrim accumulation, forecasts time to configured sector operating limits using transparent mass-conservation flow equations, compares candidate operational interventions across connected corridors, **automatically rejects actions that would transfer congestion into secondary bottlenecks (such as pontoon bridges or ghat ramps)**, explains decisions via **SENTINEL Incident Copilot (Google Gemini 2.0 Flash)** grounded in official **NDMA Section 4.2 SOPs**, and enforces an auditable human-in-the-loop operational lifecycle.
+Built specifically for high-density religious congregations such as the **Maha Kumbh Mela Prayagraj**, Sentinel AI observes developing pilgrim accumulation, forecasts time to configured sector operating limits using transparent mass-conservation flow equations, compares candidate operational interventions across connected corridors, **automatically rejects actions that would transfer congestion into secondary bottlenecks (such as pontoon bridges or ghat ramps)**, explains decisions via **SENTINEL Incident Copilot (Google Gemini 2.5 / 2.0 Flash)** grounded in official **NDMA Section 4.2 SOPs**, and enforces an auditable human-in-the-loop operational lifecycle.
 
 ```
        +-----------------------------------------------------------------------+
@@ -42,7 +43,7 @@ In strict accordance with disaster management science and Indian mass-gathering 
 - **NOT a fabricated countdown:** Sentinel AI never generates sensational "time to crush" countdowns or arbitrary "95% confidence" claims. It calculates the **Time to Configured Operating Limit ($T_{\text{limit}}$)** under explicit, inspectable rate assumptions.
 - **NOT autonomous crowd control:** Sentinel AI never actuates physical barricades or overrides police command. It provides structured decision support to the **Sector Magistrate, NDRF commanders, and Police Marshals**.
 - **NOT an unchecked LLM decision-maker:** Google Gemini sits strictly **ABOVE** the deterministic safety engine. Gemini translates verified machine state into grounded tactical briefs and multilingual public announcements; it **never** makes feasibility or capacity clearance decisions.
-- **NOT a fragile cloud-only system:** Sentinel AI executes 100% locally on edge hardware with SQLite WAL persistence. If the WAN or Gemini API drops, the core safety plane continues with zero degradation.
+- **NOT a cloud-dependent safety system:** Core safety functions operate locally without WAN connectivity; cloud-dependent GenAI capabilities degrade gracefully. If the WAN or Gemini API drops, local decision support continues with zero interruption.
 
 ---
 
@@ -251,14 +252,14 @@ The dashboard includes a dedicated, resettable **Jury Pitch Controller** at the 
 3. **Step 3: Decision Safety Rejection**: Naive diversion to Relief Corridor R is REJECTED at $t=48\text{ s}$ (108% secondary bottleneck). Upstream Metering at Holding H is FEASIBLE.
 4. **Step 4: Incident Copilot Briefing**: Gemini generates grounded NDMA Section 4.2 executive brief and tri-lingual public announcements (English, Hindi, Marathi).
 5. **Step 5: Operator Authorization**: Sector Magistrate authorizes intervention. State advances `PROPOSED` $\rightarrow$ `APPROVED` $\rightarrow$ `DELIVERED` $\rightarrow$ `ACKNOWLEDGED`.
-6. **Step 6: Post-Action Verification & Zero-WAN**: Inflow throttles to 1.0 p/s. Bottleneck B clears down to 95 persons. Safety engine marks action `VERIFIED`.
+6. **Step 6: Post-Action Verification & Local Resilience**: Inflow throttles to 1.0 p/s. Bottleneck B clears down to 95 persons. Safety engine marks action `VERIFIED`.
 
 ---
 
 ## 12. Regulatory & Ethical Compliance
 
 - **Digital Personal Data Protection Act (DPDP Rules 2025):** Operates exclusively on aggregate spatial density signals. **ZERO facial recognition, ZERO pilgrim profiling, ZERO religious tracking, ZERO smartphone surveillance**.
-- **National Disaster Management Authority (NDMA Section 4.2):** Strict compliance with mass-gathering crowd-flow metering and secondary bottleneck prevention.
+- **Public-Safety Guidance Alignment:** Designed with reference to relevant public-safety/crowd-management guidance (NDMA Section 4.2 crowd-flow metering and secondary bottleneck prevention). Formal operational compliance requires authority review.
 - **Bureau of Police Research & Development (BPR&D):** Human incident command primacy, auditable tamper-evident logs, and zero autonomous physical barrier actuation.
 
 ---
