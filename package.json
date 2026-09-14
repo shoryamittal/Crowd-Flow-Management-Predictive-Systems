@@ -1,8 +1,8 @@
 {
-  "name": "sentinel-ai-transit-command-center",
-  "version": "2.4.0",
+  "name": "sentinel-ai-crowd-flow-command-center",
+  "version": "2.5.0",
   "private": true,
-  "description": "SENTINEL AI: Station Emergency Network for Transit Intelligence Notification and Early-warning Log",
+  "description": "SENTINEL AI: Action-Aware Crowd Disaster Prevention & Incident Copilot for Mass Gatherings (Maha Kumbh Mela Prayagraj Pilot)",
   "scripts": {
     "build": "echo 'SENTINEL AI build complete'"
   }

@@ -8,10 +8,17 @@ services:
     image: sentinel-ai:latest
     container_name: sentinel-ai-app
     ports:
+      - "8080:8080"
       - "5000:5000"
     volumes:
       - ./data:/app/data
     environment:
-      - STATION_NAME=NewDelhi
-      - STATION_CODE=NDLS
+      - PORT=8080
+      - HOST=0.0.0.0
+      - SECTOR_NAME=Sangam_Sector_04
+      - SECTOR_CODE=SECT04
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.5-flash}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GOOGLE_CLOUD_PROJECT=${GOOGLE_CLOUD_PROJECT:-}
+      - SENTINEL_AUTH_ENABLED=true
     restart: unless-stopped

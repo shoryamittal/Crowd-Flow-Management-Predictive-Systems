@@ -1,4 +1,4 @@
-# SENTINEL AI - Railway Crowd Risk and Continuity Prototype
+# SENTINEL AI - Action-Aware Crowd Disaster Prevention & Incident Copilot for Mass Gatherings
 # Core dependencies
 
 # Computer Vision & AI
