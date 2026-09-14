@@ -10,7 +10,7 @@ Scenario 3: All candidate interventions unsafe -> NO_FEASIBLE_OPTION_FOUND.
 Scenario 4: Hallucinated stampede claim ("stampede in 10s") -> REJECTED by filter.
 Scenario 5: Hallucinated capacity (invented numbers) -> REJECTED by schema validation.
 Scenario 6: Field acknowledgement under unsafe conditions -> Incident remains OPEN.
-Scenario 7: Complete WAN loss -> Local safety plane continues with zero degradation.
+Scenario 7: Complete WAN loss -> Core safety operates locally without WAN; cloud GenAI degrades gracefully.
 Scenario 8: Gemini API offline / unreachable -> Core safety continues, explicit fallback banner.
 """
 
@@ -179,7 +179,8 @@ def test_copilot_grounded_sop_citations():
     sops = sop_knowledge_base.query(zone="B", candidate_action="DIVERT_TO_R", status="REJECTED")
     assert len(sops) > 0
     citation = sop_knowledge_base.format_citation(sops)
-    assert "NDMA Section 4.2" in citation
+    assert "NDMA" in citation
+    assert "Managing Crowds at Events and Venues of Mass Gathering" in citation
 
 
 def test_copilot_multilingual_preservation():
