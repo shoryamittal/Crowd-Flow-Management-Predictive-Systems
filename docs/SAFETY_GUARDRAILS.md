@@ -18,7 +18,7 @@ Before any crowd diversion or metering action is presented to human operators, t
 1. **Secondary Bottleneck Check**: Does moving crowd volume from Zone A to Zone B cause Zone B to breach its configured limit? If yes $\to$ **REJECTED**.
 2. **Route Status**: Is the route `CLOSED`, `UNVERIFIED`, or obstructed? If yes $\to$ **REJECTED**.
 3. **Directionality Enforcement**: Does the action propose flow counter to one-way designated egress? If yes $\to$ **REJECTED**.
-4. **Holding Area Buffer**: Does holding pilgrims upstream exceed the reservoir capacity of the staging area? If yes $\to$ **REJECTED**.
+4. **Holding Area Buffer**: Does holding passengers upstream exceed the reservoir capacity of the staging area? If yes $\to$ **REJECTED**.
 
 ---
 

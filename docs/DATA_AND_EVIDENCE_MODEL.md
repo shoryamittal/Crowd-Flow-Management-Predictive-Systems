@@ -8,7 +8,7 @@ Every significant metric displayed in the SENTINEL-AI dashboard or exported in p
 | :--- | :--- | :--- | :--- |
 | **`OBSERVED`** | Direct physical sensor / camera measurement | Live YOLOv8 headcount on CCTV-01 | Blue Badge (`OBSERVED CCTV SIGNAL`) |
 | **`CALCULATED`** | Deterministic mathematical calculation | Flow forecast $T_{\text{limit}} = (C - N)/g$ | Cyan Badge (`CALCULATED MATH`) |
-| **`SCENARIO`** | Calibrated synthetic or operator scenario input | Simulated 4.0 pax/s Shahi Snan wave | Amber Badge (`MODELED OPERATIONAL SCENARIO`) |
+| **`SCENARIO`** | Calibrated synthetic or operator scenario input | Simulated 4.0 pax/s express train arrival wave | Amber Badge (`MODELED OPERATIONAL SCENARIO`) |
 | **`PLANNED`** | Future engineering or site-survey target | Configured zone capacity of 180 pax | Purple Badge (`CONFIGURED LIMIT`) |
 | **`AI-GENERATED`** | GenAI text strictly grounded in verified state | Gemini tactical incident briefing | Green Badge (`AI-GENERATED BRIEF (GROUNDED)`) |
 
@@ -25,7 +25,7 @@ All data passed between perception, forecasting, decision support, and the UI im
   "metric_id": "METRIC-2026-0914-001",
   "zone_id": "Bottleneck B",
   "value": 138.0,
-  "unit": "devotees",
+  "unit": "passengers",
   "timestamp_utc": "2026-09-14T17:35:12.450Z",
   "source": "Platform 1-2 Staircase Chokepoint (CCTV-01)",
   "evidence_tier": "OBSERVED",

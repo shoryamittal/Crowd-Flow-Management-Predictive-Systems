@@ -74,13 +74,13 @@ Transforms structured telemetry into a concise, 3-bullet operational summary exp
 
 ### B. Explain Decision Rationale
 Explains the mathematical justification for why a candidate intervention was rejected by the safety layer, preventing human operators from repeating historical crowd-disaster mistakes:
-> *"Diversion to Relief Corridor R was REJECTED because downstream floating foot overbridge capacity of 160 persons would be breached at t=48s, creating a secondary chokepoint on water."*
+> *"Diversion to Relief Corridor R was REJECTED because downstream alternate foot overbridge capacity of 160 persons would be breached at t=48s, creating a secondary chokepoint on the overpass."*
 
 ### C. Command Brief
-Generates a structured, military-style briefing tailored for the Station Director / RPF Duty Officer and NDRF incident commanders containing: SITUATION, IMMEDIATE THREAT, RECOMMENDED INTERVENTION, and REQUIRED AUTHORIZATION.
+Generates a structured, military-style briefing tailored for the Station Director, RPF Duty Officer, and GRP incident commanders containing: SITUATION, IMMEDIATE THREAT, RECOMMENDED INTERVENTION, and REQUIRED AUTHORIZATION.
 
 ### D. Calm Public Address (PA) Announcement
-Drafts reassuring, panic-free announcements for broadcast over ghat loudspeakers directing passengers along verified clear routes without invoking alarm.
+Drafts reassuring, panic-free announcements for broadcast over station platform and concourse public address (PA) loudspeakers directing passengers along verified clear routes without invoking alarm.
 
 ### E. Multilingual Translation (English, Hindi, Marathi)
 Translates operational messages while preserving:

@@ -48,13 +48,13 @@ During peak mass-gathering windows, people enter a corridor faster than downstre
 ## 3. Product Scope & Operational Boundaries
 
 ### Scope of the Final MVP
-- **Operational Sector:** One mass-gathering sector configured as approximately six named zones (modeled on **Central Railway Station Junction Terminal — Central Junction Terminal Central Junction Terminal (Platforms 1-4 & Main FOB)**):
-  - **Holding Area (H):** Controlled staging reservoir with configured capacity (e.g., *Station Concourse & Waiting Hall H*, limit 450 pax).
-  - **Approach Corridor (A):** Feeder pathway into the primary chokepoint (e.g., *Main FOB Approach A Marg*).
-  - **Bottleneck (B):** Constrained passage (e.g., *Platform 1-2 Staircase B Descent Ramp*, limit 180 pax).
-  - **Ghat / Downstream Area (G):** Primary sacred bathing destination (*Triveni Central Junction Snan Ghat*).
-  - **Relief Corridor (R):** Pre-designated alternate bypass corridor (e.g., *Alternate East FOB Bypass*, limit 160 pax).
-  - **Exit / Dispersal (E):** Final egress clearing zone toward mela perimeter.
+- **Operational Sector:** One high-density railway transit sector configured as six connected zones (modeled on **Central Railway Station — Junction Terminal (Platforms 1-4 & Main FOB)**):
+  - **Holding Area (H):** Controlled staging reservoir with configured capacity (*Station Concourse & Main Waiting Hall H*, limit 450 pax).
+  - **Approach Corridor (A):** Feeder pathway into the primary chokepoint (*Main Foot Overbridge Approach Corridor A*).
+  - **Bottleneck (B):** Constrained passage chokepoint (*Platform 1-2 Staircase B Descent Ramp*, limit 180 pax).
+  - **Platform Boarding Area (G):** Train boarding island destination (*Platform 1-2 Boarding Island G*, limit 1000 pax).
+  - **Relief Corridor (R):** Pre-designated alternate bypass corridor (*Alternate East FOB Bypass Corridor R*, limit 160 pax).
+  - **Exit / Dispersal (E):** Final egress clearing zone toward station circulating area and transit interchange.
 - **Intervention Comparison:** Compares a finite set of pre-approved candidate interventions:
   1. `NO ACTION` (Baseline — Bottleneck B crosses limit in 30s, reaches 300 pax at 90s)
   2. `UPSTREAM METERING` (Pacing inflow at Holding H to 1.5 pax/s after 8s staff delay to protect Bottleneck B; B drops to 95 pax, H absorbs +205 queue)

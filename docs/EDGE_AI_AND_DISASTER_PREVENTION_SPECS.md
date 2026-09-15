@@ -8,7 +8,7 @@
 - Model: YOLOv8n (Nano) person detector with customized spatial anchor boxes.
 - Inference Resolution: 960x960 px input canvas for high-recall crowd detection at distance.
 - Latency Budget: ~38ms - 75ms per frame on edge hardware (Intel Core / Jetson Orin Nano).
-- Post-Processing Containment Filter: Custom Intersection-over-Smaller (IoS) containment filter that eliminates phantom double-counts for close-up bodies while preserving adjacent devotees.
+- Post-Processing Containment Filter: Custom Intersection-over-Smaller (IoS) containment filter that eliminates phantom double-counts for close-up bodies while preserving adjacent passengers.
 - Grid Discretization: 4x6 planar tessellation (24 discrete spatial cells) covering the monitored corridor.
 
 ---

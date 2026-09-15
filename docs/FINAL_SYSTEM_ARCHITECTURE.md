@@ -200,7 +200,7 @@ The sector is modeled as a connected directed graph of named operational zones:
          v                                [ Bottleneck Chokepoint (B) ]
 [ Relief Corridor (R) ]                              |
          |                                           v
-         | Route R->E                     [ Ghat / Dispersal Area (G) ]
+         | Route R->E                     [ Platform Boarding Island (G) ]
          |                                           |
          +-------------------------------------------+
                                  |
@@ -212,7 +212,7 @@ The sector is modeled as a connected directed graph of named operational zones:
 1. **Holding Area `H`:** Initial $N=100$, Capacity Limit $C=450$, Role: `HOLDING_AREA`
 2. **Approach Corridor `A`:** Initial $N=50$, Capacity Limit $C=200$, Role: `APPROACH_CORRIDOR`
 3. **Bottleneck `B`:** Initial $N=120$, Operating Limit $C=180$, Role: `BOTTLENECK`
-4. **Ghat / Dispersal `G`:** Initial $N=250$, Capacity Limit $C=1000$, Role: `DISPERSAL_DESTINATION`
+4. **Platform Boarding `G`:** Initial $N=250$, Capacity Limit $C=1000$, Role: `DISPERSAL_DESTINATION`
 5. **Relief Corridor `R`:** Initial $N=80$, Operating Limit $C=160$, Role: `RELIEF_CORRIDOR`
 6. **Exit Area `E`:** Initial $N=40$, Capacity Limit $C=500$, Role: `EGRESS_EXIT`
 
