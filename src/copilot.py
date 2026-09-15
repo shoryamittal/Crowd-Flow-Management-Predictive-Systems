@@ -254,7 +254,7 @@ class SentinelCopilot:
         if feasible:
             feas_names = ", ".join(f.get("name", "Upstream Metering") for f in feasible)
             fallback_lines.append(f"Intervention '{feas_names}' is FEASIBLE and recommended under {sops[0]['section'] if sops else 'NDMA guidelines'}.")
-        fallback_lines.append("Awaiting Sector Magistrate / Command Unit human authorization.")
+        fallback_lines.append("Awaiting Station Director / RPF Command Unit human authorization.")
 
         return CopilotResponse(
             text=" ".join(fallback_lines),
@@ -327,14 +327,14 @@ class SentinelCopilot:
     # 3. Command-Center Briefing
     # -------------------------------------------------------------------------
     def generate_command_brief(self, system_state: Dict[str, Any]) -> CopilotResponse:
-        """Generate a concise, high-priority operational brief for the Sector Magistrate."""
+        """Generate a concise, high-priority operational brief for the Station Director and RPF Command."""
         start_time = time.perf_counter()
         zone = system_state.get("zone", "B")
         occupancy = system_state.get("current_occupancy", 168)
         capacity = system_state.get("capacity", 180)
         trend = system_state.get("trend", "↑ Increasing")
         t_limit = system_state.get("time_to_limit_seconds", 6.0)
-        feasible_action = system_state.get("feasible_action", "Upstream Metering at Parade Ground Holding Area H")
+        feasible_action = system_state.get("feasible_action", "Upstream Metering at Concourse Waiting Hall H")
         rejected_action = system_state.get("rejected_action", "Diversion to Relief Corridor R")
         waiting_cost = system_state.get("waiting_cost", "+205 s hold queue")
 
