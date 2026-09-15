@@ -166,3 +166,29 @@ def test_simulation_mode_is_unchanged_synchronous_behavior():
     assert first.frame_id == 1
     assert second.frame_id == 2
     assert source._capture_thread is None
+
+
+def test_network_stream_camera_mode_support(monkeypatch):
+    """Network streams (HTTP/RTSP phone feeds) must be supported in CAMERA mode
+    with threaded capture decoupling rather than treated as static offline files."""
+    from deploy import _is_network_stream
+    assert _is_network_stream("http://192.168.1.15:8080/video") is True
+    assert _is_network_stream("https://live.stream/cctv.mjpg") is True
+    assert _is_network_stream("rtsp://10.0.0.1:8554/live") is True
+    assert _is_network_stream("rtsps://10.0.0.1:8554/live") is True
+    assert _is_network_stream("data/demo/crowd_station.mp4") is False
+    assert _is_network_stream(0) is False
+    assert _is_network_stream(None) is False
+
+    monkeypatch.setattr(cv2, "VideoCapture", _FakeCapture)
+    source = FrameSource(
+        SourceMode.CAMERA, source="http://192.168.1.15:8080/video", target_fps=30
+    )
+    assert source.start() is True
+    try:
+        assert source._capture_thread is not None
+        assert source._capture_thread.is_alive()
+        assert _wait_until(lambda: source.read() is not None, timeout_s=1.0)
+    finally:
+        source.stop()
+

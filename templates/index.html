@@ -3407,7 +3407,7 @@
           </div>
 
           <!-- Recommended Operational Action -->
-          <div class="subhead">Tactical Sector Magistrate &amp; Incident Commander Directive</div>
+          <div class="subhead">Station Director &amp; RPF Incident Commander Directive</div>
           <div class="response-block" style="margin-top:0.35rem;">
             <div class="response-action" id="db-response" style="font-size:0.92rem;font-weight:800;color:var(--neon-cyan);">--</div>
             <div class="response-zone" id="db-response-zone" style="font-size:0.75rem;margin-top:0.45rem;color:var(--text-secondary);font-family:var(--mono);">--</div>
@@ -3623,7 +3623,7 @@
               💬 Explain Decision Rationale
             </button>
             <button class="lc-btn" onclick="triggerCopilotAction('brief')" style="font-size:0.72rem;padding:6px 12px;">
-              📋 Sector Magistrate Brief
+              📋 Station Director Brief
             </button>
             <button class="lc-btn" onclick="triggerCopilotAction('announcement')" style="font-size:0.72rem;padding:6px 12px;">
               📢 Draft Public Announcement
@@ -3643,7 +3643,7 @@
               <span id="copilot-output-status" style="color:var(--neon-emerald);">● READY</span>
             </div>
             <div id="copilot-output-text" style="font-size:0.78rem;color:#f1f5f9;line-height:1.55;white-space:pre-wrap;">
-Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 168/180 capacity. Deterministic flow forecast indicates time to configured operating limit is 6.0 seconds. Intervention 'Diversion to Relief Corridor R' was REJECTED by Decision Safety Engine to prevent secondary bottlenecking at t=48s (108% capacity). Intervention 'Upstream Metering at Holding Area H' is FEASIBLE under NDMA Mass Gathering Guidelines 2014 (SOP-CFM-FLOW-01). Awaiting Sector Magistrate human authorization.
+Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 168/180 capacity. Deterministic flow forecast indicates time to configured operating limit is 6.0 seconds. Intervention 'Diversion to Relief Corridor R' was REJECTED by Decision Safety Engine to prevent secondary bottlenecking at t=48s (108% capacity). Intervention 'Upstream Metering at Holding Area H' is FEASIBLE under Indian Railways / NDMA Guidelines (SOP-RAIL-FLOW-01). Awaiting Station Director human authorization.
             </div>
           </div>
         </div>
@@ -3729,7 +3729,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             <div style="background:rgba(0,0,0,0.3);padding:8px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);">
               <div style="font-size:0.62rem;color:var(--text-muted);text-transform:uppercase;font-weight:700;">AUTHORIZED ACTION</div>
               <div style="font-size:0.85rem;font-weight:800;color:#ffffff;margin-top:4px;">Upstream Metering</div>
-              <div style="font-size:0.62rem;color:var(--neon-cyan);">ACT-METER-001 (Sector Magistrate)</div>
+              <div style="font-size:0.62rem;color:var(--neon-cyan);">ACT-METER-001 (Station Director)</div>
             </div>
             <div style="background:rgba(0,0,0,0.3);padding:8px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);">
               <div style="font-size:0.62rem;color:var(--text-muted);text-transform:uppercase;font-weight:700;">AFTER (CCTV OBSERVATION)</div>
@@ -4081,10 +4081,10 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
                 <rect x="130" y="6" width="500" height="26" rx="5" fill="rgba(8, 20, 38, 0.88)" stroke="#38bdf8" stroke-width="1.2"/>
                 <text x="380" y="23" text-anchor="middle" fill="#38bdf8" font-size="10" font-family="'JetBrains Mono', monospace" font-weight="800" letter-spacing="1.5">PLATFORMS 1-4 BOARDING TRACKS — MAIN JUNCTION ISLAND</text>
 
-                <!-- Riverfront Safety Barricade & Jal Police Line -->
+                <!-- Platform Edge Safety Barricade & RPF Tactical Line -->
                 <rect x="0" y="38" width="760" height="6" fill="url(#hazardPattern)"/>
 
-                <!-- Sector 4 Egress / Parade Ground Transit Corridor (Bottom) -->
+                <!-- Station Egress / Circulating Area Transit Corridor (Bottom) -->
                 <rect x="0" y="372" width="760" height="38" fill="#050a12"/>
                 <line x1="0" y1="384" x2="760" y2="384" stroke="rgba(0, 240, 255, 0.35)" stroke-width="2" stroke-dasharray="12 6"/>
                 <text x="380" y="396" text-anchor="middle" fill="#64748b" font-size="9" font-family="'JetBrains Mono', monospace" font-weight="700" letter-spacing="2.5">MAIN CONCOURSE PASSENGER STAGING &amp; CIRCULATING AREA</text>
@@ -4670,11 +4670,11 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             <tbody>
               <tr>
                 <td class="query">Why is Platform 1 Staircase at high risk?</td>
-                <td class="response">High risk due to increased passenger density and slow movement near Platforms 1-4 descent ramp and Alternate East FOB. Two new hotspots detected near Triveni Marg approach.</td>
+                <td class="response">High risk due to increased passenger density and slow movement near Platforms 1-4 descent ramp and Alternate East FOB. Two new hotspots detected near Main Concourse approach.</td>
               </tr>
               <tr>
                 <td class="query">What changed in the last 5 minutes?</td>
-                <td class="response">Passenger density increased by 28% on Alternate East FOB and Main FOB Approach. Two new hotspots detected near Triveni Marg.</td>
+                <td class="response">Passenger density increased by 28% on Alternate East FOB and Main FOB Approach. Two new hotspots detected near Concourse Inflow Corridor.</td>
               </tr>
               <tr>
                 <td class="query">Show unresolved RED incidents.</td>
@@ -4863,7 +4863,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
     =============================================================== -->
     <section class="view" id="view-enterprise">
       <div class="explainer" style="border-left-color:#ff9933;background:rgba(255,153,51,0.06);color:#ffbe76;">
-        <b>INDIAN RAILWAYS STATION CROWD SAFETY CONSOLE</b> &mdash; Unified crowd disaster prevention deployment across Central Junction Triveni (Sector 4), Platform 3 (Central FOB) (Sector 1), Suburban Platforms (Sector 2), and Platforms 1-8 Corridor (Sector 3). Edge computing with zero cloud dependency and 99.999% RailWire Enterprise SLA guarantee.
+        <b>INDIAN RAILWAYS STATION CROWD SAFETY CONSOLE</b> &mdash; Unified crowd disaster prevention deployment across Central Junction Terminal (Platforms 1-4), Platform 3 (Central FOB), Suburban Platforms 5-8, and North Foot Overbridge Corridors. Edge computing with zero cloud dependency and 99.999% RailWire Enterprise SLA guarantee.
       </div>
 
       <div class="card reveal">
@@ -5011,7 +5011,7 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
             </div>
           </div>
           <div class="safety-note" style="border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.05);color:var(--neon-emerald);">
-            <b>INDIAN RAILWAYS &amp; NDMA TRANSIT COMPLIANT</b> &mdash; Guaranteed uninterrupted crowd safety alerting during peak passenger surges, riverbank congestion, and complete cellular/WAN network blackouts.
+            <b>INDIAN RAILWAYS &amp; NDMA TRANSIT COMPLIANT</b> &mdash; Guaranteed uninterrupted crowd safety alerting during peak passenger surges, platform staircase congestion, and complete cellular/WAN network blackouts.
           </div>
         </div>
       </div>
@@ -5077,8 +5077,8 @@ Zone B is experiencing net crowd accumulation of +2.0 persons/sec, currently at 
 
         <div class="audit-seal-box">
           <div>
-            <div style="font-weight:800;color:var(--text-primary);">SECTOR MAGISTRATE &amp; CROWD DISASTER CONTROLLER:</div>
-            <div style="font-style:italic;color:var(--text-muted);margin-top:2px;">Electronically certified &middot; Station Mela Command Unit 04 (Central Junction Sector)</div>
+            <div style="font-weight:800;color:var(--text-primary);">STATION DIRECTOR &amp; CROWD DISASTER CONTROLLER:</div>
+            <div style="font-style:italic;color:var(--text-muted);margin-top:2px;">Electronically certified &middot; Railway Divisional Command &amp; RPF Safety Division (Central Junction)</div>
           </div>
           <div class="audit-seal-tag">
             &#10003; CRYPTOGRAPHICALLY VERIFIED
@@ -5727,14 +5727,14 @@ function drawEvacuationVectors(w, h) {
 // ================================================================
 let _inspectedZone = null;
 const ZONE_METRICS_DATA = {
-  entry: { name: 'Zone 1: Sector 4 Holding Enclosure', count: 24, density: '1.4 pax/m²', clearance: '01m 20s', cctv: 'CAM-04 (Holding Gate 4)', egress: 'Meter inflow toward Triveni Marg approach corridor.', marshals: 'Squad Alpha (4 UP Police & SDRF Marshals managing buffer gate).' },
-  pal: { name: 'Zone 2: Triveni Marg (West Inflow Corridor)', count: 48, density: '2.8 pax/m²', clearance: '03m 15s', cctv: 'CAM-02 (Triveni Flow Stream)', egress: 'Primary diversion vector: Reroute excess influx to Holding Area 2.', marshals: 'Squad Bravo (4 Marshals actively cordoning approach).' },
-  par: { name: 'Zone 3: Main FOB Approach A (Concourse Feeder)', count: 32, density: '1.9 pax/m²', clearance: '02m 10s', cctv: 'CAM-01 (Platforms 1-4 Ramp)', egress: 'Pace passengers along barricaded lanes toward bathing steps.', marshals: 'Squad Charlie (6 NDRF personnel guiding bathing passengers).' },
-  ticket: { name: 'Zone 4: East FOB Overpass (Inbound Crossing)', count: 18, density: '1.1 pax/m²', clearance: '01m 00s', cctv: 'CAM-03 (East FOB 3 Span)', egress: 'Regulate one-way river crossing flow. Maintain 2m spacing.', marshals: 'Jal Police & PWD floating bridge inspection squad.' },
-  exit: { name: 'Zone 5: East FOB Overpass (Outbound Return Vector)', count: 12, density: '0.8 pax/m²', clearance: '00m 45s', cctv: 'CAM-03 (East FOB 4 Span)', egress: 'Clear egress vector. Divert return batches toward Parade Ground.', marshals: 'Squad Delta (4 Marshals keeping egress artery clear).' },
-  wait: { name: 'Zone 6: Platforms 1-8 Parikrama (Circular Path)', count: 15, density: '0.6 pax/m²', clearance: '01m 30s', cctv: 'CAM-04 (Platforms 1-8 Outer)', egress: 'Continuous clockwise parikrama. Prevent stalling at temple gate.', marshals: 'Temple corridor marshals pacing passenger transit.' },
-  pbc: { name: 'Zone 7: Platform 1-2 Boarding Island G', count: 22, density: '1.2 pax/m²', clearance: '01m 40s', cctv: 'CAM-01 (Central Junction Confluence)', egress: 'Bathing zone monitoring. Immediate diversion if water line surges.', marshals: 'NDRF Quick Response Team & Deep Water Divers with motor crafts.' },
-  conc: { name: 'Zone 8: Parade Ground Transit & Medical Post 4', count: 28, density: '0.9 pax/m²', clearance: '00m 50s', cctv: 'CAM-02 (Parade Staging)', egress: 'Wide dispersal zone. Direct exiting passengers to transit shuttles & camp.', marshals: 'District Magistrate Coordination post & Medical triage team.' }
+  entry: { name: 'Zone 1: Concourse Waiting Hall H', count: 24, density: '1.4 pax/m²', clearance: '01m 20s', cctv: 'CAM-04 (Concourse Hub)', egress: 'Meter passenger inflow toward Main FOB approach corridor.', marshals: 'Squad Alpha (4 RPF Marshals managing concourse turnstiles).' },
+  pal: { name: 'Zone 2: North Concourse Inflow Corridor A', count: 48, density: '2.8 pax/m²', clearance: '03m 15s', cctv: 'CAM-02 (North Inflow Stream)', egress: 'Primary diversion vector: Reroute excess influx to Waiting Hall H.', marshals: 'Squad Bravo (4 RPF & GRP Marshals actively cordoning approach).' },
+  par: { name: 'Zone 3: Main FOB Approach A (Platform Feeder)', count: 32, density: '1.9 pax/m²', clearance: '02m 10s', cctv: 'CAM-01 (Platforms 1-4 Ramp)', egress: 'Pace passengers along barricaded lanes toward platform staircase.', marshals: 'Squad Charlie (6 RPF personnel guiding boarding passengers).' },
+  ticket: { name: 'Zone 4: Alternate East FOB Relief Corridor R', count: 18, density: '1.1 pax/m²', clearance: '01m 00s', cctv: 'CAM-03 (East FOB Relief Span)', egress: 'Secondary bypass corridor. Divert overflow away from Chokepoint B.', marshals: 'Station Operations & RPF relief overpass squad.' },
+  exit: { name: 'Zone 5: Station Egress & Circulating Plaza E', count: 12, density: '0.8 pax/m²', clearance: '00m 45s', cctv: 'CAM-03 (Exit Turnstiles 4)', egress: 'Unidirectional egress vector toward city transit & auto/bus hub.', marshals: 'Squad Delta (4 GRP Marshals keeping egress artery clear).' },
+  wait: { name: 'Zone 6: Platforms 1-4 Intermediate Landing Deck', count: 15, density: '0.6 pax/m²', clearance: '01m 30s', cctv: 'CAM-04 (Intermediate Landing)', egress: 'Continuous unidirectional descent. Prevent stalling on stairs.', marshals: 'RPF Platform squad pacing passenger descent.' },
+  pbc: { name: 'Zone 7: Platform 1-2 Boarding Island G', count: 22, density: '1.2 pax/m²', clearance: '01m 40s', cctv: 'CAM-01 (Platform 1-2 Boarding Island)', egress: 'Boarding zone monitoring. Ensure safe distance from platform edge yellow line.', marshals: 'RPF Quick Reaction Team & Station Master Platform Detachment.' },
+  conc: { name: 'Zone 8: Station Circulating Area & First Aid Medical Booth', count: 28, density: '0.9 pax/m²', clearance: '00m 50s', cctv: 'CAM-02 (Circulating Area Staging)', egress: 'Wide dispersal zone. Direct deboarding passengers to city transit shuttles & metro.', marshals: 'Station Director Coordination Post & Railway Medical Triage Team.' }
 };
 
 function inspectZoneModal(zoneId) {
@@ -5982,7 +5982,7 @@ async function transitionOperatorAction(targetState) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         to_state: targetState,
-        actor_id: 'Operator_SectorMagistrate',
+        actor_id: 'Operator_StationDirector',
         notes: `Manual UI transition to ${targetState}`,
         evidence_snapshot_id: (targetState === 'VERIFIED') ? 'snap-cctv-trend-confirmed-001' : null,
       })
@@ -6155,7 +6155,7 @@ async function refreshTrainTimetable() {
           </tr>`;
         }).join('');
       }
-      toast('info', 'Passenger Surge Synced', 'Central Junction arrival feeder gates and Shahi Boarding surge telemetry updated.');
+      toast('info', 'Passenger Surge Synced', 'Central Junction arrival feeder gates and Express Train Arrival surge telemetry updated.');
     }
   } catch(e) {
     toast('warning', 'Telemetry Offline', 'Operating on local cached sector flow schedule.');
@@ -6172,7 +6172,7 @@ async function dispatchRpfCommand(action, sector) {
     });
     const data = await res.json();
     if (data && data.success) {
-      toast('success', 'Disaster Dispatch Confirmed', `${data.dispatch.dispatch_id}: ${action} executed at ${sector}. NDRF / Police Squad acknowledged.`);
+      toast('success', 'Disaster Dispatch Confirmed', `${data.dispatch.dispatch_id}: ${action} executed at ${sector}. RPF / GRP Squad acknowledged.`);
       const st = document.getElementById('rpf-dispatch-status');
       if (st) {
         st.textContent = `✓ ${data.dispatch.dispatch_id} (${action}) Executed`;
@@ -6224,8 +6224,8 @@ function runJudgeTourStep(step) {
     setText('topo-queue-h', '220 / 450 pax');
     setText('topo-load-b', '140 / 180 pax');
     fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 2}) }).catch(() => {});
-    if (narrator) narrator.textContent = 'Step 2: Passenger Arrival Surge & T_limit Forecast — Shahi Boarding Central Junction wave arrived. Operating Limit T_limit = (180 - 168)/2.0 = 6.0s.';
-    toast('warning', 'Judge Tour Step 2: Inflow Surge & Limit Forecast', 'Shahi Boarding Central Junction wave arrived. Operating Limit T_limit = 6.0s forecast active.');
+    if (narrator) narrator.textContent = 'Step 2: Passenger Arrival Surge & T_limit Forecast — Express Train Arrival wave arrived. Operating Limit T_limit = (180 - 168)/2.0 = 6.0s.';
+    toast('warning', 'Judge Tour Step 2: Inflow Surge & Limit Forecast', 'Express Train Arrival wave arrived at Platforms 1-2. Operating Limit T_limit = 6.0s forecast active.');
     fetch('/api/decision/scenario/load', { method: 'POST' }).then(() => fetch('/api/decision/evaluate', { method: 'POST' })).catch(() => {});
   } else if (step === 3) {
     _injectedDemo = 'BOTTLENECK';
@@ -6240,14 +6240,14 @@ function runJudgeTourStep(step) {
     playTacticalChime(600, 0.1);
     fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 4}) }).catch(() => {});
     triggerCopilotAction('brief');
-    if (narrator) narrator.textContent = 'Step 4: Sentinel Incident Copilot (Gemini) — Generating grounded NDMA (2014) command brief and tri-lingual public announcements.';
+    if (narrator) narrator.textContent = 'Step 4: Sentinel Incident Copilot (Gemini) — Generating grounded Indian Railways / NDMA (2014) command brief and tri-lingual public announcements.';
     toast('info', 'Judge Tour Step 4: Incident Copilot Active', 'Gemini Incident Copilot generates grounded tactical brief and public announcement.');
   } else if (step === 5) {
     forceConnectivity('OFFLINE');
     setCorridorSimMode('METER_H');
     fetch('/api/demo/judge_flow/step', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({step: 5}) }).catch(() => {});
     triggerCopilotAction('announcement');
-    if (narrator) narrator.textContent = 'Step 5: Operator Authorization & Offline Continuity — Sector Magistrate authorizes ACT-METER-001. SQLite WAL continues audit logging locally.';
+    if (narrator) narrator.textContent = 'Step 5: Operator Authorization & Offline Continuity — Station Director authorizes ACT-METER-001. SQLite WAL continues audit logging locally.';
     toast('warning', 'Judge Tour Step 5: WAN Loss Resilience', 'WAN loss simulated. LOCAL SAFETY PLANE ACTIVE: Detection and SQLite WAL persistence continue locally!');
   } else {
     _injectedDemo = null;
@@ -6327,7 +6327,7 @@ function toggleMarshalStep(stepIdx) {
     timeBadge.style.background = 'rgba(0, 255, 136, 0.2)';
     timeBadge.style.color = 'var(--neon-emerald)';
     playTacticalChime(700, 0.06);
-    toast('success', `Protocol ${stepIdx} Executed`, `Sector Magistrate directive marked complete at +${elapsed}s.`);
+    toast('success', `Protocol ${stepIdx} Executed`, `Station Director directive marked complete at +${elapsed}s.`);
   } else {
     item.classList.remove('completed');
     timeBadge.textContent = 'STANDBY';
@@ -6541,8 +6541,8 @@ function renderAlerts(localAlerts) {
     return;
   }
   var STEPS={
-    BLACK:['1. HALT all inbound passenger influx at Concourse Waiting Hall H immediately.','2. Activate emergency PA &amp; East FOB bypass &mdash; redirect to Relief Corridor R.','3. Deploy ALL NDRF/Police units to the Platforms 1-4 hotspot ramp NOW.','4. Notify Sector Magistrate + escalate to Prayagraj Station ICCC War Room.','5. Request boat/medical standby at riverbank. Prepare for severe crowd pressure.','6. Regulate east fob bridge entry to prevent downstream bottlenecking.'],
-    RED:  ['1. Restrict additional inflow toward Platform 1-2 Staircase B.','2. Open crowd barriers &mdash; divert into Relief Corridor R if capacity verified.','3. Alert NDRF &amp; Police &mdash; position marshals at holding enclosure boundaries.','4. Announce alternate bathing platforms/east fobs via sector PA system.','5. Monitor closely &mdash; ready to escalate to BLACK protocol.'],
+    BLACK:['1. HALT all inbound passenger influx at Concourse Waiting Hall H immediately.','2. Activate emergency PA &amp; East FOB bypass &mdash; redirect to Relief Corridor R.','3. Deploy ALL RPF / GRP detachments to Platforms 1-4 descent ramp NOW.','4. Notify Station Director + escalate to Divisional Railway Manager (DRM) Control Room.','5. Deploy Railway Medical Emergency Van &amp; Ambulance to circulating area. Prepare for severe surge.','6. Regulate East FOB overpass entry to prevent downstream staircase bottlenecking.'],
+    RED:  ['1. Restrict additional inflow toward Platform 1-2 Staircase B.','2. Open crowd barriers &mdash; divert into Relief Corridor R if capacity verified.','3. Alert RPF &amp; GRP &mdash; position marshals at holding enclosure boundaries.','4. Announce alternate boarding platforms / East FOB bypass via station PA system.','5. Monitor closely &mdash; ready to escalate to BLACK protocol.'],
     YELLOW:['1. Pre-position RPF personnel near the flagged platform staircase zone.','2. Prepare inflow control at Holding Enclosure H (barriers, staff positioning).','3. Announce alternate east fob routes via sector PA.','4. Monitor accumulation metric for escalation trigger.'],
     GREEN:['1. Maintain normal operations across all platform sectors.','2. Conduct routine drone and CCTV surveillance patrols.','3. Monitor for any unusual passenger flow accumulation changes.']
   };
@@ -7169,14 +7169,14 @@ function renderSpatialMap(snap) {
 
 
 var PLATFORM_ZONES=[
-  {id:'entry', svgId:'svgz-entry', name:'Holding Area 4',        rows:[0],   cols:[0,1]},
-  {id:'pal',   svgId:'svgz-pal',   name:'Triveni Marg Corridor', rows:[0],   cols:[2]  },
-  {id:'par',   svgId:'svgz-par',   name:'Platforms 1-4 Approach',  rows:[0],   cols:[3]  },
-  {id:'ticket',svgId:'svgz-ticket',name:'East FOB Overpass 1',      rows:[0],   cols:[4]  },
-  {id:'exit',  svgId:'svgz-exit',  name:'East FOB Overpass 2',      rows:[0],   cols:[5]  },
-  {id:'wait',  svgId:'svgz-wait',  name:'Platforms 1-8 Circular',   rows:[1,2], cols:[0,1]},
+  {id:'entry', svgId:'svgz-entry', name:'Concourse Waiting Hall H', rows:[0], cols:[0,1]},
+  {id:'pal',   svgId:'svgz-pal',   name:'North Concourse Approach A', rows:[0], cols:[2]  },
+  {id:'par',   svgId:'svgz-par',   name:'Main FOB Platform Feeder', rows:[0], cols:[3]  },
+  {id:'ticket',svgId:'svgz-ticket',name:'Alternate East FOB Relief 1', rows:[0], cols:[4]  },
+  {id:'exit',  svgId:'svgz-exit',  name:'Alternate East FOB Relief 2', rows:[0], cols:[5]  },
+  {id:'wait',  svgId:'svgz-wait',  name:'Platform 1-4 Landing Deck', rows:[1,2], cols:[0,1]},
   {id:'pbc',   svgId:'svgz-pbc',   name:'Platform 1-2 Boarding Island G', rows:[1,2], cols:[2,3]},
-  {id:'conc',  svgId:'svgz-conc',  name:'Parade Ground Staging', rows:[1,2], cols:[4,5]}
+  {id:'conc',  svgId:'svgz-conc',  name:'Station Circulating Plaza E', rows:[1,2], cols:[4,5]}
 ];
 function platCol(level){
   if(level==='BLACK') return {fill:'rgba(255, 34, 85, 0.35)', stroke:'#ffffff', text:'#ffffff', lbl:'#ff88aa'};
@@ -7223,7 +7223,7 @@ function renderPlatformLayout(snap){
     if(hc) hc.className='zone-detail-card '+(cmap[lvl]||'z-green');
     setText('plat-detail-zone',hotZC.zc.zone.name);
     setText('plat-detail-count',hotZC.zc.count);
-    var acts={GREEN:'Nominal flow. Continue routine station platform monitoring.',ORANGE:'Elevated density. Pre-position disaster response marshals.',RED:'DANGER: Restrict inflow immediately. Deploy NDRF / Jal Police.',BLACK:'CRITICAL: Halt all platform entry. Escalate to Station War Room NOW.'};
+    var acts={GREEN:'Nominal flow. Continue routine station platform monitoring.',ORANGE:'Elevated density. Pre-position disaster response marshals.',RED:'DANGER: Restrict inflow immediately. Deploy RPF / GRP Rapid Response.',BLACK:'CRITICAL: Halt all platform entry. Escalate to Divisional Control Room NOW.'};
     setText('plat-detail-action',acts[lvl]||'');
     var bcls={GREEN:'sev-GREEN',ORANGE:'sev-ORANGE',RED:'sev-RED',BLACK:'sev-BLACK'};
     var bmsg={GREEN:'All zones CLEAR — Normal passenger flow',ORANGE:'Elevated density: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' passengers)',RED:'DANGER — '+hotZC.zc.zone.name+': Restrict inflow ('+hotZC.zc.count+' passengers)',BLACK:'CRITICAL EMERGENCY: '+hotZC.zc.zone.name+' ('+hotZC.zc.count+' passengers) — HALT ALL SECTOR ENTRY'};
@@ -7443,9 +7443,18 @@ function renderCamControlsPanel(scope, devices, currentSettings) {
     { value: '60', label: '60 fps (high motion)' },
   ];
 
+  const isNetwork = typeof s.source === 'string' && (s.source.startsWith('http://') || s.source.startsWith('https://') || s.source.startsWith('rtsp://'));
+  deviceOptions.push({ value: 'network_stream', label: '📱 Phone Camera / IP Stream (HTTP / RTSP)' });
+  const selectedDevice = isNetwork ? 'network_stream' : (s.source == null ? 1 : s.source);
+
   body.dataset.primed = '1';
   body.innerHTML =
-    _ccSelectRow('device', 'Camera Device', deviceOptions, s.source == null ? 1 : s.source) +
+    _ccSelectRow('device', 'Camera Device', deviceOptions, selectedDevice) +
+    `<div class="cc-field" id="cc-field-network-url" style="display: ${isNetwork ? 'block' : 'none'};">
+       <div class="cc-label" style="color:var(--neon-cyan);font-weight:700;">Phone / IP Camera Stream URL</div>
+       <input type="text" id="cc-network-url" placeholder="http://192.168.1.15:8080/video" value="${isNetwork ? s.source : ''}" style="width:100%;padding:8px 12px;background:rgba(0,240,255,0.06);border:1px solid rgba(0,240,255,0.4);color:#fff;border-radius:6px;font-size:0.82rem;font-family:monospace;outline:none;margin-bottom:4px;">
+       <div style="font-size:0.68rem;color:#94a3b8;">📱 Open <b>IP Webcam</b> (Android) or <b>RTSP Camera</b> (iOS) on phone, tap <i>Start Server</i>, and paste the video URL here.</div>
+     </div>` +
     _ccSelectRow('resolution', 'Resolution', resolutionPresets, currentRes) +
     _ccSelectRow('fps', 'Target FPS', fpsOptions, s.target_fps ? String(s.target_fps) : '') +
     _ccSliderRow('brightness', 'Brightness', -50, 50, 1, s.brightness, '') +
@@ -7456,6 +7465,15 @@ function renderCamControlsPanel(scope, devices, currentSettings) {
        <button class="btn btn-sm danger" onclick="restartCameraBackend()">⟲ RESTART CAMERA</button>
        <span class="cam-controls-save-state" id="cc-save-state"></span>
      </div>`;
+  setTimeout(function() {
+    const devEl = document.getElementById('cc-device');
+    const netEl = document.getElementById('cc-field-network-url');
+    if (devEl && netEl) {
+      devEl.addEventListener('change', function() {
+        netEl.style.display = this.value === 'network_stream' ? 'block' : 'none';
+      });
+    }
+  }, 50);
   updateCamControlsSaveState(s, s);
 }
 
@@ -7469,7 +7487,16 @@ function updateCamControlsSaveState(prev, next) {
 
 function _collectCamSettingsPayload() {
   const p = {};
-  const device = document.getElementById('cc-device'); if (device) { p.source = parseInt(device.value, 10); }
+  const device = document.getElementById('cc-device');
+  if (device) {
+    if (device.value === 'network_stream') {
+      const netInput = document.getElementById('cc-network-url');
+      p.source = netInput ? netInput.value.trim() : '';
+    } else {
+      const parsed = parseInt(device.value, 10);
+      p.source = isNaN(parsed) ? device.value : parsed;
+    }
+  }
   const res = document.getElementById('cc-resolution');
   if (res && res.value) { const parts = res.value.split('x'); p.width = parseInt(parts[0],10); p.height = parseInt(parts[1],10); }
   else { p.width = null; p.height = null; }
@@ -7813,30 +7840,30 @@ function resetTacticalDemo() {
 // HIGH-IMPACT HUMAN-READABLE TRANSIT DATA FORMATTERS
 // ================================================================
 const STATION_ZONE_NAMES = {
-  'r0c0': 'Parade Ground Holding Area 4',
-  'r0c1': 'Security Screening & Metal Detectors',
-  'r0c2': 'East FOB Overpass 1 (Approach)',
-  'r0c3': 'East FOB Overpass 1 (Mid-Span)',
-  'r0c4': 'East FOB Overpass 2 (Main Span)',
-  'r0c5': 'East FOB Overpass 2 (Platform Descent)',
-  'r1c0': 'Triveni Marg Sector Kiosks',
-  'r1c1': 'Lost & Found / Khoya Paya Camp',
-  'r1c2': 'Shastri Bridge Descent Ramp',
-  'r1c3': 'Triveni Marg Central Corridor',
-  'r1c4': 'Holding Enclosure 4 (East Staging)',
-  'r1c5': 'Express Parcel & VIP Corridors',
-  'r2c0': 'Platform 1-2 Staircase (Upper Steps)',
-  'r2c1': 'Platform 1-2 Boarding Zone (Platform Edge)',
-  'r2c2': 'Platform 1-2 Boarding Island (Central Spine)',
-  'r2c3': 'Platforms 1-8 Corridor Entry',
-  'r2c4': 'Holding Enclosure 4 (West Staging)',
-  'r2c5': 'Bhandara & Annakshetra Area',
-  'r3c0': 'Auxiliary Egress Corridor Gate A',
+  'r0c0': 'Concourse Waiting Hall H (North)',
+  'r0c1': 'Security Screening & Metal Detectors DFMD',
+  'r0c2': 'Main Foot Overbridge 1 (North Approach)',
+  'r0c3': 'Main Foot Overbridge 1 (Mid-Span)',
+  'r0c4': 'Alternate East FOB 2 (Relief Main Span)',
+  'r0c5': 'Alternate East FOB 2 (Platform Descent)',
+  'r1c0': 'Concourse UTS Ticket Booking Kiosks',
+  'r1c1': 'Passenger Assistance & Rail Madad Counter',
+  'r1c2': 'Foot Overbridge Descent Ramp A',
+  'r1c3': 'North Concourse Main Inflow Corridor',
+  'r1c4': 'Waiting Hall Enclosure H (East Staging)',
+  'r1c5': 'Railway Mail Service (RMS) & VIP Corridor',
+  'r2c0': 'Platform 1-2 Staircase B (Upper Landing)',
+  'r2c1': 'Platform 1-2 Boarding Zone (Safety Yellow Line)',
+  'r2c2': 'Platform 1-2 Boarding Island G (Central Spine)',
+  'r2c3': 'Platform 3-4 Feeder Subway Entry',
+  'r2c4': 'Waiting Hall Enclosure H (West Staging)',
+  'r2c5': 'IRCTC Food Plaza & Passenger Refreshments',
+  'r3c0': 'Auxiliary Egress Corridor Gate 1',
   'r3c1': 'Platform 3 (Central FOB) Feeder Link',
-  'r3c2': 'Central Sector 4 Concourse',
-  'r3c3': 'Sector Magistrate Ops & NDRF Camp',
-  'r3c4': 'Auto-Rickshaw & Passenger Transit Hub',
-  'r3c5': 'Bandhwa Embankment Ring Road'
+  'r3c2': 'Main Station Portico & Concourse Area',
+  'r3c3': 'Station Director Operations & RPF Detachment',
+  'r3c4': 'Station Circulating Area & Auto/Bus Transit Hub',
+  'r3c5': 'Station Perimeter Ring Road & Parking Plaza'
 };
 
 function formatHotspotName(hotspot) {

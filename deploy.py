@@ -278,8 +278,16 @@ CAMERA_BRIGHTNESS = _env_optional_int("CAMERA_BRIGHTNESS")
 CAMERA_CONTRAST = _env_optional_int("CAMERA_CONTRAST")
 CAMERA_EXPOSURE = _env_optional_int("CAMERA_EXPOSURE")
 
+def _is_network_stream(val: any) -> bool:
+    """Return True if val is an RTSP or HTTP live network camera stream URL."""
+    if isinstance(val, str):
+        s = val.strip().lower()
+        return s.startswith("http://") or s.startswith("https://") or s.startswith("rtsp://") or s.startswith("rtsps://")
+    return False
+
+
 _source_value = _resolve_camera_source(CAMERA_SOURCE)
-_source_mode = SourceMode.VIDEO if isinstance(_source_value, str) else SourceMode.CAMERA
+_source_mode = SourceMode.CAMERA if (not isinstance(_source_value, str) or _is_network_stream(_source_value)) else SourceMode.VIDEO
 
 _cfg_defaults = RuntimeConfig()
 runtime_config = RuntimeConfig(
@@ -1714,7 +1722,7 @@ def api_judge_flow_step():
             "t_limit": "Stable (No breach)",
         }
     elif step == 2:
-        # Step 2: Inflow Surge (Shahi Snan holy dip wave)
+        # Step 2: Inflow Surge (Express train arrival passenger wave)
         _current_scenario_params["b_inflow"] = 4.0
         _current_scenario_params["b_outflow"] = 2.0
         _current_scenario_params["b_initial"] = 168.0
@@ -1891,7 +1899,7 @@ def api_camera_apply_settings():
             new_source_value = int(data["source"])
         except (TypeError, ValueError):
             new_source_value = str(data["source"])
-        new_mode = SourceMode.VIDEO if isinstance(new_source_value, str) else SourceMode.CAMERA
+        new_mode = SourceMode.CAMERA if (not isinstance(new_source_value, str) or _is_network_stream(new_source_value)) else SourceMode.VIDEO
     else:
         new_mode = _source_mode
 
@@ -1927,6 +1935,7 @@ def api_camera_restart():
 def api_switch_to_reality():
     data = request.get_json(silent=True) or {}
     settings = None
+    global _source_value, _source_mode, _camera_settings
     if any(k in data for k in ("width", "height", "target_fps", "brightness", "contrast", "exposure", "source")):
         settings = dict(_camera_settings)
         for k in ("width", "height", "target_fps", "brightness", "contrast", "exposure"):
@@ -1934,10 +1943,12 @@ def api_switch_to_reality():
                 settings[k] = None if data.get(k) in (None, "") else int(data[k])
         if "source" in data and data["source"] not in (None, ""):
             try:
-                settings["_source_int"] = int(data["source"])
+                _source_value = int(data["source"])
             except (TypeError, ValueError):
-                settings["_source_str"] = str(data["source"])
-    ok, error = switch_to_reality(settings if not (settings and (settings.pop("_source_int", None) is not None or settings.pop("_source_str", None) is not None)) else None)
+                _source_value = str(data["source"]).strip()
+            _source_mode = SourceMode.CAMERA if (not isinstance(_source_value, str) or _is_network_stream(_source_value)) else SourceMode.VIDEO
+        _camera_settings = settings
+    ok, error = switch_to_reality(_camera_settings if settings else None)
     if not ok:
         return jsonify({"success": False, "error": error}), 400
     return jsonify({"success": True, "mode": "REALITY", "settings": _safe_camera_settings()})
